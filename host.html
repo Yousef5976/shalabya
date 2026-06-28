@@ -815,7 +815,6 @@ body{overflow-x:hidden}
           <button class="floor-filter-btn" onclick="filterCalls('water',this)">💧 Water</button>
           <button class="floor-filter-btn" onclick="filterCalls('bill',this)">🧾 Bill</button>
           <button class="floor-filter-btn" onclick="filterCalls('feedback',this)">⭐ Feedback</button>
-          <input class="search-input" id="callsSearch" placeholder="Search by name or table..." oninput="searchCalls(this.value)" style="margin-left:auto;flex:0 0 200px"/>
         </div>
         <div id="callsList" class="queue-list"><div class="spinner"></div></div>
       </div>
@@ -1160,21 +1159,57 @@ async function submitWalkin() {
   } catch(e) { msgEl.innerHTML = `<div style="color:#ef9a9a;font-size:.8rem;margin-top:8px">${esc(e.message)}</div>`; }
 }
 
-function openResDetail(id) {
+async function openResDetail(id) {
   const r = allReservations.find(x => x.id === id);
   if (!r) return;
+
+  // Fetch orders for this reservation
+  let orders = [];
+  let totalBill = 0;
+  let allPaid = false;
+  try {
+    orders = await db.from('orders').select('id,total,status,payment_status,created_at').eq('reservation_id', id).neq('status','cancelled').order('created_at',{ascending:false});
+    totalBill = orders.reduce((sum, o) => sum + Number(o.total || 0), 0);
+    allPaid = orders.length > 0 && orders.every(o => o.payment_status === 'paid');
+  } catch(e) {}
+
+  // Fetch table info if assigned
+  let tableInfo = 'Not assigned';
+  if (r.table_id) {
+    try {
+      const tables = await db.from('restaurant_tables').select('table_number,location').eq('id', r.table_id);
+      if (tables[0]) tableInfo = `Table ${tables[0].table_number} · ${tables[0].location}`;
+    } catch(e) {}
+  }
+
   document.getElementById('modalTitle').textContent = r.customer_name;
   document.getElementById('modalBody').innerHTML = `
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
       <div><div class="form-label">Code</div><code style="color:var(--gold)">${esc(r.reservation_code)}</code></div>
       <div><div class="form-label">Status</div>${statusBadge(r.status)}</div>
+      <div><div class="form-label">Date</div><div>${r.reservation_date}</div></div>
       <div><div class="form-label">Time</div><div>${r.reservation_time?.slice(0,5)||'—'}</div></div>
       <div><div class="form-label">Guests</div><div>${r.party_size}</div></div>
+      <div><div class="form-label">Table</div><div>${tableInfo}</div></div>
       <div><div class="form-label">Phone</div><div>${esc(r.customer_phone)||'—'}</div></div>
       <div><div class="form-label">Occasion</div><div>${esc(r.occasion)||'—'}</div></div>
     </div>
-    ${r.special_requests ? `<div style="margin-top:14px;padding:11px 14px;background:rgba(184,138,68,.06);border-left:2px solid var(--gold);border-radius:2px;font-size:.82rem;color:var(--warm)">${esc(r.special_requests)}</div>` : ''}
-  `;
+    ${r.check_in_time ? `<div style="margin-top:12px;font-size:.78rem;color:var(--muted)">Check-in: ${new Date(r.check_in_time).toLocaleString()}</div>` : ''}
+    ${r.check_out_time ? `<div style="font-size:.78rem;color:var(--muted)">Check-out: ${new Date(r.check_out_time).toLocaleString()}</div>` : ''}
+    ${r.special_requests ? `<div style="margin-top:12px;padding:11px 14px;background:rgba(184,138,68,.06);border-left:2px solid var(--gold);border-radius:2px;font-size:.82rem;color:var(--warm)">${esc(r.special_requests)}</div>` : ''}
+    ${orders.length ? `
+    <div style="margin-top:16px;padding-top:12px;border-top:1px solid var(--border)">
+      <div style="font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:8px">Orders (${orders.length})</div>
+      ${orders.map(o => `<div style="display:flex;justify-content:space-between;font-size:.78rem;padding:4px 0;border-bottom:1px solid rgba(184,138,68,.06)">
+        <span style="color:var(--muted)">${new Date(o.created_at).toLocaleTimeString('en',{hour:'2-digit',minute:'2-digit'})}</span>
+        <span style="font-family:var(--font-display);color:var(--gold)">EGP ${Number(o.total||0).toLocaleString()}</span>
+        <span class="status-badge ${o.payment_status==='paid'?'s-confirmed':'s-pending'}" style="font-size:.55rem">${o.payment_status}</span>
+      </div>`).join('')}
+      <div style="display:flex;justify-content:space-between;padding-top:6px;margin-top:4px">
+        <span style="font-size:.65rem;color:var(--muted)">Total</span>
+        <span style="font-family:var(--font-display);font-size:1rem;color:var(--gold)">EGP ${totalBill.toLocaleString()}</span>
+      </div>
+    </div>` : ''}`;
   document.getElementById('modalFooter').innerHTML = `
     ${r.status==='pending'?`<button class="btn btn-primary" style="font-size:.72rem;padding:8px 16px" onclick="updateStatus('${r.id}','confirmed');closeModal()">Confirm</button>`:''}
     ${r.status==='confirmed'?`<button class="btn btn-primary" style="font-size:.72px;background:var(--green);padding:8px 16px" onclick="seatGuest('${r.id}')">Seat Guest</button>`:''}
@@ -1952,6 +1987,46 @@ function renderCalls(calls) {
     el.innerHTML = '<div class="empty-state"><div class="empty-icon">🛎️</div><div>No calls</div></div>';
     return;
   }
+  // Resolve table numbers from reservations
+  const resIds = [...new Set(calls.filter(c => !c.table_number && c.reservation_id).map(c => c.reservation_id))];
+  const tableMap = {};
+  if (resIds.length) {
+    db.from('reservations').select('id,table_id').in('id', resIds).then(res => {
+      const tableIds = [...new Set(res.filter(r => r.table_id).map(r => r.table_id))];
+      if (tableIds.length) {
+        db.from('restaurant_tables').select('id,table_number').in('id', tableIds).then(tables => {
+          tables.forEach(t => tableMap[t.id] = t.table_number);
+          // Re-render with resolved table numbers
+          calls.forEach(c => { if (!c.table_number && c.reservation_id) { const r = res.find(x => x.id === c.reservation_id); if (r?.table_id) c.table_number = tableMap[r.table_id]; }});
+          el.innerHTML = calls.map(c => renderCallCard(c)).join('');
+        });
+      }
+    });
+  }
+  el.innerHTML = calls.map(c => renderCallCard(c)).join('');
+}
+
+function renderCallCard(c) {
+  return `
+    <div class="queue-card${!c.is_resolved ? ' priority' : ''}" style="${c.is_resolved ? 'opacity:.5' : ''}">
+      <div style="font-size:1.8rem;flex-shrink:0">${CALL_ICONS[c.call_type] || '🛎️'}</div>
+      <div class="queue-info">
+        <div class="queue-name" style="display:flex;align-items:center;gap:8px">
+          ${CALL_LABELS[c.call_type] || c.call_type}
+          ${c.table_number ? `<span style="background:rgba(184,138,68,.15);border:1px solid rgba(184,138,68,.3);color:var(--gold);padding:2px 8px;border-radius:12px;font-size:.65rem;letter-spacing:.08em;font-weight:500">Table ${esc(c.table_number)}</span>` : ''}
+        </div>
+        <div class="queue-meta">
+          <span style="color:var(--warm)">${c.guest_name || 'Guest'}</span>
+          ${c.reservation_code ? ` · <code style="font-size:.7rem;color:var(--muted)">${esc(c.reservation_code)}</code>` : ''}
+        </div>
+        <div style="font-size:.72rem;color:var(--muted);margin-top:3px">${new Date(c.created_at).toLocaleTimeString('en',{hour:'2-digit',minute:'2-digit'})} · ${c.message || ''}</div>
+      </div>
+      ${c.is_resolved
+        ? '<span class="status-badge s-completed">Resolved</span>'
+        : `<button class="btn btn-primary" style="padding:7px 14px;font-size:.7rem;background:var(--green);flex-shrink:0" onclick="resolveCall('${c.id}')">✓ Done</button>`
+      }
+    </div>`;
+}
   el.innerHTML = calls.map(c => `
     <div class="queue-card${!c.is_resolved ? ' priority' : ''}" style="${c.is_resolved ? 'opacity:.5' : ''}">
       <div style="font-size:1.8rem;flex-shrink:0">${CALL_ICONS[c.call_type] || '🛎️'}</div>
