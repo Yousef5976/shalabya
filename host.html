@@ -808,13 +808,14 @@ body{overflow-x:hidden}
             <button class="btn btn-primary" style="padding:9px 18px;background:var(--green)" onclick="resolveAllCalls()">✓ Resolve All</button>
           </div>
         </div>
-        <div style="display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap">
+        <div style="display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap;align-items:center">
           <button class="floor-filter-btn active" onclick="filterCalls('',this)">All</button>
           <button class="floor-filter-btn" onclick="filterCalls('unresolved',this)">Unresolved</button>
           <button class="floor-filter-btn" onclick="filterCalls('general',this)">🛎 Assist</button>
           <button class="floor-filter-btn" onclick="filterCalls('water',this)">💧 Water</button>
           <button class="floor-filter-btn" onclick="filterCalls('bill',this)">🧾 Bill</button>
           <button class="floor-filter-btn" onclick="filterCalls('feedback',this)">⭐ Feedback</button>
+          <input class="search-input" id="callsSearch" placeholder="Search by name or table..." oninput="searchCalls(this.value)" style="margin-left:auto;flex:0 0 200px"/>
         </div>
         <div id="callsList" class="queue-list"><div class="spinner"></div></div>
       </div>
@@ -1398,7 +1399,7 @@ async function selectTable(id) {
     <div class="td-row"><span class="td-label">Capacity</span><span class="td-value">${t.capacity} seats</span></div>
     <div class="td-row"><span class="td-label">Status</span><span class="td-value" style="color:${COLOR[t.status]}">${t.status}</span></div>`;
 
-  // Show guest info ONLY for reserved or occupied tables
+  // Show guest info for reserved or occupied tables
   if (t.status === 'reserved' || t.status === 'occupied') {
     try {
       const guest = await db.from('reservations').select('*').eq('table_id', id).eq('status','seated').limit(1);
@@ -1452,6 +1453,48 @@ async function selectTable(id) {
         }
       } else {
         bodyHtml += `<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:.82rem;color:var(--muted)">No guest assigned yet</div>`;
+      }
+    } catch(e) {}
+  }
+
+  // Show activity for completed tables
+  if (t.status === 'available' || t.status === 'cleaning') {
+    try {
+      const lastGuest = await db.from('reservations').select('*').eq('table_id', id).order('created_at',{ascending:false}).limit(1);
+      if (lastGuest.length && (lastGuest[0].status === 'completed' || lastGuest[0].status === 'no_show')) {
+        const res = lastGuest[0];
+        const orders = await db.from('orders').select('id,total,status,payment_status,created_at')
+          .eq('reservation_id', res.id).neq('status','cancelled').order('created_at',{ascending:false});
+        const totalBill = orders.reduce((sum, o) => sum + Number(o.total || 0), 0);
+        const allPaid = orders.length > 0 && orders.every(o => o.payment_status === 'paid');
+
+        bodyHtml += `
+          <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border)">
+            <div style="font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:8px">Last Guest Activity</div>
+            <div class="td-row"><span class="td-label">Guest</span><span class="td-value">${esc(res.customer_name)}</span></div>
+            <div class="td-row"><span class="td-label">Phone</span><span class="td-value">${esc(res.customer_phone) || '—'}</span></div>
+            <div class="td-row"><span class="td-label">Code</span><span class="td-value"><code style="font-size:.7rem;color:var(--gold)">${esc(res.reservation_code)}</code></span></div>
+            <div class="td-row"><span class="td-label">Check-in</span><span class="td-value">${res.check_in_time ? new Date(res.check_in_time).toLocaleString() : '—'}</span></div>
+            <div class="td-row"><span class="td-label">Check-out</span><span class="td-value">${res.check_out_time ? new Date(res.check_out_time).toLocaleString() : '—'}</span></div>
+            <div class="td-row"><span class="td-label">Status</span><span class="td-value">${res.status}</span></div>
+            ${orders.length ? `
+            <div style="margin-top:8px">
+              <div style="font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Orders (${orders.length})</div>
+              ${orders.map(o => `<div style="display:flex;justify-content:space-between;font-size:.72rem;padding:3px 0;border-bottom:1px solid rgba(184,138,68,.06)">
+                <span style="color:var(--muted)">${new Date(o.created_at).toLocaleTimeString('en',{hour:'2-digit',minute:'2-digit'})}</span>
+                <span style="font-family:var(--font-display);color:var(--gold)">EGP ${Number(o.total||0).toLocaleString()}</span>
+                <span class="status-badge ${o.payment_status==='paid'?'s-confirmed':'s-pending'}" style="font-size:.55rem">${o.payment_status}</span>
+              </div>`).join('')}
+              <div style="display:flex;justify-content:space-between;padding-top:6px;margin-top:4px">
+                <span style="font-size:.65rem;color:var(--muted)">Total</span>
+                <span style="font-family:var(--font-display);font-size:1rem;color:var(--gold)">EGP ${totalBill.toLocaleString()}</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;padding-top:4px">
+                <span style="font-size:.65rem;color:var(--muted)">Payment</span>
+                <span class="status-badge ${allPaid?'s-confirmed':'s-pending'}">${allPaid?'Paid':'Unpaid'}</span>
+              </div>
+            </div>` : '<div style="font-size:.75rem;color:var(--muted)">No orders placed</div>'}
+          </div>`;
       }
     } catch(e) {}
   }
@@ -1736,14 +1779,27 @@ async function loadTableOrders(tableId) {
           <span style="color:var(--muted)">${new Date(o.created_at).toLocaleTimeString('en',{hour:'2-digit',minute:'2-digit'})}</span>
           <span style="font-family:var(--font-display);color:var(--gold)">EGP ${Number(o.total||0).toLocaleString()}</span>
         </div>
-        <div style="display:flex;gap:6px;margin-top:4px">
+        <div style="display:flex;gap:6px;margin-top:4px;flex-wrap:wrap;align-items:center">
           ${statusBadge(o.status)}
           <span class="status-badge ${o.payment_status==='paid'?'s-confirmed':'s-pending'}">${o.payment_status}</span>
+          ${o.status === 'pending' ? `<button class="btn-ghost" style="font-size:.62rem;padding:4px 10px" onclick="updateOrderStatus('${o.id}','in_progress')">Accept</button>` : ''}
+          ${o.status === 'in_progress' ? `<button class="btn-ghost" style="font-size:.62rem;padding:4px 10px" onclick="updateOrderStatus('${o.id}','served')">✓ Served</button>` : ''}
         </div>
       </div>`).join('');
 
     el.innerHTML = html;
   } catch(e) { el.innerHTML = `<div style="font-size:.75rem;color:#ef9a9a;padding:8px">${esc(e.message)}</div>`; }
+}
+
+async function updateOrderStatus(orderId, newStatus) {
+  try {
+    const updates = { status: newStatus };
+    if (newStatus === 'served') updates.closed_at = new Date().toISOString();
+    await db.from('orders').update(updates).eq('id', orderId);
+    toast(`Order marked as ${newStatus}`, 'success');
+    const tableId = getServiceTableValue();
+    if (tableId) await loadTableOrders(tableId);
+  } catch(e) { toast(e.message, 'error'); }
 }
 
 function addToServiceCart(id, name, price) {
@@ -1873,6 +1929,18 @@ function filterCalls(f, btn) {
   document.querySelectorAll('#panel-calls .floor-filter-btn').forEach(b => b.classList.remove('active'));
   if (btn) btn.classList.add('active');
   renderCalls(f ? filterCallsList(allCalls, f) : allCalls);
+}
+
+function searchCalls(query) {
+  if (!query) { renderCalls(callsFilter ? filterCallsList(allCalls, callsFilter) : allCalls); return; }
+  const q = query.toLowerCase();
+  let filtered = allCalls.filter(c =>
+    (c.guest_name && c.guest_name.toLowerCase().includes(q)) ||
+    (c.table_number && String(c.table_number).includes(q)) ||
+    (c.reservation_code && c.reservation_code.toLowerCase().includes(q))
+  );
+  if (callsFilter) filtered = filterCallsList(filtered, callsFilter);
+  renderCalls(filtered);
 }
 
 const CALL_ICONS = { general:'🛎️', water:'💧', bill:'🧾', feedback:'⭐' };

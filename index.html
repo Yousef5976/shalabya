@@ -1757,6 +1757,32 @@ async function submitReservation() {
     });
     const res = result[0];
     if (!res) throw new Error('Reservation was not saved. Please try again.');
+
+    // Convert pre-order cart to actual orders
+    if (preOrderItems.length) {
+      const subtotal = preOrderItems.reduce((s, i) => s + i.price * i.qty, 0);
+      const tax = Math.round(subtotal * 0.14);
+      const orderResult = await db.from('orders').insert({
+        reservation_id: res.id,
+        status: 'pending',
+        subtotal: Math.round(subtotal),
+        tax,
+        total: Math.round(subtotal + tax),
+        notes: 'Pre-order from reservation'
+      });
+      if (orderResult[0]?.id) {
+        await db.from('order_items').insert(
+          preOrderItems.map(i => ({
+            order_id: orderResult[0].id,
+            menu_item_id: i.menu_item_id,
+            quantity: i.qty,
+            unit_price: i.price,
+            status: 'pending'
+          }))
+        );
+      }
+    }
+
     resCart = {};
     resNext(5);
     document.getElementById('confirmCode').textContent = res.reservation_code;
