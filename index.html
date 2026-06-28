@@ -1,0 +1,1975 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Shalabya — A Journey Through Egyptian Flavors</title>
+<meta name="description" content="Shalabya — Fine dining on the banks of the Nile, Maadi, Cairo. Experience authentic Egyptian cuisine with a modern twist. Reserve your table today.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://shalabya.vercel.app/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Shalabya — A Journey Through Egyptian Flavors">
+<meta property="og:description" content="Fine dining on the banks of the Nile, Maadi, Cairo. Reserve your table today.">
+<meta property="og:image" content="https://res.cloudinary.com/dkjnyxa4k/image/upload/f_auto,q_auto,w_1200/photo-1553361371-9b22f78e8b1d_cxifiz.jpg">
+<meta property="og:url" content="https://shalabya.vercel.app/">
+<meta property="og:site_name" content="Shalabya Restaurant">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Shalabya — A Journey Through Egyptian Flavors">
+<meta name="twitter:description" content="Fine dining on the banks of the Nile, Maadi, Cairo.">
+<meta name="twitter:image" content="https://res.cloudinary.com/dkjnyxa4k/image/upload/f_auto,q_auto,w_1200/photo-1553361371-9b22f78e8b1d_cxifiz.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&family=Noto+Kufi+Arabic:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=Jost:wght@200;300;400;500&family=Noto+Kufi+Arabic:wght@300;400;500&display=swap');
+
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#1E1B18;--bg2:#252220;--bg3:#2B2B2B;--card:#2B2B2B;--card2:#302C28;
+  --charcoal:#1E1B18;--dark:#1E1B18;
+  --gold:#D45D41;--gold2:#B88A44;--gold-light:#D45D41;
+  --gold-grad:linear-gradient(135deg,#D45D41 0%,#B88A44 100%);
+  --cream:#E8E4E0;--white:#E8E4E0;--warm:#C8C8C8;--muted:#8A8580;--dim:#555;
+  --border:rgba(200,200,200,.1);--border2:rgba(200,200,200,.2);
+  --font-display:'Cormorant Garamond',serif;--font-body:'Jost',sans-serif;--font-ar:'Noto Kufi Arabic',serif;
+  --green:#6fcf97;--red:#D45D41;
+  --black:#1E1B18;
+}
+/* page-switch scroll is forced to instant inside navigate(); no global smooth scroll */
+html{background:#1E1B18}
+body{
+  margin:0;padding:0;
+  font-family:var(--font-body);color:var(--cream);min-height:100vh;font-weight:400;
+  background-image:
+    linear-gradient(rgba(30,27,24,0.85),rgba(30,27,24,0.9)),
+    url('https://res.cloudinary.com/dkjnyxa4k/image/upload/f_auto,q_auto,w_1920/photo-1553361371-9b22f78e8b1d_cxifiz.jpg');
+  background-size:cover;background-position:center;
+}
+a{text-decoration:none;color:inherit;cursor:pointer}
+button{cursor:pointer;font-family:var(--font-body)}
+img{max-width:100%;display:block}
+input,textarea,select{font-family:var(--font-body)}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--dim);border-radius:2px}
+
+/* ── NAV ── */
+nav#mainNav{
+  position:fixed;top:0;left:0;right:0;z-index:900;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 48px;
+  background:transparent;
+  transition:background .4s,padding .3s;
+}
+nav#mainNav.scrolled{
+  background:rgba(8,6,4,.92);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);padding:14px 48px;
+}
+.nav-logo{
+  display:flex;flex-direction:column;align-items:flex-start;line-height:1;
+  font-family:var(--font-ar);color:var(--gold);font-size:1.6rem;font-weight:400;
+}
+.nav-logo-sub{
+  font-family:var(--font-body);font-size:.55rem;letter-spacing:.45em;
+  text-transform:uppercase;color:rgba(184,138,68,.6);font-weight:300;margin-top:2px;
+}
+.nav-links{display:flex;align-items:center;gap:36px;list-style:none}
+.nav-links a{
+  font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(232,228,224,.55);font-weight:300;transition:color .2s;
+}
+.nav-links a:hover,.nav-links a.active{color:var(--gold)}
+.nav-actions{display:flex;align-items:center;gap:16px}
+.nav-link-sm{font-size:.65rem;letter-spacing:.15em;color:rgba(232,228,224,.4);text-transform:uppercase}
+.nav-cta-btn{
+  padding:10px 22px;background:var(--gold-grad);color:#FFFFFF;
+  font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;font-weight:500;
+  border:none;border-radius:2px;transition:opacity .2s;
+}
+.nav-cta-btn:hover{opacity:.85}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{width:22px;height:1px;background:var(--gold);display:block;transition:.3s}
+.mobile-menu{display:none;position:fixed;inset:0;background:rgba(30,27,24,.98);z-index:950;flex-direction:column;align-items:center;justify-content:center;gap:32px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:1.1rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold2);font-weight:300}
+.mobile-close{position:absolute;top:28px;right:32px;font-size:1.5rem;color:var(--muted);cursor:pointer;background:none;border:none}
+
+/* ── PAGES ── */
+.page{display:none}
+.page.active{display:block}
+
+/* ── HERO ── */
+.hero{
+  height:100vh;min-height:640px;position:relative;
+  display:flex;align-items:center;justify-content:center;overflow:hidden;
+}
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;transition:opacity 1.5s ease}
+.hero-overlay{
+  position:absolute;inset:0;z-index:1;
+  background:linear-gradient(to bottom,
+    rgba(8,6,4,.65) 0%,
+    rgba(8,6,4,.55) 50%,
+    rgba(8,6,4,.82) 100%);
+}
+.hero-content{position:relative;z-index:2;text-align:center;padding:0 24px;max-width:800px}
+.hero-ar{
+  font-family:var(--font-ar);font-size:clamp(4rem,10vw,8rem);
+  color:var(--gold);line-height:1;margin-bottom:4px;
+  text-shadow:0 2px 40px rgba(184,138,68,.2);
+}
+.hero-brand{
+  font-family:var(--font-body);font-size:.6rem;letter-spacing:.55em;
+  text-transform:uppercase;color:rgba(184,138,68,.55);margin-bottom:28px;font-weight:300;
+}
+.hero-tagline{
+  font-family:var(--font-display);font-size:clamp(1.3rem,2.5vw,2rem);
+  color:var(--gold2);font-style:italic;font-weight:300;margin-bottom:10px;
+}
+.hero-location{
+  font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;
+  color:rgba(232,228,224,.35);margin-bottom:52px;
+}
+.hero-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn-hero-primary{
+  border-radius: 5cap;
+  padding:14px 36px;background:transparent;
+  border:1px solid rgba(184,138,68,.5);color:var(--gold-light);
+  font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;font-weight:400;
+  transition:all .25s;
+}
+.btn-hero-primary:hover{background:rgba(184,138,68,.1);border-color:var(--gold)}
+.btn-hero-ghost{
+  border-radius: 5cap;
+  padding:14px 36px;background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.1);color:rgba(232,228,224,.5);
+  font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;font-weight:400;
+  transition:all .25s;
+}
+.btn-hero-ghost:hover{background:rgba(255,255,255,.08);color:var(--cream)}
+.hero-scroll{
+  position:absolute;bottom:36px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  opacity:.35;z-index:2;cursor:pointer;
+}
+.hero-scroll span{font-size:.58rem;letter-spacing:.25em;text-transform:uppercase;color:var(--cream)}
+.hero-scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,var(--gold),transparent);animation:scrollLine 2s ease-in-out infinite}
+@keyframes scrollLine{0%,100%{opacity:.3;transform:scaleY(.5) translateY(0)}50%{opacity:.8;transform:scaleY(1) translateY(4px)}}
+
+/* ── SECTIONS ── */
+section{padding:100px 48px;content-visibility:auto;contain-intrinsic-size:0 500px}
+.section-eyebrow{
+  font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--gold);font-weight:300;margin-bottom:16px;
+  display:flex;align-items:center;justify-content:center;gap:12px;
+}
+.section-eyebrow::before,.section-eyebrow::after{content:'';flex:0 0 24px;height:1px;background:var(--gold);opacity:.4}
+.section-title{
+  font-family:var(--font-display);font-size:clamp(2rem,4vw,3.2rem);
+  font-weight:300;color:var(--gold2);margin-bottom:16px;line-height:1.1;
+}
+.section-title em{font-style:italic;color:var(--gold)}
+.section-sub{font-size:.88rem;color:var(--muted);font-weight:300;line-height:1.7;max-width:480px;margin:0 auto}
+
+/* ── MENU SECTION ── */
+.menu-section{background:var(--bg2)}
+.menu-filters{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:40px 0 52px}
+.filter-btn{
+  padding:9px 22px;background:transparent;
+  border:1px solid var(--border2);color:var(--muted);
+  font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;font-weight:300;
+  transition:all .2s;border-radius:2px;
+}
+.filter-btn:hover{color:var(--gold);border-color:var(--gold)}
+.filter-btn.active{background:var(--gold-grad);color:#FFFFFF;border-color:transparent;font-weight:500}
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:2px;max-width:1200px;margin:0 auto}
+.menu-card{
+  background:var(--card);padding:28px;position:relative;
+  border:1px solid transparent;transition:border-color .2s;
+}
+.menu-card:hover{border-color:var(--border2)}
+.menu-cat{font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);opacity:.6;margin-bottom:10px}
+.menu-name{font-family:var(--font-display);font-size:1.15rem;font-weight:400;color:var(--cream);margin-bottom:4px}
+.menu-name-ar{font-family:var(--font-ar);font-size:.85rem;color:var(--muted);direction:rtl;margin-bottom:10px}
+.menu-desc{font-size:.78rem;color:var(--muted);line-height:1.65;margin-bottom:18px}
+.menu-price{font-family:var(--font-display);font-size:1.2rem;color:var(--gold)}
+.menu-add-btn{
+  position:absolute;top:24px;right:24px;
+  width:30px;height:30px;border-radius:50%;
+  background:transparent;border:1px solid var(--border2);
+  color:var(--gold);font-size:1.1rem;display:flex;align-items:center;justify-content:center;
+  transition:all .2s;
+}
+.menu-add-btn:hover,.menu-add-btn.added{background:var(--gold-grad);color:#FFFFFF;border-color:transparent}
+
+/* ── ABOUT SECTION ── */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;max-width:1200px;margin:0 auto}
+.about-img-wrap{position:relative}
+.about-img{width:100%;height:480px;object-fit:cover;filter:brightness(.85)}
+.about-badge{
+  position:absolute;bottom:24px;left:24px;
+  background:rgba(8,6,4,.88);border:1px solid var(--border2);
+  padding:16px 24px;
+}
+.about-badge-num{font-family:var(--font-display);font-size:2.4rem;color:var(--gold);line-height:1}
+.about-badge-txt{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.about-features{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:40px}
+.about-feature{padding:20px;border:1px solid var(--border);background:rgba(255,255,255,.015)}
+.about-feature-icon{font-size:1.1rem;margin-bottom:8px}
+.about-feature-title{font-size:.78rem;font-weight:500;color:var(--cream);margin-bottom:4px}
+.about-feature-desc{font-size:.72rem;color:var(--muted);line-height:1.6}
+
+/* ── TRACKER ── */
+.tracker-section{background:var(--bg3);text-align:center}
+.tracking-form{display:flex;gap:0;max-width:540px;margin:0;border:1px solid var(--border2)}
+.tracking-form input{
+  flex:1;background:transparent;border:none;
+  padding:16px 20px;color:var(--cream);font-size:.82rem;outline:none;
+}
+.tracking-form input::placeholder{color:var(--white)}
+.tracking-form .btn{
+  padding:16px 28px;background:var(--gold-grad);color:#FFFFFF;
+  font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;font-weight:500;
+  border:none;white-space:nowrap;border-radius:0;
+}
+
+/* ── CONTACT ── */
+.contact-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:80px;max-width:1100px;margin:60px auto 0;align-items:start}
+.contact-img{width:100%;height:320px;object-fit:cover;margin-bottom:32px;filter:brightness(.8)}
+.contact-detail{display:flex;align-items:flex-start;gap:12px;margin-bottom:16px;font-size:.82rem;color:var(--muted)}
+.contact-detail-icon{color:var(--gold);width:16px;flex-shrink:0;font-size:.9rem}
+.form-group{margin-bottom:16px}
+.form-label{display:block;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.form-input,.form-textarea,.form-select{
+  width:100%;background:var(--card);border:1px solid var(--border);
+  padding:13px 16px;color:var(--cream);font-size:.85rem;font-family:var(--font-body);
+  outline:none;border-radius:0;transition:border-color .2s;
+}
+.form-input:focus,.form-textarea:focus,.form-select:focus{border-color:var(--gold)}
+.form-textarea{min-height:120px;resize:vertical}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-msg{padding:11px 14px;font-size:.8rem;margin-top:10px;border-radius:1px}
+.form-msg.error{background:rgba(192,57,43,.1);border:1px solid rgba(192,57,43,.25);color:#eb8b8b}
+.form-msg.success{background:rgba(76,175,80,.08);border:1px solid rgba(76,175,80,.2);color:#81c784}
+.btn-submit{
+  width:100%;padding:15px;background:var(--gold-grad);color:#FFFFFF;
+  font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;font-weight:500;
+  border:none;margin-top:8px;transition:opacity .2s;
+}
+.btn-submit:hover{opacity:.88}
+
+/* ── RESERVATION ── */
+.reservation-section{background:var(--bg2)}
+.reservation-wrap{padding-top:80px}
+.reservation-steps{display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:60px}
+.step{display:flex;flex-direction:column;align-items:center;gap:8px;position:relative}
+.step-circle{
+  width:34px;height:34px;border-radius:50%;border:1px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.68rem;color:var(--muted);font-weight:400;transition:.3s;
+}
+.step.active .step-circle{background:var(--gold-grad);color:#FFFFFF;border-color:transparent;font-weight:500}
+.step.done .step-circle{background:transparent;border-color:var(--gold);color:var(--gold)}
+.step-label{font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
+.step.active .step-label{color:var(--gold)}
+.step-line{width:60px;height:1px;background:var(--border);margin:0 4px;margin-bottom:20px;flex-shrink:0}
+.step-panel{display:none;max-width:640px;margin:0 auto}
+.step-panel.active{display:block}
+.slots-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:8px;margin-top:20px}
+.slot-btn{
+  padding:10px 8px;background:var(--card);border:1px solid var(--border);
+  color:var(--warm);font-size:.75rem;text-align:center;transition:.2s;font-family:var(--font-body);
+}
+.slot-btn:hover:not([disabled]){border-color:var(--gold);color:var(--gold)}
+.slot-btn.selected{background:var(--gold-grad);color:#FFFFFF;border-color:transparent;font-weight:500}
+.slot-btn[disabled]{opacity:.25;cursor:not-allowed}
+.confirm-card{
+  text-align:center;background:var(--card);border:1px solid var(--border2);
+  padding:52px;max-width:500px;margin:0 auto;
+}
+.confirm-code{
+  font-family:var(--font-display);font-size:2.2rem;font-weight:300;
+  color:var(--gold);letter-spacing:.15em;padding:24px;
+  border:1px solid var(--border2);margin:20px 0;
+}
+.btn-outline{
+  padding:12px 28px;background:transparent;border:1px solid var(--border2);
+  color:var(--gold);font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;
+  font-weight:300;transition:.2s;
+}
+.btn-outline:hover{border-color:var(--gold);background:rgba(184,138,68,.06)}
+.btn-primary{
+  padding:12px 28px;background:var(--gold-grad);color:#FFFFFF;
+  font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;
+  font-weight:500;border:none;transition:opacity .2s;
+}
+.btn-primary:hover{opacity:.88}
+.btn-primary:disabled{opacity:.35;cursor:not-allowed}
+
+/* ── SELECTION PAGE ── */
+.selection-layout{display:grid;grid-template-columns:1fr 340px;min-height:100vh}
+.selection-menu{padding:48px;background:var(--bg)}
+.selection-cart{padding:48px 36px;background:var(--card);border-left:1px solid var(--border);position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column}
+.cart-item{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--border);font-size:.82rem}
+.cart-item-controls{display:flex;align-items:center;gap:10px}
+.qty-btn{width:24px;height:24px;border-radius:50%;border:1px solid var(--border2);background:transparent;color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:.9rem}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--bg2);border-top:1px solid var(--border);
+  padding:60px 48px 32px;
+}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:60px;margin-bottom:48px}
+.footer-logo{font-family:var(--font-ar);font-size:1.8rem;color:var(--gold);margin-bottom:4px}
+.footer-logo-sub{font-family:var(--font-body);font-size:.52rem;letter-spacing:.4em;color:rgba(184,138,68,.45);text-transform:uppercase;margin-bottom:16px}
+.footer-desc{font-size:.78rem;color:var(--muted);line-height:1.8}
+.footer-col-title{font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;font-weight:400}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-links a{font-size:.78rem;color:var(--muted);transition:color .2s}
+.footer-links a:hover{color:var(--gold)}
+.footer-bottom{border-top:1px solid var(--border);padding-top:24px;display:flex;justify-content:space-between;align-items:center;font-size:.68rem;color:var(--dim)}
+
+/* ── TOAST ── */
+.toast{
+  position:fixed;bottom:32px;right:32px;z-index:9999;
+  padding:14px 22px;border-radius:6px;font-size:.82rem;font-weight:300;
+  transform:translateY(20px);opacity:0;transition:.3s;pointer-events:none;max-width:320px;
+  background:rgba(43,43,43,.92);border:1px solid var(--border2);color:var(--warm);
+  backdrop-filter:blur(12px);
+}
+.toast.show{transform:none;opacity:1}
+.toast.success{background:rgba(76,175,80,.15);border-color:rgba(76,175,80,.3);color:#81c784}
+.toast.error{background:rgba(192,57,43,.15);border-color:rgba(192,57,43,.3);color:#eb8b8b}
+.spinner{width:26px;height:26px;border:2px solid rgba(184,138,68,.15);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;margin:30px auto}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  nav#mainNav{padding:18px 24px}
+  nav#mainNav.scrolled{padding:12px 24px}
+  .nav-links{display:none}
+  .nav-actions .nav-link-sm{display:none}
+  .hamburger{display:flex}
+  section{padding:70px 24px}
+  .about-grid,.contact-grid,.footer-grid{grid-template-columns:1fr;gap:40px}
+  .form-row{grid-template-columns:1fr}
+  .selection-layout{grid-template-columns:1fr}
+  .selection-cart{position:relative;height:auto;border-left:none;border-top:1px solid var(--border)}
+  .hero-ar{font-size:clamp(3rem,12vw,6rem)}
+
+  /* Menu — tighter cards on tablet */
+  .menu-grid{grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+  .menu-card{padding:22px}
+  .menu-card-body{padding:18px}
+
+  /* Reservation — better touch targets */
+  .reservation-wrap{padding-top:60px}
+  .reservation-hero{padding:32px 20px 0}
+  .step-panel{padding:0 8px}
+  .guests-btn{width:48px;height:48px;font-size:1.4rem}
+  .guests-count{font-size:2.2rem;min-width:56px}
+  .slot-btn{padding:12px 8px;font-size:.8rem}
+  .form-input,.form-select,.form-textarea{min-height:48px;font-size:.9rem;padding:14px 16px}
+  .confirm-card{padding:36px 24px;max-width:100%}
+}
+@media(max-width:600px){
+  section{padding:60px 20px}
+  .step-line{width:20px}
+  .hero-actions{flex-direction:column;align-items:center}
+  .tracking-form{flex-direction:column}
+  .menu-grid{grid-template-columns:1fr}
+
+  /* Menu — single column, compact */
+  .menu-card{padding:18px;border-radius:4px}
+  .menu-card-name{font-size:1rem}
+  .menu-card-desc{font-size:.72rem;min-height:auto}
+  .menu-card-footer{flex-direction:column;align-items:flex-start;gap:10px}
+  .menu-card-price{font-size:1rem}
+
+  /* Reservation — stacked buttons, bigger touches */
+  .reservation-wrap{padding-top:48px}
+  .reservation-hero{padding:24px 16px 0}
+  .reservation-hero .section-title{font-size:1.8rem}
+  .step-panel{padding:0 4px}
+  .step-panel h3{font-size:1.3rem !important;margin-bottom:20px !important}
+  .guests-btn{width:56px;height:56px;font-size:1.6rem}
+  .guests-count{font-size:2.6rem}
+  .slots-grid{grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:6px}
+  .slot-btn{padding:14px 8px;font-size:.82rem;min-height:48px}
+  .step-panel > div:last-child{flex-direction:column;gap:10px}
+  .step-panel > div:last-child .btn{width:100%;text-align:center;padding:16px}
+  .form-group{margin-bottom:14px}
+  .form-label{font-size:.58rem;margin-bottom:6px}
+  .form-input,.form-select,.form-textarea{min-height:52px;font-size:.95rem;padding:16px}
+  .confirm-card{padding:28px 18px}
+  .confirm-code{font-size:1.4rem;padding:14px;letter-spacing:.08em}
+  .confirm-detail{font-size:.76rem;padding:8px 0}
+  .reservation-steps{gap:0;margin-bottom:28px;overflow-x:auto;justify-content:flex-start;padding:0 4px 8px;scrollbar-width:none}
+  .reservation-steps::-webkit-scrollbar{display:none}
+  .step-circle{width:28px;height:28px;font-size:.6rem}
+  .step-label{font-size:.5rem;letter-spacing:.06em;white-space:nowrap}
+  .step-line{width:16px}
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+.fade-up{animation:fadeUp .8s ease both}
+
+/* ── SECTION DIVIDER ── */
+.section-divider{width:40px;height:1px;background:rgba(184,138,68,.4);margin:20px auto}
+.section-header{margin-bottom:60px}
+
+/* ── ABOUT SECTION (existing HTML structure) ── */
+.about-text p{font-size:.9rem;color:var(--muted);line-height:1.85;margin-bottom:18px;font-weight:300}
+.about-visual{position:relative;display:flex;flex-direction:column;gap:24px}
+.about-frame{
+  background:rgba(184,138,68,.04);border:1px solid rgba(184,138,68,.15);
+  overflow:hidden;
+}
+.about-frame img{width:100%;height:420px;object-fit:cover;display:block;filter:brightness(.85)}
+.about-frame-accent,.about-frame-accent2{display:none}
+.about-stats{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:2px;
+}
+.stat{
+  padding:20px 16px;background:rgba(184,138,68,.04);
+  border:1px solid rgba(184,138,68,.1);text-align:center;
+}
+.stat-num{
+  font-family:var(--font-display);font-size:2rem;
+  color:var(--gold);font-weight:300;line-height:1;margin-bottom:4px;
+}
+.stat-label{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+
+/* ── RESERVE PAGE ── */
+.reservation-hero{padding:48px 48px 0;max-width:700px;margin:0 auto;text-align:center}
+.reservation-hero .section-eyebrow{margin-bottom:12px}
+.reservation-hero .section-title{font-size:clamp(2rem,4vw,3rem)}
+.reservation-hero .section-divider{margin-bottom:0}
+
+/* ── BTN classes (backwards compat) ── */
+.btn{cursor:pointer;font-family:var(--font-body)}
+.btn.btn-primary{
+  padding:13px 32px;background:var(--gold-grad);color:#FFFFFF;
+  font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;
+  font-weight:500;border:none;transition:opacity .2s;
+}
+.btn.btn-primary:hover{opacity:.88}
+.btn.btn-outline{
+  padding:12px 28px;background:transparent;
+  border:1px solid rgba(184,138,68,.4);color:var(--gold);
+  font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;
+  font-weight:300;transition:.2s;
+}
+.btn.btn-outline:hover{border-color:var(--gold);background:rgba(184,138,68,.06)}
+
+/* ── SECTION base (backwards compat) ── */
+.section{padding:100px 48px}
+.section-header{margin-bottom:60px;text-align:center}
+
+/* ── NAV active page class ── */
+.page{display:none}.page.active{display:block}
+#page-home.active{display:block}
+
+/* ── CONTACT SECTION (backwards compat classes) ── */
+.contact-info{display:flex;flex-direction:column;gap:20px}
+.contact-item{display:flex;gap:14px;align-items:flex-start}
+.contact-icon{font-size:1.1rem;flex-shrink:0;margin-top:2px}
+.contact-item-label{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
+.contact-item-value{font-size:.85rem;color:var(--warm);line-height:1.7;font-weight:300}
+.contact-item-value a{color:var(--warm);text-decoration:none;transition:color .2s}
+.contact-item-value a:hover{color:var(--gold)}
+.contact-grid{display:grid;grid-template-columns:1fr 1.5fr;gap:80px;max-width:1100px;margin:60px auto 0;align-items:start}
+@media(max-width:900px){.contact-grid{grid-template-columns:1fr;gap:48px}}
+
+/* ── MENU cards backwards compat ── */
+.menu-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:2px;max-width:1200px;margin:0 auto}
+
+/* ── TEAM section ── */
+.team-card{text-align:center;padding:32px 24px;background:rgba(184,138,68,.03);border:1px solid var(--border);transition:border-color .2s}
+.team-card:hover{border-color:var(--border2)}
+
+/* ── TRACKING BANNER (homepage strip) ── */
+.tracking-banner{
+  max-width:640px;margin:32px auto 0;display:flex;align-items:center;justify-content:center;gap:0;
+  height:150px;
+  border:1px solid var(--border2);border-radius:6px;overflow:hidden;
+  background:rgba(43,43,43,.5);backdrop-filter:blur(8px);
+}
+.tracking-banner-text{display:none}
+.tracking-input{
+  flex:1;background:transparent;border:none;padding:14px 18px;
+  color:var(--cream);font-size:.82rem;outline:none;font-family:var(--font-body);
+}
+.tracking-input::placeholder{color:var(--muted)}
+.btn-sm{padding:13px 22px !important;font-size:.6rem !important}
+
+/* ── SKELETON LOADER ── */
+.skeleton{
+  background:linear-gradient(90deg,rgba(184,138,68,.04) 25%,rgba(184,138,68,.09) 50%,rgba(184,138,68,.04) 75%);
+  background-size:200% 100%;animation:skeletonShine 1.4s ease infinite;
+  border-radius:3px;min-height:18px;
+}
+@keyframes skeletonShine{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* ── MENU CARDS (rendered version) ── */
+.image-container{
+  position:relative;width:100%;aspect-ratio:4/3;overflow:hidden;
+  border-radius:0;background-color:#2B2B2B;
+}
+.image-container::after{
+  content:"";position:absolute;inset:0;
+  background-color:rgba(30,27,24,0.3);z-index:3;pointer-events:none;
+}
+.skeleton-loader{
+  position:absolute;inset:0;
+  background:linear-gradient(110deg,#2B2B2B 8%,#DDD5C8 18%,#2B2B2B 33%);
+  background-size:200% 100%;animation:shimmer 1.5s linear infinite;z-index:1;
+}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+.menu-image{
+  width:100%;height:100%;object-fit:cover;opacity:0;
+  transition:opacity .5s ease;position:absolute;top:0;left:0;z-index:2;
+}
+.menu-image.loaded{opacity:1}
+.menu-card-body{padding:20px}
+.menu-card-category{font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);opacity:.6;margin-bottom:8px}
+.menu-card-name{font-family:var(--font-display);font-size:1.1rem;color:var(--cream);font-weight:400;margin-bottom:2px}
+.menu-card-name-ar{font-family:var(--font-ar);font-size:.8rem;color:var(--muted);direction:rtl;margin-bottom:8px}
+.menu-card-desc{font-size:.76rem;color:var(--muted);line-height:1.6;margin-bottom:16px;min-height:36px}
+.menu-card-footer{display:flex;justify-content:space-between;align-items:center}
+.menu-card-price{font-family:var(--font-display);font-size:1.1rem;color:var(--gold)}
+.menu-card-price span{font-size:.6rem;color:var(--muted);font-family:var(--font-body);margin-left:3px}
+.badge{
+  display:inline-block;padding:3px 9px;font-size:.6rem;letter-spacing:.05em;
+  background:rgba(184,138,68,.12);border:1px solid var(--border2);color:var(--gold);
+  border-radius:10px;margin-left:6px;
+}
+.badge-spicy{background:rgba(239,154,154,.1);border-color:rgba(239,154,154,.25);color:#ef9a9a}
+
+/* ── FEATURES GRID (about page) ── */
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;max-width:1100px;margin:0 auto}
+.feature-card{padding:36px 28px;background:rgba(184,138,68,.03);border:1px solid var(--border);text-align:center;transition:border-color .2s}
+.feature-card:hover{border-color:var(--border2)}
+.feature-icon{font-size:1.6rem;margin-bottom:16px}
+.feature-title{font-family:var(--font-display);font-size:1.1rem;color:var(--cream);font-weight:400;margin-bottom:10px}
+.feature-desc{font-size:.8rem;color:var(--muted);line-height:1.7}
+.about-text{display:flex;flex-direction:column}
+.section-desc{font-size:.85rem;color:var(--muted);line-height:1.7;max-width:480px;margin:0 auto;text-align:center}
+@media(max-width:800px){.features-grid{grid-template-columns:1fr}}
+
+/* ── RESERVE PAGE — GUESTS SELECTOR ── */
+.guests-selector{display:flex;align-items:center;gap:24px;margin-top:16px}
+.guests-btn{
+  width:42px;height:42px;border-radius:50%;border:1px solid var(--border2);
+  background:transparent;color:var(--gold);font-size:1.3rem;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:.2s;
+}
+.guests-btn:hover{background:rgba(184,138,68,.1)}
+.guests-count{font-family:var(--font-display);font-size:2rem;color:var(--cream);min-width:50px;text-align:center}
+
+/* ── CONFIRM DETAILS ── */
+.confirm-detail{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--border);font-size:.82rem}
+.confirm-detail-label{color:var(--muted)}
+.confirm-detail-value{color:var(--warm)}
+
+/* ── SELECTION PAGE (order sidebar) ── */
+.selection-sidebar{padding:48px 36px;background:rgba(43,43,43,.5);border-left:1px solid var(--border);position:sticky;top:0;height:100vh;overflow-y:auto;backdrop-filter:blur(10px)}
+.order-title{font-family:var(--font-display);font-size:1.3rem;color:var(--cream);font-weight:300;margin-bottom:20px}
+.order-empty{text-align:center;padding:40px 10px;color:var(--muted);font-size:.82rem;line-height:1.8}
+.order-item{display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--border)}
+.order-item-name{flex:1;font-size:.82rem;color:var(--warm)}
+.order-item-qty{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.qty-num{min-width:18px;text-align:center;font-size:.82rem;color:var(--cream)}
+.order-item-price{font-family:var(--font-display);color:var(--gold);font-size:.92rem;flex-shrink:0}
+.order-total{display:flex;justify-content:space-between;align-items:center;padding-top:16px;margin-top:16px;border-top:1px solid var(--border2)}
+.order-total-label{font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
+.order-total-val{font-family:var(--font-display);font-size:1.4rem;color:var(--gold)}
+
+/* ── CONTACT FORM ── */
+.contact-item-text{flex:1}
+.contact-form{display:flex;flex-direction:column}
+.map-placeholder{
+  height:200px;margin-top:24px;border-radius:4px;
+  background:rgba(184,138,68,.04);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--muted);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+}
+.map-placeholder::before{content:'📍 Maadi Corniche, Cairo'}
+
+/* ── FOOTER BRAND ── */
+.footer-brand{display:flex;flex-direction:column}
+.footer-brand p{font-size:.78rem;color:var(--muted);line-height:1.8;margin-top:6px}
+/* ══════════════════════════════════════════════════════
+   COMPREHENSIVE MOBILE FIXES
+   ══════════════════════════════════════════════════════ */
+html{overflow-x:hidden}
+  .menu-filters::-webkit-scrollbar{display:none}
+  .menu-filters .filter-btn{flex-shrink:0;white-space:nowrap}
+}
+
+@media(max-width:900px){
+  /* Reservation step indicator — shrink to fit narrow phones */
+  .reservation-steps{
+    gap:0;margin-bottom:36px;overflow-x:auto;-webkit-overflow-scrolling:touch;
+    justify-content:flex-start;padding:0 4px 8px;scrollbar-width:none;
+  }
+  .reservation-steps::-webkit-scrollbar{display:none}
+  .step-circle{width:26px;height:26px;font-size:.6rem}
+  .step-label{font-size:.5rem;letter-spacing:.08em;white-space:nowrap}
+  .step-line{width:20px;margin:0 2px;margin-bottom:16px}
+  .reservation-hero{padding:32px 20px 0}
+
+  /* Confirm card */
+  .confirm-card{padding:32px 22px;max-width:100%}
+  .confirm-code{font-size:1.6rem;padding:16px;word-break:break-all}
+
+  /* Selection page padding */
+  .selection-menu{padding:24px 20px}
+  .selection-cart{padding:28px 20px}
+
+  /* About stats — keep 3 cols but tighten */
+  .about-stats{gap:1px}
+  .stat{padding:14px 8px}
+  .stat-num{font-size:1.5rem}
+  .stat-label{font-size:.54rem;letter-spacing:.1em}
+
+  /* Tracking banner */
+  .tracking-banner{height:auto;flex-direction:column}
+
+  /* Menu cards */
+  .menu-card-body{padding:16px}
+
+  /* Reservation guests selector */
+  .guests-selector{gap:16px;justify-content:center}
+
+  /* Modal-style confirm details */
+  .confirm-detail{font-size:.78rem}
+}
+
+@media(max-width:420px){
+  .hero-ar{font-size:clamp(2.6rem,16vw,4.5rem)}
+  .hero-tagline{font-size:1.05rem}
+  .btn-hero-primary,.btn-hero-ghost{padding:12px 24px;font-size:.6rem;width:100%}
+  .hero-actions{width:100%;padding:0 12px}
+  .section-title{font-size:1.7rem}
+  .step-circle{width:22px;height:22px;font-size:.55rem}
+  .step-line{width:12px}
+  .confirm-code{font-size:1.3rem;letter-spacing:.08em}
+  .menu-card-name{font-size:1rem}
+}
+
+/* ── LOADING SCREEN ── */
+#loadingScreen{
+  position:fixed;inset:0;z-index:9999;
+  background:var(--bg);
+  display:flex;align-items:center;justify-content:center;
+  transition:opacity .6s ease, visibility .6s ease;
+}
+#loadingScreen.hide{opacity:0;visibility:hidden;pointer-events:none}
+.loading-content{text-align:center}
+.loading-logo{
+  font-family:var(--font-ar);font-size:clamp(3rem,8vw,5rem);
+  color:var(--gold);margin-bottom:4px;
+  animation:loadingPulse 1.5s ease-in-out infinite;
+}
+.loading-sub{
+  font-size:.55rem;letter-spacing:.5em;text-transform:uppercase;
+  color:rgba(184,138,68,.4);margin-bottom:32px;
+}
+.loading-bar{
+  width:180px;height:2px;background:rgba(184,138,68,.15);
+  border-radius:2px;overflow:hidden;margin:0 auto;
+}
+.loading-bar-fill{
+  width:40%;height:100%;background:var(--gold-grad);
+  border-radius:2px;animation:loadingSlide 1.2s ease-in-out infinite;
+}
+@keyframes loadingPulse{0%,100%{opacity:.6}50%{opacity:1}}
+@keyframes loadingSlide{0%{transform:translateX(-100%)}100%{transform:translateX(350%)}}
+
+/* ── LENIS SMOOTH SCROLL ── */
+html.lenis, html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto !important}
+.lenis.lenis-smooth[data-lenis-prevent]{overscroll-behavior:contain}
+.lenis.lenis-stopped{overflow:hidden}
+.lenis.lenis-scrolling iframe{pointer-events:none}
+
+/* ── ANIMATIONS ── */
+.page{animation:fadeIn .35s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.menu-card,.feature-card,.order-card{transition:transform .2s ease,box-shadow .2s ease}
+.menu-card:hover,.feature-card:hover,.order-card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.06)}
+.btn,.btn-primary,.btn-outline,.pill,.filter-btn,.btn-ghost,.nav-cta-btn,.btn-hero-primary,.btn-hero-ghost{transition:all .15s ease}
+.btn:active,.btn-primary:active,.pill:active,.filter-btn:active,.nav-cta-btn:active{transform:scale(.97)}
+.toast.show{animation:toastIn .3s ease}
+@keyframes toastIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
+</head>
+<body>
+
+<!-- LOADING SCREEN -->
+<div id="loadingScreen">
+  <div class="loading-content">
+    <div class="loading-logo">شلبية</div>
+    <div class="loading-sub">Shalabya</div>
+    <div class="loading-bar"><div class="loading-bar-fill"></div></div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a class="nav-logo" onclick="navigate('home')">
+    شلبية
+    <span class="nav-logo-sub">Shalabya</span>
+  </a>
+  <ul class="nav-links">
+    <li><a onclick="navigate('home')" data-page="home">Home</a></li>
+    <li><a onclick="navigate('menu')" data-page="menu">Menu</a></li>
+    <li><a onclick="navigate('about')" data-page="about">About</a></li>
+    <li><a onclick="navigate('contact')" data-page="contact">Contact</a></li>
+    <li><a onclick="navigate('reserve')" data-page="reserve">My Reservation</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a class="nav-link-sm" onclick="navigate('reserve')" style="display:none;align-items:center;gap:6px">
+      <span style="font-size:.8rem">⊙</span> Login
+    </a>
+    <button class="nav-cta-btn" onclick="navigate('reserve')">Reserve</button>
+    <div class="hamburger" onclick="toggleMobileMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="toggleMobileMenu()">✕</button>
+  <a onclick="navigate('home');toggleMobileMenu()">Home</a>
+  <a onclick="navigate('menu');toggleMobileMenu()">Menu</a>
+  <a onclick="navigate('about');toggleMobileMenu()">About</a>
+  <a onclick="navigate('contact');toggleMobileMenu()">Contact</a>
+  <a onclick="navigate('reserve');toggleMobileMenu()">Reserve a Table</a>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- ═══════════════════════════════════════════
+     PAGE: HOME
+══════════════════════════════════════════════ -->
+<div class="page active" id="page-home">
+  <!-- Hero -->
+  <section class="hero">
+    <!--
+      VIDEO: Go to cloudinary.com → Media Library → click your Nile video
+             Copy the "Public ID" and paste it below replacing NILE_VIDEO_PUBLIC_ID
+    -->
+    <img class="hero-video" id="heroPoster"
+      src="https://res.cloudinary.com/dkjnyxa4k/image/upload/q_auto:good,f_jpg,so_2,w_1280/18640531-hd_1080_1920_30fps_veq5tg.jpg"
+      alt="Shalabya — Nile views" style="object-fit:cover">
+    <video class="hero-video" id="heroVideo1" muted playsinline preload="auto" style="opacity:1;transition:opacity 1.5s ease;z-index:1">
+      <source src="https://res.cloudinary.com/dkjnyxa4k/video/upload/v1782308509/shalabya_ktnahq.mp4" type="video/mp4">
+    </video>
+    <video class="hero-video" id="heroVideo2" muted playsinline preload="auto" style="opacity:0;transition:opacity 1.5s ease;z-index:0">
+      <source src="https://res.cloudinary.com/dkjnyxa4k/video/upload/q_auto:eco,w_1280,vc_auto/18640531-hd_1080_1920_30fps_veq5tg.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="hero-content fade-up">
+      <div class="hero-ar">شلبية</div>
+      <div class="hero-brand">Shalabya</div>
+      <h1 class="hero-tagline">A Journey Through Egyptian Flavors</h1>
+      <p class="hero-location">Fine Dining on the Banks of the Nile, Maadi — Cairo</p>
+      <div class="hero-actions">
+        <button class="btn-hero-primary" onclick="navigate('reserve')">Reserve a Table</button>
+        <button class="btn-hero-ghost" onclick="navigate('menu')">Explore the Menu</button>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <span>Scroll</span>
+      <div class="hero-scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- Tracking Banner -->
+  <div style="padding:0 48px;margin-bottom:0" id="trackingWrap">
+    <div class="tracking-banner">
+      <div class="tracking-banner-text">
+        <strong>Track your reservation</strong> — Enter your booking code or phone number to check your status
+      </div>
+      <div class="tracking-form">
+        <input class="tracking-input" id="trackInput" placeholder="Code e.g. A1B2C3D4 or phone" maxlength="30"/>
+        <button class="btn btn-primary btn-sm" onclick="trackReservation()">Track →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Features -->
+  <section class="section" style="padding-bottom:0">
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🍽️</div>
+        <h3 class="feature-title">Artisan Cuisine</h3>
+        <p class="feature-desc">Every dish is crafted from scratch using premium seasonal ingredients, honoring traditional recipes elevated by modern technique.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🌿</div>
+        <h3 class="feature-title">Intimate Ambiance</h3>
+        <p class="feature-desc">Warm lighting, hand-selected décor, and acoustics designed for conversation — a sanctuary from the city's pace.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">✦</div>
+        <h3 class="feature-title">Curated Experience</h3>
+        <p class="feature-desc">From first greeting to final sip of mint tea, every detail is orchestrated so you can simply be present.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Menu Preview -->
+  <section class="section">
+    <div class="section-header">
+      <p class="section-eyebrow">Our Offerings</p>
+      <h2 class="section-title">Featured <em>Dishes</em></h2>
+      <div class="section-divider"></div>
+      <p class="section-desc">A glimpse into the flavors awaiting you — each plate a story, every ingredient a deliberate choice.</p>
+    </div>
+    <div class="menu-grid" id="homeMenuGrid">
+      <div class="skeleton" style="min-height:280px;border-radius:4px"></div>
+      <div class="skeleton" style="min-height:280px;border-radius:4px"></div>
+      <div class="skeleton" style="min-height:280px;border-radius:4px"></div>
+    </div>
+    <div style="text-align:center;margin-top:40px">
+      <button class="btn btn-outline" onclick="navigate('menu')">View Full Menu</button>
+    </div>
+  </section>
+
+  <!-- Reservation CTA -->
+  <section style="padding:80px 48px;background:linear-gradient(135deg,var(--charcoal) 0%,var(--dark) 100%);text-align:center;position:relative;overflow:hidden">
+    <div style="position:absolute;inset:0;opacity:.03;pointer-events:none;background-image:url(\"data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23B8966E'%3E%3Ccircle cx='20' cy='20' r='1'/%3E%3C/g%3E%3C/svg%3E\")"></div>
+    <p class="section-eyebrow">Reserve</p>
+    <h2 class="section-title" style="margin-bottom:16px">Your Table <em>Awaits</em></h2>
+    <p style="font-size:.9rem;color:var(--muted);margin-bottom:36px;max-width:440px;margin-left:auto;margin-right:auto">Join us for an evening that lingers. Reservations recommended — walk-ins welcome when available.</p>
+    <button class="btn btn-primary" onclick="navigate('reserve')">Make a Reservation</button>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo">شلبية</div>
+        <div class="footer-logo-sub">Shalabya</div>
+        <p class="footer-desc">Fine dining on the banks of the Nile, Maadi — Cairo.<br>Experience the finest Egyptian cuisine.</p>
+      </div>
+      <div>
+        <p class="footer-col-title">Quick Links</p>
+        <ul class="footer-links">
+          <li><a onclick="navigate('home')">Home</a></li>
+          <li><a onclick="navigate('menu')">Our Menu</a></li>
+          <li><a onclick="navigate('about')">About Us</a></li>
+          <li><a onclick="navigate('contact')">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Follow Us</p>
+        <div style="display:flex;gap:12px;margin-top:8px">
+          <a href="https://www.instagram.com/shalabyaeg/?hl=en" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border:1px solid var(--border2);border-radius:50%;transition:all .2s" onmouseover="this.style.borderColor='var(--gold)';this.querySelector('svg').style.fill='var(--gold)'" onmouseout="this.style.borderColor='';this.querySelector('svg').style.fill='#E8E4E0'">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#E8E4E0" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          </a>
+          <a href="https://www.facebook.com/p/Shalabya-61560594674553/" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border:1px solid var(--border2);border-radius:50%;transition:all .2s" onmouseover="this.style.borderColor='var(--gold)';this.querySelector('svg').style.fill='var(--gold)'" onmouseout="this.style.borderColor='';this.querySelector('svg').style.fill='#E8E4E0'">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#E8E4E0" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <p class="footer-col-title">Hours</p>
+        <ul class="footer-links" style="pointer-events:none">
+          <li><a>Lunch: 12pm – 4pm</a></li>
+          <li><a>Dinner: 7pm – 12am</a></li>
+          <li><a>Fri–Sat: Brunch 11am</a></li>
+          <li><a>Monday: Closed</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 Shalabya Restaurant. All rights reserved.</p>
+      <p>Cairo, Egypt · 010 55882488</p>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PAGE: MENU
+══════════════════════════════════════════════ -->
+<div class="page" id="page-menu">
+  <div style="padding-top:var(--nav-h)">
+    <div class="section-header" style="padding:60px 48px 0">
+      <p class="section-eyebrow">Our Offerings</p>
+      <h1 class="section-title">Our <em>Menu</em></h1>
+      <div class="section-divider"></div>
+      <p class="section-desc">Seasonal, intentional, memorable. Every item crafted with care for ingredients and tradition.</p>
+    </div>
+    <div class="section" style="padding-top:40px">
+      <div class="menu-filters" id="menuFilters">
+        <button class="filter-btn active" onclick="filterMenu('all',this)">All</button>
+        <button class="filter-btn" onclick="filterMenu('breakfast',this)">Breakfast</button>
+        <button class="filter-btn" onclick="filterMenu('appetizer',this)">Appetizers</button>
+        <button class="filter-btn" onclick="filterMenu('main',this)">Mains</button>
+        <button class="filter-btn" onclick="filterMenu('dessert',this)">Desserts</button>
+        <button class="filter-btn" onclick="filterMenu('beverage',this)">Beverages</button>
+        <button class="filter-btn" onclick="filterMenu('special',this)">Specials</button>
+      </div>
+      <div class="menu-grid" id="menuGrid">
+        <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+        <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PAGE: ABOUT
+══════════════════════════════════════════════ -->
+<div class="page" id="page-about">
+  <div style="padding-top:var(--nav-h)">
+    <section class="section">
+      <div class="section-header">
+        <p class="section-eyebrow">Our Story</p>
+        <h1 class="section-title">The <em>Shalabya</em> Story</h1>
+        <div class="section-divider"></div>
+      </div>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>Shalabya was born from a simple conviction: that Middle Eastern cuisine — rich, ancient, and endlessly varied — deserved a home where it could be celebrated without compromise. Founded in 2019 by the Shalabya family, the restaurant opened its doors in Cairo's cultural quarter with a menu that draws from the breadth of Arab culinary tradition.</p>
+          <p>Our executive chef, who trained across Egypt, Lebanon, and Morocco, has spent two decades refining a vocabulary that bridges memory and innovation. Every dish on our menu carries the weight of tradition while remaining alive to possibility — an heirloom technique given new breath, a familiar flavor placed in unexpected company.</p>
+          <p>We believe dining is one of the last great communal rituals. At Shalabya, we guard it carefully. The room is designed to slow time. The service is warm but never intrusive. The menu changes with the seasons so there is always something to discover.</p>
+          <div class="hero-actions" style="justify-content:flex-start;margin-top:32px">
+            <button class="btn btn-primary" onclick="navigate('reserve')">Reserve Your Evening</button>
+          </div>
+        </div>
+        <div class="about-visual">
+          <div class="about-frame">
+            <img src="https://images.pexels.com/photos/16288048/pexels-photo-16288048.jpeg" alt="Shalabya Restaurant dining" loading="lazy">
+          </div>
+          <div class="about-frame-accent"></div>
+          <div class="about-frame-accent2"></div>
+          <div class="about-stats">
+            <div class="stat"><div class="stat-num">5+</div><div class="stat-label">Years</div></div>
+            <div class="stat"><div class="stat-num">22</div><div class="stat-label">Menu Items</div></div>
+            <div class="stat"><div class="stat-num">★4.9</div><div class="stat-label">Rating</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team section -->
+    <section class="section" style="background:var(--charcoal);padding-top:80px;padding-bottom:80px">
+      <div class="section-header" style="margin-bottom:48px">
+        <p class="section-eyebrow">The People</p>
+        <h2 class="section-title">Behind the <em>Experience</em></h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:24px;max-width:1000px;margin:0 auto">
+        <div style="text-align:center;padding:32px 24px;background:var(--black);border:1px solid rgba(184,138,68,.1);border-radius:4px">
+          <div style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--dark),var(--charcoal));border:2px solid rgba(184,138,68,.2);margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:1.8rem">👨‍🍳</div>
+          <h3 style="font-family:var(--font-display);font-size:1.2rem;color:var(--white);margin-bottom:4px">Chef Kareem Adel</h3>
+          <p style="font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:12px">Executive Chef</p>
+          <p style="font-size:.82rem;color:var(--muted);line-height:1.7">20 years of culinary excellence across Egypt, Lebanon, and Morocco.</p>
+        </div>
+        <div style="text-align:center;padding:32px 24px;background:var(--black);border:1px solid rgba(184,138,68,.1);border-radius:4px">
+          <div style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--dark),var(--charcoal));border:2px solid rgba(184,138,68,.2);margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:1.8rem">👩‍💼</div>
+          <h3 style="font-family:var(--font-display);font-size:1.2rem;color:var(--white);margin-bottom:4px">Nadia Shalabya</h3>
+          <p style="font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:12px">General Manager</p>
+          <p style="font-size:.82rem;color:var(--muted);line-height:1.7">Ensuring every guest leaves with a story worth telling.</p>
+        </div>
+        <div style="text-align:center;padding:32px 24px;background:var(--black);border:1px solid rgba(184,138,68,.1);border-radius:4px">
+          <div style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--dark),var(--charcoal));border:2px solid rgba(184,138,68,.2);margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:1.8rem">🍷</div>
+          <h3 style="font-family:var(--font-display);font-size:1.2rem;color:var(--white);margin-bottom:4px">Tarek Mansour</h3>
+          <p style="font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:12px">Beverage Director</p>
+          <p style="font-size:.82rem;color:var(--muted);line-height:1.7">Crafting pairings and non-alcoholic journeys that complement each course.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PAGE: CONTACT
+══════════════════════════════════════════════ -->
+<div class="page" id="page-contact">
+  <div style="padding-top:var(--nav-h)">
+    <section class="section">
+      <div class="section-header">
+        <p class="section-eyebrow">Contact</p>
+        <h1 class="section-title">Contact <em>Us</em></h1>
+        <div class="section-divider"></div>
+        <p class="section-desc">We'd love to hear from you — for reservations, private events, or any questions about our menu.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div class="contact-item-text">
+              <p class="contact-item-label">Address</p>
+              <p class="contact-item-value">14 Al Zahraa Street, Maadi<br>Cairo, Egypt</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📞</div>
+            <div class="contact-item-text">
+              <p class="contact-item-label">Phone</p>
+              <p class="contact-item-value">010 55882488</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">✉️</div>
+            <div class="contact-item-text">
+              <p class="contact-item-label">Email</p>
+              <p class="contact-item-value">info@shalabya.com<br>reservations@shalabya.com</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">🕐</div>
+            <div class="contact-item-text">
+              <p class="contact-item-label">Opening Hours</p>
+              <p class="contact-item-value">Tue–Thu: 12pm – 12am<br>Fri–Sat: 11am – 1am<br>Sun: 12pm – 11pm<br>Monday: Closed</p>
+            </div>
+          </div>
+          <iframe src="https://maps.google.com/maps?q=29.9738603,31.2344075&t=&z=17&ie=UTF8&iwloc=&output=embed" width="100%" height="300" style="border:0;border-radius:4px;margin-top:24px" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <div class="contact-form">
+          <form onsubmit="submitContact(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Full Name *</label>
+                <input class="form-input" id="c_name" required placeholder="Your name"/>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Email *</label>
+                <input class="form-input" type="email" id="c_email" required placeholder="your@email.com"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Phone</label>
+              <input class="form-input" id="c_phone" placeholder="+20 100 000 0000"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Subject</label>
+              <select class="form-select" id="c_subject">
+                <option value="">Select a subject</option>
+                <option>General Inquiry</option>
+                <option>Reservation</option>
+                <option>Private Event</option>
+                <option>Feedback</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Message *</label>
+              <textarea class="form-textarea" id="c_message" required placeholder="How can we help you?"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" id="contactBtn" style="width:100%">Send Message</button>
+            <div id="contactMsg"></div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PAGE: RESERVATION
+══════════════════════════════════════════════ -->
+<div class="page" id="page-reserve">
+  <div class="reservation-wrap">
+    <div class="reservation-hero">
+      <p class="section-eyebrow">Book Your Table</p>
+      <h1 class="section-title">Make a <em>Reservation</em></h1>
+      <div class="section-divider"></div>
+    </div>
+
+    <!-- Steps indicator -->
+    <div class="reservation-steps" id="resSteps">
+      <div class="step active" id="step-ind-1">
+        <div class="step-circle">1</div>
+        <span class="step-label">Date & Time</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step" id="step-ind-2">
+        <div class="step-circle">2</div>
+        <span class="step-label">Guests</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step" id="step-ind-3">
+        <div class="step-circle">3</div>
+        <span class="step-label">Pre-Order</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step" id="step-ind-4">
+        <div class="step-circle">4</div>
+        <span class="step-label">Details</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step" id="step-ind-5">
+        <div class="step-circle">5</div>
+        <span class="step-label">Confirm</span>
+      </div>
+    </div>
+
+    <!-- Step 1: Date & Time -->
+    <div class="step-panel active" id="res-step-1">
+      <h3 style="font-family:var(--font-display);font-size:1.5rem;color:var(--white);margin-bottom:28px;font-weight:400">Choose a <em style="font-style:italic;color:var(--gold)">Date & Time</em></h3>
+      <div class="form-group">
+        <label class="form-label">Select Date</label>
+        <input class="form-input" type="date" id="res_date" style="max-width:280px"/>
+      </div>
+      <div style="margin-top:28px">
+        <label class="form-label" style="margin-bottom:16px;display:block">Available Time Slots</label>
+        <div class="slots-grid" id="slotsGrid">
+          <div style="color:var(--muted);font-size:.85rem;grid-column:1/-1">Select a date to see available slots</div>
+        </div>
+      </div>
+      <div style="margin-top:36px;display:flex;justify-content:flex-end">
+        <button class="btn btn-primary" onclick="resNext(2)" id="resNext1" disabled>Next: Guests →</button>
+      </div>
+    </div>
+
+    <!-- Step 2: Guests -->
+    <div class="step-panel" id="res-step-2">
+      <h3 style="font-family:var(--font-display);font-size:1.5rem;color:var(--white);margin-bottom:28px;font-weight:400">How Many <em style="font-style:italic;color:var(--gold)">Guests?</em></h3>
+      <div class="guests-selector">
+        <button class="guests-btn" onclick="changeGuests(-1)">−</button>
+        <div class="guests-count" id="guestsCount">2</div>
+        <button class="guests-btn" onclick="changeGuests(1)">+</button>
+      </div>
+      <p style="text-align:center;font-size:.8rem;color:var(--muted);margin-bottom:40px">For groups of 10+, please call us directly</p>
+      <div class="form-group">
+        <label class="form-label">Occasion (optional)</label>
+        <select class="form-select" id="res_occasion">
+          <option value="">Just dining</option>
+          <option value="birthday">Birthday</option>
+          <option value="anniversary">Anniversary</option>
+          <option value="business">Business</option>
+          <option value="proposal">Proposal</option>
+          <option value="celebration">Celebration</option>
+        </select>
+      </div>
+      <div style="display:flex;gap:12px;justify-content:space-between;margin-top:36px">
+        <button class="btn btn-outline" onclick="resBack(1)">← Back</button>
+        <button class="btn btn-primary" onclick="resNext(3)">Next: Pre-Order →</button>
+      </div>
+    </div>
+
+    <!-- Step 3: Pre-Order (optional menu selection) -->
+    <div class="step-panel" id="res-step-3">
+      <h3 style="font-family:var(--font-display);font-size:1.5rem;color:var(--white);margin-bottom:8px;font-weight:400">Pre-Order <em style="font-style:italic;color:var(--gold)">Your Dishes</em></h3>
+      <p style="font-size:.82rem;color:var(--muted);margin-bottom:24px">Optional — let the kitchen know what you'd like in advance. You can always order more at the table.</p>
+      <!-- Mini menu filter -->
+      <div class="menu-filters" id="resMenuFilters" style="justify-content:flex-start;margin-bottom:20px">
+        <button class="filter-btn active" onclick="filterResMenu('all',this)">All</button>
+        <button class="filter-btn" onclick="filterResMenu('appetizer',this)">Appetizers</button>
+        <button class="filter-btn" onclick="filterResMenu('main',this)">Mains</button>
+        <button class="filter-btn" onclick="filterResMenu('dessert',this)">Desserts</button>
+        <button class="filter-btn" onclick="filterResMenu('beverage',this)">Beverages</button>
+      </div>
+      <!-- Menu items grid -->
+      <div id="resMenuGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;max-height:400px;overflow-y:auto;padding-right:4px">
+        <div class="spinner"></div>
+      </div>
+      <!-- Pre-order cart summary -->
+      <div id="resCartSummary" style="margin-top:20px;padding:16px;background:rgba(184,138,68,.06);border:1px solid rgba(184,138,68,.15);border-radius:4px;display:none">
+        <div style="font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:10px">Your Pre-Order</div>
+        <div id="resCartItems"></div>
+        <div style="display:flex;justify-content:space-between;padding-top:10px;margin-top:8px;border-top:1px solid rgba(184,138,68,.12);font-size:.85rem">
+          <span style="color:var(--muted)">Estimated total</span>
+          <span style="font-family:var(--font-display);color:var(--gold)" id="resCartTotal">EGP 0</span>
+        </div>
+      </div>
+      <div style="display:flex;gap:12px;justify-content:space-between;margin-top:28px">
+        <button class="btn btn-outline" onclick="resBack(2)">← Back</button>
+        <div style="display:flex;gap:10px">
+          <button class="btn btn-outline" onclick="resNext(4)" style="color:var(--muted)">Skip</button>
+          <button class="btn btn-primary" onclick="resNext(4)">Next: Your Details →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 4: Personal Details -->
+    <div class="step-panel" id="res-step-4">
+      <h3 style="font-family:var(--font-display);font-size:1.5rem;color:var(--white);margin-bottom:28px;font-weight:400">Your <em style="font-style:italic;color:var(--gold)">Details</em></h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Full Name *</label>
+          <input class="form-input" id="res_name" required placeholder="Your full name"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone *</label>
+          <input class="form-input" id="res_phone" required placeholder="+20 100 000 0000"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input class="form-input" type="email" id="res_email" placeholder="your@email.com"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Special Requests</label>
+        <textarea class="form-textarea" id="res_special" style="min-height:80px" placeholder="Dietary requirements, table preferences, celebrations..."></textarea>
+      </div>
+      <div style="display:flex;gap:12px;justify-content:space-between;margin-top:36px">
+        <button class="btn btn-outline" onclick="resBack(3)">← Back</button>
+        <button class="btn btn-primary" onclick="submitReservation()">Confirm Reservation →</button>
+      </div>
+      <div id="resMsg"></div>
+    </div>
+
+    <!-- Step 5: Confirmation -->
+    <div class="step-panel" id="res-step-5">
+      <div class="confirm-card">
+        <div style="font-size:2.5rem;margin-bottom:16px">✓</div>
+        <p class="section-eyebrow" style="margin-bottom:8px">Booking Confirmed</p>
+        <h2 style="font-family:var(--font-display);font-size:1.8rem;color:var(--white);margin-bottom:4px;font-weight:300">Your table is <em style="color:var(--gold)">reserved</em></h2>
+        <div class="confirm-code" id="confirmCode">—</div>
+        <p style="font-size:.75rem;color:var(--muted);margin-bottom:28px">Save this code to track your reservation</p>
+        <div id="confirmDetails"></div>
+        <button class="btn btn-outline" onclick="navigate('home')" style="margin-top:24px;width:100%">Back to Home</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PAGE: YOUR SELECTION (Order / Menu Selection)
+══════════════════════════════════════════════ -->
+<div class="page" id="page-selection">
+  <div class="selection-layout">
+    <div class="selection-menu">
+      <div style="padding-top:0;margin-bottom:32px">
+        <p class="section-eyebrow">Pre-Order</p>
+        <h1 class="section-title">Your <em>Selection</em></h1>
+        <div class="section-divider" style="margin:16px 0"></div>
+        <p style="font-size:.85rem;color:var(--muted)">Build your meal ahead of time. Perfect for groups and special occasions.</p>
+      </div>
+      <div class="menu-filters" id="selFilters" style="justify-content:flex-start">
+        <button class="filter-btn active" onclick="filterSelection('all',this)">All</button>
+        <button class="filter-btn" onclick="filterSelection('appetizer',this)">Appetizers</button>
+        <button class="filter-btn" onclick="filterSelection('main',this)">Mains</button>
+        <button class="filter-btn" onclick="filterSelection('dessert',this)">Desserts</button>
+        <button class="filter-btn" onclick="filterSelection('beverage',this)">Beverages</button>
+        <button class="filter-btn" onclick="filterSelection('special',this)">Specials</button>
+      </div>
+      <div class="menu-grid" id="selectionMenuGrid" style="grid-template-columns:repeat(auto-fill,minmax(280px,1fr))">
+        <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+      </div>
+    </div>
+
+    <!-- Order Sidebar -->
+    <div class="selection-sidebar">
+      <h2 class="order-title">Your Order</h2>
+      <div id="orderItems"><div class="order-empty">No items added yet.<br><span style="opacity:.5">Browse the menu →</span></div></div>
+      <div class="order-total" id="orderTotalRow" style="display:none">
+        <span class="order-total-label">Total</span>
+        <span class="order-total-val" id="orderTotal">EGP 0</span>
+      </div>
+      <div style="margin-top:20px">
+        <div class="form-group">
+          <label class="form-label">Table / Reservation Code</label>
+          <input class="form-input" id="orderRef" placeholder="Optional reference"/>
+        </div>
+        <button class="btn btn-primary" style="width:100%;margin-top:8px" onclick="submitOrder()" id="orderBtn" disabled>Place Order</button>
+        <button class="btn btn-outline" style="width:100%;margin-top:8px" onclick="clearOrder()">Clear</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="supabase.js"></script>
+<script>
+// ══════════════════════════════════
+// SECURITY HELPERS
+// ══════════════════════════════════
+function sanitizeInput(str, maxLen=200) {
+  if (!str) return '';
+  return String(str).replace(/<[^>]+>/g,'').trim().slice(0,maxLen);
+}
+function validatePhone(p) { return /^[+\d\s\-]{7,20}$/.test(p.trim()); }
+function validateEmail(e) { return !e || (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e) && e.length<200); }
+function checkClientRateLimit(key, max, windowMs) {
+  try {
+    const now=Date.now(), data=JSON.parse(sessionStorage.getItem('rl_'+key)||'[]');
+    const recent=data.filter(t=>now-t<windowMs);
+    if (recent.length>=max) return false;
+    recent.push(now); sessionStorage.setItem('rl_'+key,JSON.stringify(recent)); return true;
+  } catch(e) { return true; }
+}
+// ══════════════════════════════════
+// STATE
+// ══════════════════════════════════
+let currentPage = 'home';
+let allMenuItems = [];
+let cart = {};
+let resData = { date:'', time:'', guests:2, name:'', phone:'', email:'', special:'', occasion:'' };
+let currentResStep = 1;
+let resCart = {}; // pre-order cart: { id: { name, price, qty } }
+
+// ══════════════════════════════════
+// NAVIGATION
+// ══════════════════════════════════
+function navigate(page) {
+  // Force instant scroll-to-top regardless of any smooth-scroll CSS
+  const html = document.documentElement;
+  const prevBehavior = html.style.scrollBehavior;
+  html.style.scrollBehavior = 'auto';
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.classList.toggle('active', a.dataset.page === page);
+  });
+  const el = document.getElementById('page-' + page);
+  if (el) {
+    el.classList.add('active');
+    window.scrollTo(0, 0);
+  }
+  // Restore any inherited smooth-scroll after the reflow settles
+  requestAnimationFrame(() => { html.style.scrollBehavior = prevBehavior; });
+  currentPage = page;
+  // Lazy-load data on first visit
+  if (page === 'menu' && allMenuItems.length === 0) loadMenuItems();
+  if (page === 'selection' && allMenuItems.length === 0) loadMenuItems();
+  if (page === 'home' && allMenuItems.length === 0) loadMenuItems();
+  if (page === 'reserve') initReservation();
+}
+
+function toggleMobileMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+// NAV scroll effect
+window.addEventListener('scroll', () => {
+  document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 40);
+});
+
+// ══════════════════════════════════
+// TOAST
+// ══════════════════════════════════
+function toast(msg, type = '') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show ' + type;
+  setTimeout(() => t.className = 'toast', 3000);
+}
+
+// ══════════════════════════════════
+// LOAD MENU
+// ══════════════════════════════════
+async function loadMenuItems() {
+  try {
+    const data = await db.from('menu_items').select('*').eq('is_available','true').order('category').order('sort_order');
+    allMenuItems = data;
+    renderHomeMenu();
+    renderFullMenu(allMenuItems);
+    renderSelectionMenu(allMenuItems);
+  } catch(e) {
+    console.error(e);
+  }
+}
+
+const EMOJI_MAP = {
+  appetizer: '🥗', main: '🍖', dessert: '🍮', beverage: '🧃', special: '⭐'
+};
+
+function optimizeImg(url, w, q) {
+  if (!url || !url.includes('pexels.com')) return url;
+  const base = url.split('?')[0];
+  return `${base}?w=${w}&q=${q}&fit=crop&f=auto`;
+}
+
+function buildMenuCard(item, showAdd = false) {
+  const spice = item.spice_level > 0 ? `<span class="badge badge-spicy">${'🌶'.repeat(item.spice_level)}</span>` : '';
+  const featured = item.is_featured ? `<span class="badge">Chef's Pick</span>` : '';
+  const addBtn = showAdd
+    ? `<button class="menu-add-btn" onclick="addToCart('${item.id}','${item.name.replace(/'/g,"\\'")}',${item.price})" title="Add to order">+</button>`
+    : `<button class="btn btn-outline" style="padding:8px 16px;font-size:.72rem" onclick="addToResCartAndReserve('${item.id}','${item.name.replace(/'/g,"\\'")}',${item.price})">Add →</button>`;
+  const imgHtml = item.image_url
+    ? `<div class="image-container"><div class="skeleton-loader"></div><img src="${optimizeImg(item.image_url,400,60)}" srcset="${optimizeImg(item.image_url,200,50)} 200w, ${optimizeImg(item.image_url,400,60)} 400w, ${optimizeImg(item.image_url,800,70)} 800w" sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 33vw" alt="${esc(item.name)}" class="menu-image" width="400" height="300" loading="lazy" onload="this.classList.add('loaded');this.previousElementSibling.style.display='none'"></div>`
+    : `<div class="image-container"><div class="skeleton-loader"></div><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:2.8rem;z-index:2">${EMOJI_MAP[item.category] || '🍽️'}</div></div>`;
+  return `
+    <div class="menu-card">
+      ${imgHtml}
+      <div class="menu-card-body">
+        <div class="menu-card-category">${item.category}</div>
+        <div class="menu-card-name">${item.name}</div>
+        ${item.name_ar ? `<div class="menu-card-name-ar">${item.name_ar}</div>` : ''}
+        <div class="menu-card-desc">${item.description || ''}</div>
+        <div class="menu-card-footer">
+          <div class="menu-card-price">EGP ${Number(item.price).toLocaleString()}<span>/ person</span></div>
+          <div style="display:flex;gap:6px;align-items:center">${spice}${featured}${addBtn}</div>
+        </div>
+      </div>
+    </div>`;
+}
+
+function renderHomeMenu() {
+  const featured = allMenuItems.filter(i => i.is_featured).slice(0, 3);
+  const el = document.getElementById('homeMenuGrid');
+  if (el) el.innerHTML = featured.map(i => buildMenuCard(i)).join('');
+}
+
+function renderFullMenu(items) {
+  const el = document.getElementById('menuGrid');
+  if (el) el.innerHTML = items.length ? items.map(i => buildMenuCard(i)).join('') : '<p style="color:var(--muted);grid-column:1/-1;text-align:center;padding:40px">No items found</p>';
+}
+
+function filterMenu(cat, btn) {
+  document.querySelectorAll('#menuFilters .filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderFullMenu(cat === 'all' ? allMenuItems : allMenuItems.filter(i => i.category === cat));
+}
+
+function renderSelectionMenu(items) {
+  const el = document.getElementById('selectionMenuGrid');
+  if (el) el.innerHTML = items.length ? items.map(i => buildMenuCard(i, true)).join('') : '';
+}
+
+function filterSelection(cat, btn) {
+  document.querySelectorAll('#selFilters .filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderSelectionMenu(cat === 'all' ? allMenuItems : allMenuItems.filter(i => i.category === cat));
+}
+
+// ══════════════════════════════════
+// CART
+// ══════════════════════════════════
+function addToCart(id, name, price) {
+  if (cart[id]) { cart[id].qty++; } 
+  else { cart[id] = { name, price: Number(price), qty: 1 }; }
+  renderCart();
+  toast(`${esc(name)} added`, 'success');
+}
+
+function changeQty(id, delta) {
+  if (!cart[id]) return;
+  cart[id].qty += delta;
+  if (cart[id].qty <= 0) delete cart[id];
+  renderCart();
+}
+
+function clearOrder() {
+  cart = {};
+  renderCart();
+}
+
+function renderCart() {
+  const el = document.getElementById('orderItems');
+  const totalRow = document.getElementById('orderTotalRow');
+  const orderBtn = document.getElementById('orderBtn');
+  const keys = Object.keys(cart);
+  if (!keys.length) {
+    el.innerHTML = '<div class="order-empty">No items added yet.<br><span style="opacity:.5">Browse the menu →</span></div>';
+    totalRow.style.display = 'none';
+    orderBtn.disabled = true;
+    return;
+  }
+  let total = 0;
+  el.innerHTML = keys.map(id => {
+    const it = cart[id];
+    total += it.price * it.qty;
+    return `<div class="order-item">
+      <div class="order-item-name">${esc(it.name)}</div>
+      <div class="order-item-qty">
+        <button class="qty-btn" onclick="changeQty('${id}',-1)">−</button>
+        <span class="qty-num">${it.qty}</span>
+        <button class="qty-btn" onclick="changeQty('${id}',1)">+</button>
+      </div>
+      <div class="order-item-price">EGP ${(it.price * it.qty).toLocaleString()}</div>
+    </div>`;
+  }).join('');
+  document.getElementById('orderTotal').textContent = `EGP ${total.toLocaleString()}`;
+  totalRow.style.display = 'flex';
+  orderBtn.disabled = false;
+}
+
+function addToResCartAndReserve(id, name, price) {
+  if (!resCart[id]) resCart[id] = { name, price: Number(price), qty: 0 };
+  resCart[id].qty++;
+  navigate('reserve');
+  currentResStep = 1;
+  resNext(1);
+  toast(`${esc(name)} added — review your order below`, 'success');
+}
+
+async function submitOrder() {
+  // Move cart into reservation pre-order flow
+  // Transfer selection cart into resCart and navigate to reserve
+  const keys = Object.keys(cart);
+  if (!keys.length) return;
+
+  // Copy selection cart → reservation pre-order cart
+  resCart = {};
+  keys.forEach(id => {
+    resCart[id] = { ...cart[id] };
+  });
+
+  // Reset reservation flow to beginning with pre-order pre-filled
+  currentResStep = 1;
+  for (let i = 1; i <= 5; i++) {
+    const panel = document.getElementById('res-step-' + i);
+    const ind   = document.getElementById('step-ind-' + i);
+    if (panel) panel.classList.toggle('active', i === 1);
+    if (ind)   { ind.classList.toggle('active', i === 1); ind.classList.remove('done'); }
+  }
+  document.getElementById('resNext1').disabled = true;
+
+  // Notify user
+  toast(`${keys.length} item${keys.length>1?'s':''} added to your reservation — complete your booking below`, 'success');
+  navigate('reserve');
+}
+
+// ══════════════════════════════════
+// RESERVATION
+// ══════════════════════════════════
+function initReservation() {
+  const nowD = new Date();
+  const today = nowD.getFullYear() + '-' + String(nowD.getMonth()+1).padStart(2,'0') + '-' + String(nowD.getDate()).padStart(2,'0');
+  const inp = document.getElementById('res_date');
+  inp.min = today;
+  inp.value = '';
+  resData.date = '';
+  resData.time = '';
+  document.getElementById('resNext1').disabled = true;
+  document.getElementById('slotsGrid').innerHTML =
+    '<div style="color:var(--muted);font-size:.85rem;grid-column:1/-1">Select a date to see available slots</div>';
+  // Only attach listener once (guard with dataset flag)
+  if (!inp.dataset.listenerAttached) {
+    inp.addEventListener('change', loadSlots);
+    inp.dataset.listenerAttached = 'true';
+  }
+}
+
+async function loadSlots() {
+  const date = document.getElementById('res_date').value;
+  resData.date = date;
+  resData.time = '';
+  document.getElementById('resNext1').disabled = true;
+  const grid = document.getElementById('slotsGrid');
+  grid.innerHTML = '<div class="spinner"></div>';
+  try {
+    const TOTAL_SEATS = 74;
+    const BLOCK_HOURS = 3;
+
+    const [slots, reservations] = await Promise.all([
+      db.from('time_slots').select('*').eq('slot_date', date),
+      db.from('reservations').select('reservation_time,party_size,status')
+        .eq('reservation_date', date)
+        .in('status', ['pending','confirmed','seated'])
+    ]);
+
+    if (!slots.length) {
+      grid.innerHTML = '<p style="color:var(--muted);grid-column:1/-1">No slots available for this date</p>';
+      return;
+    }
+
+    grid.innerHTML = slots.map(s => {
+      const slotTime = s.slot_time.slice(0,5);
+      const [sh, sm] = slotTime.split(':').map(Number);
+      const slotMinutes = sh * 60 + sm;
+      const slotEnd = slotMinutes + BLOCK_HOURS * 60;
+
+      // Count seats blocked by overlapping reservations
+      let blockedSeats = 0;
+      reservations.forEach(r => {
+        if (!r.reservation_time) return;
+        const [rh, rm] = r.reservation_time.slice(0,5).split(':').map(Number);
+        const resStart = rh * 60 + rm;
+        const resEnd = resStart + BLOCK_HOURS * 60;
+        // Overlap: reservation starts before slot ends AND reservation ends after slot starts
+        if (resStart < slotEnd && resEnd > slotMinutes) {
+          blockedSeats += r.party_size || 2;
+        }
+      });
+
+      const avail = Math.max(0, TOTAL_SEATS - blockedSeats);
+      const full = avail <= 0;
+      const pct = Math.round(((TOTAL_SEATS - avail) / TOTAL_SEATS) * 100);
+      const color = pct > 70 ? 'var(--red)' : pct > 40 ? '#e0a868' : 'var(--muted)';
+
+      return `<button class="slot-btn${full ? ' full' : ''}" onclick="selectSlot('${slotTime}',this)" ${full ? 'disabled' : ''}>
+        ${slotTime}
+        <div style="font-size:.65rem;margin-top:3px;color:${full ? 'var(--red)' : 'var(--muted)'}">${full ? 'Full' : avail + ' seats left'}</div>
+      </button>`;
+    }).join('');
+  } catch(e) {
+    grid.innerHTML = `<div style="color:var(--muted)">Could not load slots: ${esc(e.message)}</div>`;
+  }
+}
+
+function selectSlot(time, btn) {
+  document.querySelectorAll('#slotsGrid .slot-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  resData.time = time;
+  document.getElementById('resNext1').disabled = false;
+}
+
+function changeGuests(delta) {
+  resData.guests = Math.max(1, Math.min(20, (resData.guests || 2) + delta));
+  document.getElementById('guestsCount').textContent = resData.guests;
+}
+
+function resNext(step) {
+  document.getElementById('res-step-' + currentResStep).classList.remove('active');
+  document.getElementById('step-ind-' + currentResStep).classList.add('done');
+  currentResStep = step;
+  document.getElementById('res-step-' + step).classList.add('active');
+  document.getElementById('step-ind-' + step).classList.add('active');
+  // Lazy-render menu on step 3
+  if (step === 3 && allMenuItems.length) renderResMenu(allMenuItems);
+  else if (step === 3) loadMenuItems().then(() => renderResMenu(allMenuItems));
+  window.scrollTo(0, 0);
+}
+
+function resBack(step) {
+  document.getElementById('res-step-' + currentResStep).classList.remove('active');
+  document.getElementById('step-ind-' + currentResStep).classList.remove('active');
+  currentResStep = step;
+  document.getElementById('res-step-' + step).classList.add('active');
+}
+
+// ── Pre-order menu (Step 3) ──────────────────────────────
+function filterResMenu(cat, btn) {
+  document.querySelectorAll('#resMenuFilters .filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderResMenu(cat === 'all' ? allMenuItems : allMenuItems.filter(i => i.category === cat));
+}
+
+function renderResMenu(items) {
+  const grid = document.getElementById('resMenuGrid');
+  if (!grid) return;
+  const available = items.filter(i => i.category !== 'special');
+  if (!available.length) { grid.innerHTML = '<p style="color:var(--muted);grid-column:1/-1;text-align:center;padding:20px">No items in this category</p>'; return; }
+  grid.innerHTML = available.map(i => {
+    const qty = resCart[i.id]?.qty || 0;
+    return `<div style="background:var(--charcoal);border:1px solid rgba(184,138,68,${qty>0?'.35':'.1'});border-radius:4px;padding:14px 16px;display:flex;align-items:center;gap:12px;transition:border-color .2s">
+      <div style="flex:1;min-width:0">
+        <div style="font-size:.85rem;color:var(--cream);font-weight:400">${esc(i.name)}</div>
+        <div style="font-size:.72rem;color:var(--muted);margin-top:2px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis">${i.description||''}</div>
+        <div style="font-family:var(--font-display);font-size:.95rem;color:var(--gold);margin-top:4px">EGP ${Number(i.price).toLocaleString()}</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
+        ${qty > 0 ? `<button onclick="resCartChange('${i.id}',-1)" style="width:24px;height:24px;border-radius:50%;border:1px solid rgba(184,138,68,.3);background:transparent;color:var(--cream);cursor:pointer;font-size:.85rem;display:flex;align-items:center;justify-content:center">−</button>
+        <span style="min-width:16px;text-align:center;font-size:.85rem;color:var(--cream)">${qty}</span>` : ''}
+        <button onclick="resCartChange('${i.id}',1,'${i.name.replace(/'/g,"\'")}',${i.price})" style="width:28px;height:28px;border-radius:50%;background:${qty>0?'var(--gold)':'rgba(184,138,68,.12)'};border:1px solid ${qty>0?'var(--gold)':'rgba(184,138,68,.25)'};color:${qty>0?'var(--black)':'var(--gold)'};cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:all .18s">+</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function resCartChange(id, delta, name, price) {
+  const item = allMenuItems.find(i => i.id === id);
+  if (!item && delta > 0) return;
+  const n = name || item?.name;
+  const p = price ?? item?.price;
+  if (!resCart[id] && delta > 0) resCart[id] = { name: n, price: Number(p), qty: 0 };
+  if (!resCart[id]) return;
+  resCart[id].qty += delta;
+  if (resCart[id].qty <= 0) delete resCart[id];
+  updateResCartSummary();
+  renderResMenu(document.querySelector('#resMenuFilters .filter-btn.active')?.onclick
+    ? allMenuItems.filter(i => {
+        const active = document.querySelector('#resMenuFilters .filter-btn.active');
+        const cat = active?.textContent?.trim().toLowerCase();
+        return !cat || cat === 'all' || i.category === cat;
+      })
+    : allMenuItems);
+}
+
+function updateResCartSummary() {
+  const keys = Object.keys(resCart);
+  const summary = document.getElementById('resCartSummary');
+  const itemsEl = document.getElementById('resCartItems');
+  const totalEl = document.getElementById('resCartTotal');
+  if (!keys.length) { if(summary) summary.style.display = 'none'; return; }
+  let total = 0;
+  if (itemsEl) itemsEl.innerHTML = keys.map(id => {
+    const it = resCart[id]; total += it.price * it.qty;
+    return `<div style="display:flex;justify-content:space-between;font-size:.8rem;padding:3px 0;color:var(--warm)">
+      <span>${esc(it.name)} ×${it.qty}</span>
+      <span style="font-family:var(--font-display);color:var(--gold)">EGP ${(it.price*it.qty).toLocaleString()}</span>
+    </div>`;
+  }).join('');
+  if (totalEl) totalEl.textContent = `EGP ${total.toLocaleString()}`;
+  if (summary) summary.style.display = 'block';
+}
+
+async function submitReservation() {
+  const name = document.getElementById('res_name').value.trim();
+  const phone = document.getElementById('res_phone').value.trim();
+  const email = document.getElementById('res_email').value.trim();
+  const special = document.getElementById('res_special').value.trim();
+  const occasion = document.getElementById('res_occasion').value;
+  const msgEl = document.getElementById('resMsg');
+
+  if (!resData.date || !resData.time) {
+    msgEl.innerHTML = '<div class="form-msg error">Please go back and select a date and time slot</div>';
+    return;
+  }
+  if (!name || !phone) {
+    msgEl.innerHTML = '<div class="form-msg error">Please fill in required fields (Name & Phone)</div>';
+    return;
+  }
+  if (!validatePhone(phone)) {
+    msgEl.innerHTML = '<div class="form-msg error">Please enter a valid phone number</div>';
+    return;
+  }
+  if (!validateEmail(email)) {
+    msgEl.innerHTML = '<div class="form-msg error">Please enter a valid email address</div>';
+    return;
+  }
+  if (name.length > 100) {
+    msgEl.innerHTML = '<div class="form-msg error">Name is too long (max 100 characters)</div>';
+    return;
+  }
+  // Client-side rate limit: max 3 reservation attempts per 10 minutes
+  if (!checkClientRateLimit('reservation', 3, 10 * 60 * 1000)) {
+    msgEl.innerHTML = '<div class="form-msg error">Too many attempts. Please wait a few minutes or call us directly.</div>';
+    return;
+  }
+  msgEl.innerHTML = '';
+
+  // Serialize pre-order cart
+  const preOrderItems = Object.entries(resCart).map(([id, it]) => ({
+    menu_item_id: id, name: it.name, price: it.price, qty: it.qty
+  }));
+
+  try {
+    const result = await db.from('reservations').insert({
+      customer_name: name,
+      customer_email: email || null,
+      customer_phone: phone,
+      party_size: resData.guests,
+      reservation_date: resData.date,
+      reservation_time: resData.time,
+      special_requests: special || null,
+      occasion: occasion || null,
+      source: 'website',
+      pre_order_items: preOrderItems.length ? JSON.stringify(preOrderItems) : '[]'
+    });
+    const res = result[0];
+    if (!res) throw new Error('Reservation was not saved. Please try again.');
+    resCart = {};
+    resNext(5);
+    document.getElementById('confirmCode').textContent = res.reservation_code;
+    document.getElementById('confirmDetails').innerHTML = `
+      <div class="confirm-detail"><span class="confirm-detail-label">Name</span><span class="confirm-detail-value">${esc(name)}</span></div>
+      <div class="confirm-detail"><span class="confirm-detail-label">Date</span><span class="confirm-detail-value">${resData.date}</span></div>
+      <div class="confirm-detail"><span class="confirm-detail-label">Time</span><span class="confirm-detail-value">${resData.time}</span></div>
+      <div class="confirm-detail"><span class="confirm-detail-label">Guests</span><span class="confirm-detail-value">${resData.guests}</span></div>
+      <div class="confirm-detail"><span class="confirm-detail-label">Phone</span><span class="confirm-detail-value">${esc(phone)}</span></div>
+      <div style="margin-top:20px;padding:14px;background:rgba(184,138,68,.06);border:1px solid rgba(184,138,68,.15);border-radius:4px;text-align:center">
+        <p style="font-size:.75rem;color:var(--muted);margin-bottom:10px">Once you are seated, use this link to order and call for service:</p>
+        <a href="guest.html" onclick="sessionStorage.setItem('shalabya_guest_code','${res.reservation_code}')" style="display:inline-block;background:var(--gold);color:var(--black);padding:10px 24px;border-radius:2px;font-size:.78rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;text-decoration:none">Open My Table Portal</a>
+      </div>
+    `;
+  } catch(e) {
+    msgEl.innerHTML = `<div class="form-msg error">${esc(e.message)}</div>`;
+  }
+}
+
+// ══════════════════════════════════
+// CONTACT FORM
+// ══════════════════════════════════
+async function submitContact(e) {
+  e.preventDefault();
+  const btn = document.getElementById('contactBtn');
+  const msg = document.getElementById('contactMsg');
+  btn.textContent = 'Sending...'; btn.disabled = true;
+
+  // Rate limit: max 3 contact messages per 10 min
+  if (!checkClientRateLimit('contact', 3, 10 * 60 * 1000)) {
+    document.getElementById('contactMsg').innerHTML = '<div class="form-msg error">Too many messages sent. Please wait a few minutes.</div>';
+    btn.textContent = 'Send Message'; btn.disabled = false;
+    return;
+  }
+
+  const cName    = sanitizeInput(document.getElementById('c_name').value, 100);
+  const cEmail   = document.getElementById('c_email').value.trim();
+  const cPhone   = sanitizeInput(document.getElementById('c_phone').value, 30);
+  const cSubject = sanitizeInput(document.getElementById('c_subject').value, 200);
+  const cMessage = sanitizeInput(document.getElementById('c_message').value, 2000);
+
+  if (!validateEmail(cEmail)) {
+    document.getElementById('contactMsg').innerHTML = '<div class="form-msg error">Please enter a valid email address</div>';
+    btn.textContent = 'Send Message'; btn.disabled = false;
+    return;
+  }
+
+  try {
+    await db.from('contact_messages').insert({
+      name: cName, email: cEmail,
+      phone: cPhone || null,
+      subject: cSubject || null,
+      message: cMessage
+    });
+    msg.innerHTML = '<div class="form-msg success">Thank you! We\'ll be in touch within 24 hours.</div>';
+    e.target.reset();
+  } catch(er) {
+    msg.innerHTML = `<div class="form-msg error">${esc(er.message)}</div>`;
+  }
+  btn.textContent = 'Send Message'; btn.disabled = false;
+}
+
+// ══════════════════════════════════
+// TRACKING
+// ══════════════════════════════════
+async function trackReservation() {
+  const val = document.getElementById('trackInput').value.trim();
+  if (!val) return;
+
+  // Client-side rate limit: max 10 lookups per 15 minutes
+  if (!checkClientRateLimit('tracker', 10, 15 * 60 * 1000)) {
+    toast('Too many lookup attempts. Please wait a few minutes.', 'error');
+    return;
+  }
+
+  // Validate input format before hitting DB
+  const isCode  = /^[A-F0-9]{6,12}$/i.test(val);
+  const isPhone = /^[+\d\s\-]{7,20}$/.test(val);
+  if (!isCode && !isPhone) {
+    toast('Please enter a valid reservation code or phone number', 'error');
+    return;
+  }
+
+  const btn = document.querySelector('.tracking-form .btn');
+  const origText = btn.textContent;
+  btn.textContent = 'Looking up…'; btn.disabled = true;
+
+  try {
+    // Try by code first, then phone
+    let results = await db.from('reservations').select('*').eq('reservation_code', val.toUpperCase());
+    if (!results.length) {
+      results = await db.from('reservations').select('*').eq('customer_phone', val);
+    }
+    if (!results.length) {
+      toast('No reservation found. Check your code or phone number.', 'error');
+      btn.textContent = origText; btn.disabled = false;
+      return;
+    }
+
+    // If multiple results (phone lookup), pick most recent active one
+    const active = results.find(r => ['seated','confirmed','pending'].includes(r.status)) || results[0];
+    const r = active;
+
+    // Seated guests → go straight to the guest portal
+    if (r.status === 'seated') {
+      sessionStorage.setItem('shalabya_guest', JSON.stringify(r));
+      // Store in sessionStorage only — avoid exposing code in URL/Referrer headers
+      sessionStorage.setItem('shalabya_guest', JSON.stringify(r));
+      sessionStorage.setItem('shalabya_guest_code', r.reservation_code);
+      window.location.href = 'guest.html';
+      return;
+    }
+
+    // Confirmed / pending → show a status card inline instead of just a toast
+    if (r.status === 'confirmed' || r.status === 'pending') {
+      toast(`Hi ${r.customer_name.split(' ')[0]}! Your reservation is ${r.status.toUpperCase()} for ${r.reservation_date} at ${r.reservation_time?.slice(0,5)}. We'll seat you shortly.`, 'success');
+      btn.textContent = origText; btn.disabled = false;
+      return;
+    }
+
+    // Cancelled / no-show / completed
+    if (r.status === 'cancelled') {
+      toast('This reservation has been cancelled. Please call us to rebook.', 'error');
+    } else if (r.status === 'completed') {
+      toast(`Thank you for dining with us, ${r.customer_name.split(' ')[0]}! We hope to see you again.`, 'success');
+    } else {
+      toast(`Reservation found — Status: ${r.status}`, '');
+    }
+
+  } catch(e) {
+    toast(e.message, 'error');
+  }
+
+  btn.textContent = origText; btn.disabled = false;
+}
+
+// ══════════════════════════════════
+// INIT
+// ══════════════════════════════════
+document.addEventListener('DOMContentLoaded', () => {
+  // Lock scroll during loading
+  document.body.style.overflow = 'hidden';
+
+  // Dismiss loading screen after 2s minimum, or when hero video plays
+  let dismissed = false;
+  function dismissLoading() {
+    if (dismissed) return;
+    dismissed = true;
+    const ls = document.getElementById('loadingScreen');
+    if (ls) ls.classList.add('hide');
+    document.body.style.overflow = '';
+    setTimeout(() => { if (ls) ls.remove(); }, 700);
+  }
+  setTimeout(dismissLoading, 2000);
+
+  loadMenuItems();
+  const nd = new Date();
+  const today = nd.getFullYear() + '-' + String(nd.getMonth()+1).padStart(2,'0') + '-' + String(nd.getDate()).padStart(2,'0');
+  const inp = document.getElementById('res_date');
+  if (inp) inp.min = today;
+  // Nav scroll effect
+  window.addEventListener('scroll', () => {
+    document.getElementById('mainNav')?.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Hero video crossfade: video1 plays, fades to video2, then loops back to video1
+  const v1 = document.getElementById('heroVideo1');
+  const v2 = document.getElementById('heroVideo2');
+  const poster = document.getElementById('heroPoster');
+  if (v1 && v2) {
+    function playV1() {
+      v1.currentTime = 0;
+      v1.style.opacity = '1';
+      v1.style.zIndex = '1';
+      v2.style.opacity = '0';
+      v2.style.zIndex = '0';
+      v1.play().catch(()=>{});
+    }
+    function playV2() {
+      v2.currentTime = 0;
+      v2.style.opacity = '1';
+      v2.style.zIndex = '1';
+      v1.style.opacity = '0';
+      v1.style.zIndex = '0';
+      v2.play().catch(()=>{});
+    }
+    v1.addEventListener('canplay', () => {
+      v1.play().catch(()=>{});
+      if (poster) poster.style.opacity = '0';
+      dismissLoading();
+    }, { once: true });
+    v1.addEventListener('ended', () => {
+      playV2();
+    });
+    v2.addEventListener('ended', () => {
+      playV1();
+    });
+    v2.load();
+  }
+});
+</script>
+<script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+<script>
+const lenis = new Lenis({
+  duration: 1.2,
+  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+  smoothWheel: true,
+});
+function raf(time) {
+  lenis.raf(time);
+  requestAnimationFrame(raf);
+}
+requestAnimationFrame(raf);
+</script>
+</body>
+</html>

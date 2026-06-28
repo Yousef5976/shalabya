@@ -1,0 +1,2094 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Shalabya — Host Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400;500&family=Noto+Kufi+Arabic:wght@300;400&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#1E1B18;--bg2:#252220;--bg3:#2B2B2B;--card:#2B2B2B;--card2:#302C28;
+  --charcoal:#1E1B18;--dark:#1E1B18;
+  --gold:#D45D41;--gold2:#B88A44;--gold-light:#D45D41;
+  --gold-grad:linear-gradient(135deg,#D45D41 0%,#B88A44 100%);
+  --cream:#E8E4E0;--white:#E8E4E0;--warm:#C8C8C8;--muted:#8A8580;--dim:#555;
+  --border:rgba(200,200,200,.1);--border2:rgba(200,200,200,.2);
+  --font-display:'Cormorant Garamond',serif;--font-body:'Jost',sans-serif;--font-ar:'Noto Kufi Arabic',serif;
+  --green:#6fcf97;--red:#D45D41;
+  --black:#1E1B18;
+}
+html,body{height:100%;font-family:var(--font-body);color:var(--cream);font-weight:400}
+body{
+  background:url('https://res.cloudinary.com/dkjnyxa4k/image/upload/f_auto,q_auto,w_1920/photo-1553361371-9b22f78e8b1d_cxifiz.jpg') center/cover no-repeat;
+  position:relative;
+}
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;
+  background:linear-gradient(135deg,rgba(30,27,24,.88) 0%,rgba(37,34,32,.82) 50%,rgba(43,43,43,.88) 100%);
+  pointer-events:none;
+}
+body>*{position:relative;z-index:1}
+*::-webkit-scrollbar{width:3px}*::-webkit-scrollbar-track{background:var(--bg)}*::-webkit-scrollbar-thumb{background:var(--dim)}
+button{cursor:pointer;font-family:var(--font-body)}
+input,select,textarea{font-family:var(--font-body)}
+
+/* ── PAGE SYSTEM ── */
+.page{display:none}.page.active{display:block}
+
+/* ── LOGIN ── */
+.login-wrap{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  background:var(--bg);
+}
+.login-card{
+  background:rgba(43,43,43,.92);
+  border:1px solid var(--border2);
+  border-radius:14px;padding:60px 50px;width:100%;max-width:420px;
+  box-shadow:0 32px 80px rgba(0,0,0,.15);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+}
+.login-logo{
+  font-family:var(--font-ar);font-size:2.2rem;color:var(--gold);
+  text-align:center;margin-bottom:6px;font-weight:400;
+}
+.login-sub{
+  text-align:center;font-size:.6rem;letter-spacing:.35em;
+  text-transform:uppercase;color:rgba(184,138,68,.45);margin-bottom:40px;font-weight:300;
+}
+.login-error{
+  background:rgba(192,57,43,.1);border:1px solid rgba(192,57,43,.25);
+  color:#eb8b8b;padding:11px 14px;border-radius:4px;
+  font-size:.8rem;margin-bottom:14px;display:none;
+}
+.form-input{
+  width:100%;background:#2B2B2B;border:1px solid var(--gold2);
+  padding:12px 16px;color:var(--cream);font-size:.88rem;
+  outline:none;transition:border-color .2s;border-radius:4px;margin-bottom:12px;
+}
+.form-input:focus{border-color:var(--gold)}
+.form-input::placeholder{color:var(--gold);opacity:.8}
+.btn-signin{
+  width:100%;padding:16px;background:var(--gold-grad);color:#FFFFFF;
+  font-size:.62rem;letter-spacing:.35em;text-transform:uppercase;font-weight:500;
+  border:none;border-radius:4px;margin-top:4px;transition:opacity .2s;
+}
+.btn-signin:hover{opacity:.88}
+.login-hint{text-align:center;margin-top:20px;font-size:.7rem;color:var(--muted)}
+
+/* ── HOST PORTAL LAYOUT ── */
+#page-host{display:none;flex-direction:column;height:100vh}
+#page-host.active{display:flex}
+
+/* ── TOP BAR ── */
+.host-topbar{
+  display:flex;align-items:center;
+  padding:0 28px;height:56px;
+  background:rgba(30,27,24,.85);
+  border-bottom:1px solid rgba(184,138,68,.12);
+  flex-shrink:0;gap:0;
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+}
+.topbar-brand{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;line-height:1;margin-right:32px;flex-shrink:0;
+}
+.topbar-brand-ar{font-family:var(--font-ar);font-size:1.2rem;color:var(--gold);line-height:1.2;margin-bottom:0}
+.topbar-brand-en{font-size:.48rem;letter-spacing:1px;text-transform:uppercase;color:rgba(184,138,68,.7);line-height:1;opacity:.8}
+.topbar-tabs{display:flex;align-items:stretch;flex:1;height:100%}
+.tab-btn{
+  display:flex;align-items:center;gap:7px;
+  padding:0 20px;height:100%;
+  background:transparent;border:none;border-bottom:2px solid transparent;
+  color:#8A8580;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;
+  font-weight:400;transition:all .2s;white-space:nowrap;
+}
+.tab-btn:hover{color:var(--cream)}
+.tab-btn.active{color:var(--gold);border-bottom-color:var(--gold);font-weight:600;background-color:rgba(197,75,60,.05)}
+.tab-btn svg,.tab-btn .tab-icon{opacity:.7;font-size:.85rem}
+.tab-btn.active .tab-icon{opacity:1}
+.tab-badge{
+  background:var(--gold-grad);color:#FFFFFF;border-radius:10px;
+  padding:1px 6px;font-size:.55rem;font-weight:600;display:none;
+}
+.tab-badge.red{background:rgba(239,154,154,.9);color:#1a0a0a}
+.topbar-right{
+  display:flex;align-items:center;gap:12px;margin-left:auto;padding-left:24px;
+  border-left:1px solid var(--border);
+}
+.topbar-icon-btn{
+  width:34px;height:34px;border-radius:50%;border:1px solid var(--border);
+  background:transparent;color:var(--muted);display:flex;align-items:center;justify-content:center;
+  font-size:.85rem;transition:all .2s;
+}
+.topbar-icon-btn:hover{border-color:var(--border2);color:var(--warm)}
+.live-badge{
+  display:flex;align-items:center;gap:5px;
+  font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);
+}
+.live-dot{width:6px;height:6px;border-radius:50%;background:#4caf50;animation:livePulse 2s ease-in-out infinite}
+@keyframes livePulse{0%,100%{opacity:.6}50%{opacity:1}}
+
+/* ── PANELS ── */
+.host-body{flex:1;display:flex;overflow:hidden}
+.host-panel{display:none;flex:1;overflow-y:auto;padding:28px 32px;background:transparent}
+.host-panel.active{display:block}
+.scroll-area{max-width:1100px;margin:0 auto}
+
+/* ── QUEUE / FILTER PILLS ── */
+.filter-row{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.pill{
+  padding:7px 18px;border:1.2px solid rgba(184,138,68,.4);
+  background:transparent;color:rgba(200,200,200,.6);
+  font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;
+  font-weight:400;border-radius:3px;transition:all .2s;
+}
+.pill:hover{color:var(--cream);border-color:var(--gold)}
+.pill.active{background:var(--gold);color:#FFFFFF;border-color:var(--gold);font-weight:500}
+.pill-walk{
+  padding:7px 18px;border:1px solid rgba(184,138,68,.35);
+  background:transparent;color:var(--gold);
+  font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;
+  border-radius:3px;transition:all .2s;margin-left:auto;
+}
+.pill-walk:hover{background:rgba(184,138,68,.08)}
+
+/* ── QUEUE CARDS ── */
+.queue-list{display:flex;flex-direction:column;gap:2px;margin-top:20px}
+.queue-card{
+  display:flex;align-items:center;gap:16px;
+  padding:18px 20px;
+  background:rgba(43,43,43,.65);
+  border:1px solid rgba(184,138,68,.08);
+  border-left:3px solid transparent;
+  transition:border-color .2s;
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+}
+.queue-card:hover{border-color:var(--border)}
+.queue-card.priority{border-left-color:var(--gold)}
+.queue-card.urgent{border-left-color:var(--red)}
+.queue-info{flex:1;min-width:0}
+.queue-name{font-size:.9rem;color:var(--cream);font-weight:400;margin-bottom:3px}
+.queue-meta{font-size:.72rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.queue-meta span{color:var(--warm)}
+.queue-actions{display:flex;gap:6px;flex-shrink:0;flex-wrap:wrap}
+
+/* ── STATUS BADGES ── */
+.status-badge{
+  padding:4px 10px;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;
+  font-weight:400;border-radius:2px;
+}
+.s-pending  {background:rgba(229,169,61,.15);color:var(--gold2);border:1px solid rgba(229,169,61,.3)}
+.s-confirmed{background:rgba(144,202,249,.15);color:#5a9fd4;border:1px solid rgba(144,202,249,.3)}
+.s-seated   {background:rgba(59,91,67,.15);color:#6fcf97;border:1px solid rgba(59,91,67,.3)}
+.s-completed{background:rgba(200,200,200,.08);color:var(--cream);border:1px solid var(--border)}
+.s-noshow   {background:rgba(197,75,60,.1);color:#D45D41;border:1px solid rgba(197,75,60,.2)}
+
+/* ── ACTION BUTTONS ── */
+.btn-action{
+  padding:7px 14px;border-radius:2px;font-size:.62rem;
+  letter-spacing:.12em;text-transform:uppercase;font-weight:400;border:none;
+  transition:opacity .2s;
+}
+.btn-gold{background:var(--gold-grad);color:#FFFFFF}
+.btn-green{background:rgba(76,175,80,.15);color:#81c784;border:1px solid rgba(76,175,80,.25)}
+.btn-ghost{appearance:none;-webkit-appearance:none;background:rgba(184,138,68,.1);border:1px solid var(--border2);color:var(--muted);padding:5px 15px;border-radius:4px;display:inline-flex;align-items:center;justify-content:center;gap:6px;font-family:var(--font-body);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;transition:opacity .2s,background .2s}
+.btn-gold:hover,.btn-green:hover,.btn-ghost:hover{opacity:.8}
+
+/* ── CUSTOM TABLE SELECT ── */
+.table-select{position:relative;width:200px;font-family:var(--font-body)}
+.table-select-trigger{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;padding:9px 14px;
+  background:#252220;border:1px solid var(--border2);border-radius:4px;
+  color:var(--cream);font-size:.78rem;letter-spacing:.04em;
+  cursor:pointer;user-select:none;text-align:center;
+  transition:border-color .2s,background .2s;
+}
+.table-select-trigger:hover{background:#222;border-color:var(--gold)}
+.table-select-trigger.open{border-color:var(--gold)}
+.table-select-label{flex:1;text-align:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.table-select-arrow{width:10px;height:10px;flex-shrink:0;transition:transform .25s;color:var(--border2)}
+.table-select-trigger.open .table-select-arrow{transform:rotate(180deg)}
+.table-select-menu{
+  position:absolute;top:calc(100% + 4px);left:0;right:0;z-index:100;
+  background:#252220;border:1px solid var(--border2);border-radius:4px;
+  max-height:240px;overflow-y:auto;
+  display:none;
+  box-shadow:0 8px 24px rgba(0,0,0,.5);
+}
+.table-select-menu.open{display:block}
+.table-select-option{
+  padding:10px 14px;color:var(--cream);font-size:.78rem;text-align:center;
+  cursor:pointer;transition:background .15s,color .15s;
+  border-bottom:1px solid rgba(184,138,68,.08);
+}
+.table-select-option:last-child{border-bottom:none}
+.table-select-option:hover{background:rgba(184,138,68,.15);color:var(--gold)}
+.table-select-option.selected{background:rgba(184,138,68,.1);color:var(--gold)}
+
+/* ── EMPTY STATE ── */
+.empty-state{
+  text-align:center;padding:80px 20px;
+  color:var(--muted);
+  font-size:.82rem;letter-spacing:.1em;
+  display:flex;flex-direction:column;align-items:center;
+}
+.empty-state div,.empty-state .empty-icon{color:var(--muted);opacity:1;visibility:visible}
+.empty-icon{font-size:2rem;margin-bottom:12px;opacity:.3}
+
+/* ── STATS ROW ── */
+.stats-row{display:flex;gap:2px;margin-bottom:20px}
+.stat-box{
+  flex:1;padding:20px;text-align:center;
+  background:rgba(43,43,43,.65);
+  border:1px solid rgba(184,138,68,.1);
+  backdrop-filter:blur(10px);
+}
+.stat-num{
+  font-family:var(--font-display);font-size:2rem;
+  color:var(--gold);font-weight:300;line-height:1;margin-bottom:4px;
+}
+.stat-label{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+
+/* ── FLOOR MAP ── */
+.floor-wrap{display:grid;grid-template-columns:200px 1fr;gap:0;height:calc(100vh - 56px - 56px);border:1px solid var(--border)}
+.floor-sidebar{background:rgba(30,27,24,.85);border-right:1px solid var(--border);overflow-y:auto;padding:16px 0;backdrop-filter:blur(12px)}
+.floor-sidebar-title{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);padding:0 16px 12px}
+.floor-map-area{position:relative;background:rgba(30,27,24,.5);flex:1;backdrop-filter:blur(2px);
+  height:auto !important;min-height:100%;overflow:visible !important}
+.floor-map-canvas{position:relative;width:800px;height:600px}
+
+/* ── TABLE NODES ── */
+.table-node{
+  position:absolute;cursor:grab;user-select:none;
+  transition:box-shadow .2s;
+}
+.table-node:hover{z-index:10}
+.table-node.dragging{cursor:grabbing;z-index:100;opacity:.85;filter:drop-shadow(0 8px 24px rgba(184,138,68,.3));transition:none}
+.floor-map-area.drag-active .table-node:not(.dragging){pointer-events:none}
+.table-node-inner{
+  width:64px;height:64px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:2px;
+  border:1px solid rgba(184,138,68,.25);background:rgba(184,138,68,.06);
+  transition:all .2s;
+}
+.table-node:hover .table-node-inner{border-color:rgba(184,138,68,.5);background:rgba(184,138,68,.1)}
+.table-node.tn-occupied .table-node-inner{border-color:rgba(239,154,154,.4);background:rgba(239,154,154,.06)}
+.table-node.tn-reserved .table-node-inner{border-color:rgba(184,138,68,.5);background:rgba(184,138,68,.1)}
+.table-node.tn-cleaning .table-node-inner{border-color:rgba(144,202,249,.3);background:rgba(144,202,249,.04)}
+.table-node-num{font-family:var(--font-display);font-size:1.2rem;color:var(--gold);font-weight:300;line-height:1}
+.table-node-cap{font-size:.55rem;letter-spacing:.1em;color:var(--muted)}
+.table-node-status{font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.table-detail-panel{
+  position:absolute;right:16px;top:16px;width:220px;
+  background:rgba(43,43,43,.92);border:1px solid var(--border2);
+  padding:20px;z-index:50;backdrop-filter:blur(8px);display:none;
+}
+.drag-hint{
+  position:absolute;bottom:12px;right:16px;
+  font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(184,138,68,.2);pointer-events:none;
+}
+
+/* ── CALLS ── */
+.calls-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px}
+
+/* ── ORDERS ── */
+.order-card{
+  padding:20px;
+  background:rgba(43,43,43,.65);
+  border:1px solid rgba(184,138,68,.08);
+  border-left:3px solid transparent;margin-bottom:2px;transition:.2s;
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+}
+.order-card.new{border-left-color:var(--gold)}
+
+/* ── TABLE SERVICE ── */
+.service-layout{display:grid;grid-template-columns:280px 1fr;gap:0;min-height:500px}
+.service-sidebar{background:var(--card);border-right:1px solid var(--border);padding:20px}
+.menu-section-title{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);padding:12px 0 8px;border-bottom:1px solid var(--border);margin-bottom:8px}
+
+/* ── MODAL ── */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:800;
+  display:none;align-items:center;justify-content:center;
+  backdrop-filter:blur(4px);
+}
+.modal-overlay.open{display:flex}
+.modal-box{
+  background:rgba(43,43,43,.85);
+  border:1px solid rgba(184,138,68,.2);
+  border-radius:8px;padding:36px;width:100%;max-width:480px;
+  max-height:90vh;overflow-y:auto;
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+}
+.modal-title{
+  font-family:var(--font-display);font-size:1.4rem;
+  color:var(--gold2);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:24px;
+}
+.form-group{margin-bottom:14px}
+.form-label{display:block;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.form-select,.form-input-sm{
+  width:100%;background:#2B2B2B;border:1px solid var(--border2);
+  padding:10px 14px;color:var(--cream);font-size:.85rem;outline:none;border-radius:3px;
+  font-family:var(--font-body);
+}
+.form-select:focus,.form-input-sm:focus{border-color:var(--gold)}
+.modal-footer{display:flex;gap:8px;margin-top:24px;justify-content:flex-end;padding:16px 18px}
+
+/* ── TOAST ── */
+/* (legacy dead toast rule removed) */
+
+/* ── TOAST (fix id mismatch: JS uses #toast) ── */
+.toast{
+  position:fixed;bottom:28px;right:28px;z-index:9999;
+  padding:13px 20px;border-radius:6px;font-size:.8rem;font-weight:300;
+  transform:translateY(16px);opacity:0;transition:.25s;pointer-events:none;max-width:300px;
+  background:rgba(43,43,43,.92);border:1px solid var(--border2);color:var(--cream);
+  backdrop-filter:blur(12px);
+}
+.toast.show{transform:none;opacity:1}
+.toast.success{background:rgba(76,175,80,.15);border-color:rgba(76,175,80,.3);color:#81c784}
+.toast.error{background:rgba(192,57,43,.15);border-color:rgba(192,57,43,.3);color:#eb8b8b}
+.spinner{width:26px;height:26px;border:2px solid rgba(184,138,68,.15);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;margin:30px auto}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── HOST CONTENT WRAPPER ── */
+.host-content{flex:1;overflow:hidden;display:flex}
+.host-content .host-panel{flex:1}
+
+/* ── BTN (generic, used standalone and with btn-primary) ── */
+.btn{padding:9px 18px;border:none;border-radius:3px;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;font-weight:400;cursor:pointer;font-family:var(--font-body);transition:opacity .2s}
+.btn-primary{background:var(--gold-grad);color:#FFFFFF}
+.btn-primary:hover{opacity:.88}
+.btn:disabled{opacity:.3;cursor:not-allowed}
+
+/* ── QUEUE HEADER / STATS ── */
+.queue-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:12px;position:sticky;top:0;z-index:10;background:rgba(30,27,24,.95);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:20px 24px;border-bottom:1px solid var(--border);border-radius:12px}
+.queue-stats{display:flex;gap:8px;background:rgba(255,255,255,.05);padding:4px;border-radius:8px;border:1px solid rgba(255,255,255,.1)}
+.q-stat{padding:10px 20px;background:rgba(43,43,43,.6);border:1px solid var(--border);text-align:center;min-width:70px;backdrop-filter:blur(8px)}
+.q-stat-num{font-family:var(--font-display);font-size:1.5rem;color:var(--gold);font-weight:300;line-height:1}
+.q-stat-label{font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-top:2px}
+.queue-num{
+  width:26px;height:26px;border-radius:50%;
+  background:rgba(184,138,68,.1);border:1px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.7rem;color:var(--gold);flex-shrink:0;
+}
+.queue-time{font-size:.68rem;color:var(--muted);text-align:right;flex-shrink:0}
+.queue-time strong{color:var(--gold);font-weight:500}
+
+/* ── FLOOR LAYOUT (actual structure) ── */
+.floor-layout{display:grid;grid-template-columns:220px 1fr;gap:0;height:calc(100vh - 56px - 49px);border:1px solid var(--border)}
+.floor-sidebar-head{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);padding:16px 16px 10px}
+.floor-filters{display:flex;flex-wrap:wrap;gap:5px;padding:0 16px 14px;border-bottom:1px solid var(--border);margin-bottom:8px}
+.floor-filter-btn{
+  padding:5px 12px;background:transparent;border:1px solid var(--border2);
+  color:var(--muted);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;
+  border-radius:2px;transition:.2s;font-family:var(--font-body);
+}
+.floor-filter-btn:hover{color:var(--warm)}
+.floor-filter-btn.active{background:var(--gold-grad);color:#FFFFFF;border-color:transparent;font-weight:500}
+.floor-table-list{display:flex;flex-direction:column;gap:2px;padding:0 8px;overflow-y:auto;flex:1}
+.floor-table-item{
+  display:flex;align-items:center;gap:10px;padding:9px 10px;
+  border-radius:4px;cursor:pointer;transition:.15s;
+}
+.floor-table-item:hover{background:rgba(184,138,68,.06)}
+.floor-table-num{
+  width:26px;height:26px;border-radius:6px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.7rem;font-weight:500;flex-shrink:0;
+  background:rgba(184,138,68,.1);border:1px solid currentColor;
+}
+.floor-table-info{flex:1;min-width:0}
+.floor-table-name{font-size:.74rem;color:var(--warm)}
+.floor-table-meta{font-size:.62rem;color:var(--muted)}
+.floor-section-label{font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(184,138,68,.3);padding:10px 16px 4px}
+.floor-map{position:relative;overflow:auto;background:rgba(30,27,24,.5);flex:1;backdrop-filter:blur(2px)}
+
+/* ── TABLE DETAIL PANEL (actual class: .table-detail) ── */
+.table-detail{
+  position:absolute;right:16px;top:16px;width:230px;
+  background:rgba(43,43,43,.92);border:1px solid var(--border2);
+  padding:0;z-index:50;backdrop-filter:blur(12px);display:none;border-radius:6px;
+  overflow:hidden;
+}
+.table-detail.open{display:block}
+.td-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--border)}
+.td-title{font-family:var(--font-display);font-size:1.05rem;color:var(--cream);font-weight:400}
+.td-close{background:none;border:none;color:var(--muted);font-size:1.2rem;cursor:pointer;line-height:1}
+.td-close:hover{color:var(--warm)}
+.td-body{padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.td-row{display:flex;justify-content:space-between;font-size:.78rem}
+.td-label{color:var(--muted)}
+.td-value{color:var(--warm);font-weight:400}
+.td-actions{padding:0 16px 16px;display:flex;flex-direction:column;gap:6px}
+
+/* ── SERVICE TAB ── */
+.service-layout{display:grid;grid-template-columns:1fr 320px;gap:0;height:calc(100vh - 56px - 49px)}
+.service-main{padding:20px;overflow-y:auto}
+.service-sidebar{background:rgba(43,43,43,.6);border-left:1px solid var(--border);padding:20px;display:flex;flex-direction:column;overflow-y:auto;backdrop-filter:blur(10px)}
+.cat-section{margin-bottom:20px}
+.cat-title{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);padding-bottom:8px;border-bottom:1px solid var(--border);margin-bottom:10px}
+.service-item{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:10px 12px;border-radius:4px;cursor:pointer;transition:.15s;
+  margin-bottom:2px;
+}
+.service-item:hover{background:rgba(184,138,68,.08)}
+.service-item-name{font-size:.82rem;color:var(--warm)}
+.service-item-price{font-family:var(--font-display);font-size:.88rem;color:var(--gold)}
+
+/* ── ORDER CART (service sidebar) ── */
+.order-section-title{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin:14px 0 8px;padding-top:14px;border-top:1px solid var(--border)}
+.order-line{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid rgba(184,138,68,.06)}
+.order-line-name{flex:1;font-size:.78rem;color:var(--warm);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.order-line-price{font-family:var(--font-display);font-size:.85rem;color:var(--gold);flex-shrink:0}
+.qty-ctrl{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.qty-btn{width:22px;height:22px;border-radius:50%;border:1px solid var(--border2);background:transparent;color:var(--gold);font-size:.85rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.15s}
+.qty-btn:hover{background:rgba(184,138,68,.12)}
+.order-total-line{display:flex;justify-content:space-between;font-size:.8rem;color:var(--muted);padding:3px 0}
+.order-ref-input{
+  width:100%;background:rgba(0,0,0,.3);border:1px solid var(--border2);
+  padding:9px 12px;color:var(--cream);font-size:.8rem;outline:none;
+  border-radius:3px;margin:10px 0;font-family:var(--font-body);
+}
+.order-ref-input:focus{border-color:var(--gold)}
+.order-ref-input::placeholder{color:var(--muted)}
+
+/* ── MODAL (host-specific structure: .modal not .modal-box) ── */
+.modal{
+  background:rgba(43,43,43,.9);border:1px solid var(--border2);
+  border-radius:8px;width:100%;max-width:460px;
+  max-height:90vh;overflow-y:auto;backdrop-filter:blur(24px);
+}
+.modal-head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--border);gap:10px}
+.modal-head span{font-family:var(--font-display);font-size:1.2rem;color:var(--gold2);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.modal-close{background:none;border:none;color:var(--muted);font-size:1.3rem;cursor:pointer;line-height:1}
+.modal-close:hover{color:var(--warm)}
+.modal-body{padding:20px 24px}
+/* ══════════════════════════════════════════════════════
+   COMPREHENSIVE MOBILE FIXES
+   ══════════════════════════════════════════════════════ */
+html{overflow-x:hidden}
+body{overflow-x:hidden}
+
+@media(max-width:860px){
+  /* Topbar — shrink padding, allow tabs to scroll horizontally */
+  .host-topbar{padding:0 12px;gap:0}
+  .topbar-brand{margin-right:14px}
+  .topbar-brand-en{display:none}
+  .topbar-tabs{
+    overflow-x:auto;flex:1;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+  }
+  .topbar-tabs::-webkit-scrollbar{display:none}
+  .tab-btn{flex-shrink:0;padding:0 12px;font-size:.62rem}
+  .topbar-right{padding-left:10px;gap:6px}
+  .live-badge span{display:none}
+
+  /* Floor plan: stack sidebar above map instead of side-by-side */
+  .floor-layout{
+    grid-template-columns:1fr;grid-template-rows:auto 1fr;
+    height:calc(100vh - 56px - 49px);
+  }
+  .floor-sidebar{
+    border-right:none;border-bottom:1px solid var(--border);
+    max-height:180px;padding:10px 0;
+  }
+  .floor-table-list{flex-direction:row;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:6px}
+  .floor-table-item{flex-shrink:0;min-width:140px}
+  .floor-map{min-height:280px}
+
+  /* Table service: stack cart below menu instead of side-by-side */
+  .service-layout{
+    grid-template-columns:1fr;grid-template-rows:auto auto;
+    height:auto;min-height:calc(100vh - 56px - 49px);
+  }
+  .service-sidebar{
+    border-left:none;border-top:1px solid var(--border);
+    max-height:320px;
+  }
+
+  /* Queue header wraps cleaner */
+  .queue-header{padding:10px 0}
+  .q-stat{padding:8px 12px;min-width:56px}
+  .q-stat-num{font-size:1.2rem}
+
+  /* Modals */
+  .modal-box{padding:22px 18px;max-width:92vw}
+  .modal-head{padding:16px 18px}
+  .modal-body{padding:16px 18px}
+
+  /* Host panels — tighter side padding on mobile */
+  .host-panel{padding:18px 14px}
+
+  /* Filter row scrolls instead of wrapping into many rows */
+  .filter-row{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px}
+  .filter-row::-webkit-scrollbar{display:none}
+  .pill,.pill-walk{flex-shrink:0;white-space:nowrap}
+
+  .floor-filters{overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .floor-filters::-webkit-scrollbar{display:none}
+  .floor-filter-btn{flex-shrink:0;white-space:nowrap}
+}
+
+@media(max-width:480px){
+  .topbar-brand-ar{font-size:1.05rem}
+  .tab-btn{padding:0 9px;font-size:.58rem}
+  .tab-icon{font-size:.8rem}
+  .queue-card{flex-direction:column;align-items:flex-start;gap:10px}
+  .queue-actions{width:100%;justify-content:flex-start}
+  .stat-box{padding:14px 8px}
+  .stat-num{font-size:1.5rem}
+}
+
+/* Service menu thumbnail loading */
+.service-item img{opacity:0;transition:opacity .4s ease;border-radius:4px}
+.service-item img.loaded{opacity:1}
+
+/* ── ANIMATIONS ── */
+.host-panel.active{animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.queue-card,.menu-card,.order-card,.feature-card{transition:transform .2s ease,box-shadow .2s ease}
+.queue-card:hover,.menu-card:hover,.order-card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.06)}
+.btn,.btn-primary,.btn-ghost,.pill,.floor-filter-btn{transition:all .15s ease}
+.btn:active,.btn-primary:active,.pill:active{transform:scale(.97)}
+.toast.show{animation:toastIn .3s ease}
+@keyframes toastIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.modal-overlay.open .modal{animation:slideUp .3s ease}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.table-detail{transition:opacity .25s ease,transform .25s ease}
+.table-detail.open{animation:slideUp .25s ease}
+</style>
+</head>
+<body>
+
+<div class="toast" id="toast"></div>
+
+<!-- ═══════════════════════════════════
+     PAGE: LOGIN
+════════════════════════════════════ -->
+<div class="page active" id="page-login">
+  <div class="login-wrap">
+    <div class="login-card">
+      <div class="login-logo">شلبية</div>
+      <div class="login-sub">Host Portal</div>
+      <div class="login-error" id="loginError"></div>
+      <form onsubmit="doLogin(event)">
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input class="form-input" type="email" id="loginEmail" required placeholder="host@shalabya.com" autocomplete="email"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input class="form-input" type="password" id="loginPass" required placeholder="••••••••" autocomplete="current-password"/>
+        </div>
+        <button type="submit" class="btn-signin" id="loginBtn">Sign In</button>
+      </form>
+      <div class="login-hint">
+        Contact your manager for login credentials
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     PAGE: HOST PORTAL
+════════════════════════════════════ -->
+<div class="page" id="page-host">
+  <!-- TOP BAR -->
+  <div class="host-topbar">
+    <div class="topbar-brand">
+      <span class="topbar-brand-ar">شلبية</span>
+      <span class="topbar-brand-en">Host Portal</span>
+    </div>
+    <div class="topbar-tabs">
+      <button class="tab-btn active" onclick="showPanel('queue',this)">
+        <span class="tab-icon">≡</span> Queue
+      </button>
+      <button class="tab-btn" onclick="showPanel('pendingorders',this)">
+        <span class="tab-icon">◈</span> Orders
+        <span class="tab-badge" id="ordersBadge">0</span>
+      </button>
+      <button class="tab-btn" onclick="showPanel('tables',this)">
+        <span class="tab-icon">▦</span> Tables
+      </button>
+      <button class="tab-btn" onclick="showPanel('service',this)">
+        <span class="tab-icon">✦</span> Service
+      </button>
+      <button class="tab-btn" id="callsTabBtn" onclick="showPanel('calls',this)">
+        <span class="tab-icon">◎</span> Calls
+        <span class="tab-badge red" id="callsBadge">0</span>
+      </button>
+    </div>
+    <div class="topbar-right">
+      <div class="live-badge"><span class="live-dot"></span>Live</div>
+      <button class="topbar-icon-btn" onclick="loadQueue();loadPendingOrders();loadWaiterCalls()" title="Refresh">↻</button>
+      <button class="topbar-icon-btn" onclick="doLogout()" title="Sign Out">⊗</button>
+    </div>
+  </div>
+
+  <div class="host-content">
+
+    <!-- ══ PANEL: QUEUE ══ -->
+    <div class="host-panel active" id="panel-queue">
+      <div class="scroll-area">
+        <div class="queue-header">
+          <div>
+            <h2 style="font-family:var(--font-display);font-size:1.5rem;color:var(--white);font-weight:300">Upcoming <em style="color:var(--gold);font-style:italic">Reservations</em></h2>
+            <p style="font-size:.78rem;color:var(--muted);margin-top:2px" id="queueDate"></p>
+          </div>
+          <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+            <div class="queue-stats">
+              <div class="q-stat"><div class="q-stat-num" id="qs-total">0</div><div class="q-stat-label">Total</div></div>
+              <div class="q-stat"><div class="q-stat-num" id="qs-pending">0</div><div class="q-stat-label">Pending</div></div>
+              <div class="q-stat"><div class="q-stat-num" id="qs-seated">0</div><div class="q-stat-label">Seated</div></div>
+            </div>
+            <button class="btn-ghost" onclick="loadQueue()">↻ Refresh</button>
+          </div>
+        </div>
+
+        <!-- Date filter row -->
+        <div class="filter-row">
+          <button class="pill active" id="qDateAll" onclick="setQueueDateFilter('',this)">All Dates</button>
+          <button class="pill" id="qDateToday" onclick="setQueueDateFilter('today',this)">Today</button>
+          <button class="pill" id="qDateTomorrow" onclick="setQueueDateFilter('tomorrow',this)">Tomorrow</button>
+          <button class="pill" id="qDateWeek" onclick="setQueueDateFilter('week',this)">This Week</button>
+        </div>
+        <!-- Status filter row -->
+        <div class="filter-row" style="margin-bottom:20px">
+          <button class="pill active" onclick="filterQueue('',this)">All</button>
+          <button class="pill" onclick="filterQueue('pending',this)">Pending</button>
+          <button class="pill" onclick="filterQueue('confirmed',this)">Confirmed</button>
+          <button class="pill" onclick="filterQueue('seated',this)">Seated</button>
+          <button class="pill" onclick="filterQueue('completed',this)">Completed</button>
+          <button class="pill-walk" onclick="openWalkinModal()">+ Walk-in</button>
+        </div>
+
+        <div class="queue-list" id="queueList">
+          <div class="spinner"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ PANEL: LIVE TABLES ══ -->
+    <div class="host-panel" id="panel-tables">
+      <div class="floor-layout">
+        <!-- Sidebar list -->
+        <div class="floor-sidebar">
+          <div class="floor-sidebar-head">Floor Plan</div>
+          <div class="floor-filters">
+            <button class="floor-filter-btn active" onclick="filterFloor('',this)">All</button>
+            <button class="floor-filter-btn" onclick="filterFloor('main',this)">Main</button>
+            <button class="floor-filter-btn" onclick="filterFloor('terrace',this)">Terrace</button>
+            <button class="floor-filter-btn" onclick="filterFloor('private',this)">Private</button>
+            <button class="floor-filter-btn" onclick="filterFloor('bar',this)">Bar</button>
+          </div>
+          <div class="floor-table-list" id="floorTableList">
+            <div class="spinner"></div>
+          </div>
+          <!-- Legend -->
+          <div style="padding:12px 16px;border-top:1px solid rgba(184,138,68,.08);display:flex;flex-wrap:wrap;gap:8px">
+            <span style="font-size:.62rem;color:#6fcf97">● Available</span>
+            <span style="font-size:.62rem;color:#ef9a9a">● Occupied</span>
+            <span style="font-size:.62rem;color:var(--gold)">● Reserved</span>
+            <span style="font-size:.62rem;color:var(--muted)">● Cleaning</span>
+          </div>
+        </div>
+
+        <!-- Map -->
+        <div class="floor-map" id="floorMap">
+          <div class="floor-map-area" id="floorMapArea">
+            <div class="spinner"></div>
+          </div>
+        </div>
+
+        <!-- Detail panel -->
+        <div class="table-detail" id="tableDetail">
+          <div class="td-head">
+            <div class="td-title" id="tdTitle">Table —</div>
+            <button class="td-close" onclick="closeTableDetail()">×</button>
+          </div>
+          <div class="td-body" id="tdBody"></div>
+          <div class="td-actions" id="tdActions"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ PANEL: TABLE SERVICE ══ -->
+    <div class="host-panel" id="panel-service">
+      <div class="service-layout">
+        <!-- Menu to order from -->
+        <div class="service-main">
+          <div style="margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+            <div>
+              <h2 style="font-family:var(--font-display);font-size:1.4rem;color:var(--white);font-weight:300">Table <em style="color:var(--gold);font-style:italic">Service</em></h2>
+              <p style="font-size:.75rem;color:var(--muted);margin-top:2px">Select table, add items, send to kitchen</p>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center">
+              <label style="font-size:.72rem;color:var(--muted)">Table:</label>
+              <div class="table-select" id="serviceTableSelect">
+                <div class="table-select-trigger" onclick="toggleServiceTableMenu()">
+                  <span class="table-select-label" id="serviceTableLabel">— select table —</span>
+                  <svg class="table-select-arrow" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div class="table-select-menu" id="serviceTableMenu"></div>
+              </div>
+            </div>
+          </div>
+          <!-- Menu filter -->
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px">
+            <button class="floor-filter-btn active" onclick="filterServiceMenu('all',this)">All</button>
+            <button class="floor-filter-btn" onclick="filterServiceMenu('breakfast',this)">Breakfast</button>
+            <button class="floor-filter-btn" onclick="filterServiceMenu('appetizer',this)">Appetizers</button>
+            <button class="floor-filter-btn" onclick="filterServiceMenu('main',this)">Mains</button>
+            <button class="floor-filter-btn" onclick="filterServiceMenu('dessert',this)">Desserts</button>
+            <button class="floor-filter-btn" onclick="filterServiceMenu('beverage',this)">Beverages</button>
+          </div>
+          <div id="serviceMenuItems"><div class="spinner"></div></div>
+        </div>
+
+        <!-- Order sidebar -->
+        <div class="service-sidebar">
+          <div class="order-section-title">Current Order</div>
+          <div id="serviceOrderItems"><div class="empty-state" style="padding:24px 0"><div class="empty-icon">🍽️</div><div>No items added</div></div></div>
+          <div id="serviceOrderTotal" style="display:none">
+            <div class="order-total-line">
+              <span>Subtotal</span><strong id="svcSubtotal">EGP 0</strong>
+            </div>
+            <div class="order-total-line" style="font-size:.78rem">
+              <span style="color:var(--muted)">Tax (14%)</span><span id="svcTax" style="color:var(--muted)">EGP 0</span>
+            </div>
+            <div class="order-total-line" style="border-top:1px solid rgba(184,138,68,.12);margin-top:8px;padding-top:8px">
+              <span>Total</span><strong id="svcTotal">EGP 0</strong>
+            </div>
+          </div>
+          <input class="order-ref-input" id="svcNotes" placeholder="Order notes (optional)"/>
+          <button class="btn btn-primary" style="width:100%;margin-top:4px" id="svcSubmitBtn" onclick="submitServiceOrder()" disabled>Send to Kitchen</button>
+          <button class="btn-ghost" style="width:100%;margin-top:6px" onclick="clearServiceOrder()">Clear Order</button>
+          <!-- Active orders for table -->
+          <div style="margin-top:24px">
+            <div class="order-section-title">Active Orders for Table</div>
+            <div id="activeTableOrders"><div style="font-size:.75rem;color:var(--muted);text-align:center;padding:12px">Select a table</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ══ PANEL: PENDING ORDERS ══ -->
+    <div class="host-panel" id="panel-pendingorders">
+      <div class="scroll-area">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px">
+          <div>
+            <h2 style="font-family:var(--font-display);font-size:1.5rem;color:var(--white);font-weight:300">Pending <em style="color:var(--gold);font-style:italic">Orders</em></h2>
+            <p style="font-size:.78rem;color:var(--muted);margin-top:2px">Guest orders awaiting kitchen acceptance</p>
+          </div>
+          <button class="btn-ghost" onclick="loadPendingOrders()">↻ Refresh</button>
+        </div>
+        <div id="pendingOrdersList" class="queue-list"><div class="spinner"></div></div>
+      </div>
+    </div>
+
+    <!-- ══ PANEL: WAITER CALLS ══ -->
+    <div class="host-panel" id="panel-calls">
+      <div class="scroll-area">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px">
+          <div>
+            <h2 style="font-family:var(--font-display);font-size:1.5rem;color:var(--white);font-weight:300">Waiter <em style="color:var(--gold);font-style:italic">Calls</em></h2>
+            <p style="font-size:.78rem;color:var(--muted);margin-top:2px">Real-time guest requests from the table portal</p>
+          </div>
+          <div style="display:flex;gap:8px">
+            <button class="btn-ghost" onclick="loadWaiterCalls()">↻ Refresh</button>
+            <button class="btn btn-primary" style="padding:9px 18px;background:var(--green)" onclick="resolveAllCalls()">✓ Resolve All</button>
+          </div>
+        </div>
+        <div style="display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap">
+          <button class="floor-filter-btn active" onclick="filterCalls('',this)">All</button>
+          <button class="floor-filter-btn" onclick="filterCalls('unresolved',this)">Unresolved</button>
+          <button class="floor-filter-btn" onclick="filterCalls('general',this)">🛎 Assist</button>
+          <button class="floor-filter-btn" onclick="filterCalls('water',this)">💧 Water</button>
+          <button class="floor-filter-btn" onclick="filterCalls('bill',this)">🧾 Bill</button>
+          <button class="floor-filter-btn" onclick="filterCalls('feedback',this)">⭐ Feedback</button>
+        </div>
+        <div id="callsList" class="queue-list"><div class="spinner"></div></div>
+      </div>
+    </div>
+
+  </div><!-- /host-content -->
+</div><!-- /page-host -->
+
+<!-- MODAL -->
+<div class="modal-overlay" id="mainModal">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-title" id="modalTitle">—</div>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-footer" id="modalFooter"></div>
+  </div>
+</div>
+
+<script src="supabase.js"></script>
+<script>
+// ══════════════════════════════════════
+// STATE
+// ══════════════════════════════════════
+let allTables = [];
+let allMenuItems = [];
+let allReservations = [];
+let serviceCart = {}; // { id: { name, price, qty } }
+let currentFloorFilter = '';
+let selectedTableId = null;
+
+// ══════════════════════════════════════
+// AUTH
+// ══════════════════════════════════════
+async function doLogin(e) {
+  e.preventDefault();
+  const btn = document.getElementById('loginBtn');
+  const errEl = document.getElementById('loginError');
+  errEl.style.display = 'none';
+  btn.textContent = 'Signing in…'; btn.disabled = true;
+  try {
+    const result = await db.auth.signInWithPassword({
+      email: document.getElementById('loginEmail').value,
+      password: document.getElementById('loginPass').value
+    });
+    if (result && result.error) throw new Error(result.error.message);
+    initHost();
+  } catch(er) {
+    errEl.textContent = er.message || 'Login failed'; errEl.style.display = 'block';
+  }
+  btn.textContent = 'Sign In'; btn.disabled = false;
+}
+
+async function doLogout() {
+  await db.auth.signOut();
+  showPage('login');
+}
+
+async function initHost() {
+  try {
+    const s = db.auth.getSession();
+    if (!s || !s.token) return;
+    
+    showPage('host');
+    document.getElementById('queueDate').textContent = new Date().toLocaleDateString('en', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+    loadQueue();
+    loadTables();
+    loadMenuItems();
+    loadWaiterCalls();
+    loadPendingOrders();
+    setInterval(() => {
+      if (document.getElementById('panel-queue').classList.contains('active')) loadQueue();
+      if (document.getElementById('panel-tables').classList.contains('active')) loadTables();
+      if (document.getElementById('panel-calls').classList.contains('active')) loadWaiterCalls();
+      if (document.getElementById('panel-pendingorders').classList.contains('active')) loadPendingOrders();
+      loadWaiterCalls();
+      loadPendingOrders();
+    }, 15000);
+  } catch (e) {
+    console.error("Init host error:", e);
+  }
+}
+
+function showPage(p) {
+  document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
+  document.getElementById('page-' + p).classList.add('active');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  try {
+    const s = db.auth.getSession();
+    if (s && s.token) initHost();
+  } catch (e) {}
+});
+
+// ══════════════════════════════════════
+// PANEL ROUTING
+// ══════════════════════════════════════
+function showPanel(panel, btn) {
+  document.querySelectorAll('.host-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + panel).classList.add('active');
+  if (btn) btn.classList.add('active');
+  if (panel === 'pendingorders') loadPendingOrders();
+  if (panel === 'calls') loadWaiterCalls();
+}
+
+// ══════════════════════════════════════
+// QUEUE
+// ══════════════════════════════════════
+let queueFilter = '';
+
+// Queue date filter state
+let queueDateFilter = ''; // '', 'today', 'tomorrow', 'week'
+
+function getLocalDate(offsetDays = 0) {
+  const d = new Date();
+  d.setDate(d.getDate() + offsetDays);
+  // Use local date (not UTC) to handle Egypt UTC+3 correctly
+  return d.getFullYear() + '-' +
+    String(d.getMonth()+1).padStart(2,'0') + '-' +
+    String(d.getDate()).padStart(2,'0');
+}
+
+function setQueueDateFilter(filter, btn) {
+  queueDateFilter = filter;
+  document.querySelectorAll('[id^="qDate"]').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  // Also clear status filter active states
+  document.querySelectorAll('#panel-queue .floor-filter-btn').forEach(b => b.classList.remove('active'));
+  const allBtn = document.querySelector('#panel-queue .floor-filter-btn');
+  if (allBtn) allBtn.classList.add('active');
+  applyQueueFilters();
+}
+
+function applyQueueFilters() {
+  const today    = getLocalDate(0);
+  const tomorrow = getLocalDate(1);
+  const week     = getLocalDate(7);
+  let rows = [...allReservations];
+  // Date filter
+  if (queueDateFilter === 'today')    rows = rows.filter(r => r.reservation_date === today);
+  else if (queueDateFilter === 'tomorrow') rows = rows.filter(r => r.reservation_date === tomorrow);
+  else if (queueDateFilter === 'week')     rows = rows.filter(r => r.reservation_date <= week);
+  // Status filter on top
+  if (queueFilter) rows = rows.filter(r => r.status === queueFilter);
+  renderQueue(rows);
+}
+
+async function loadQueue() {
+  try {
+    const today = getLocalDate(0);
+    const weekAhead = getLocalDate(7);
+    document.getElementById('queueDate').textContent =
+      'Showing reservations from today (' + today + ') through next 7 days';
+    // Load today + next 7 days, exclude old cancelled/completed
+    const data = await db.from('reservations').select('*')
+      .gte('reservation_date', today)
+      .lte('reservation_date', weekAhead)
+      .order('reservation_date')
+      .order('reservation_time');
+    allReservations = data;
+    document.getElementById('qs-total').textContent = data.length;
+    document.getElementById('qs-pending').textContent = data.filter(r => r.status === 'pending' || r.status === 'confirmed').length;
+    document.getElementById('qs-seated').textContent = data.filter(r => r.status === 'seated').length;
+    applyQueueFilters();
+  } catch(e) {
+    document.getElementById('queueList').innerHTML = `<div class="empty-state"><div class="empty-icon">⚠️</div><div>${esc(e.message)}</div></div>`;
+  }
+}
+
+function filterQueue(status, btn) {
+  queueFilter = status;
+  // Clear ALL filter-btn in the status row, not just floor-filter-btn
+  const filterRow = btn?.closest('.filter-row');
+  if (filterRow) {
+    filterRow.querySelectorAll('.pill').forEach(b => b.classList.remove('active'));
+    filterRow.querySelectorAll('.floor-filter-btn').forEach(b => b.classList.remove('active'));
+  }
+  if (btn) btn.classList.add('active');
+  applyQueueFilters();
+}
+
+async function renderQueue(rows) {
+  const list = document.getElementById('queueList');
+  if (!rows.length) {
+    list.innerHTML = '<div class="empty-state"><div class="empty-icon">🍽️</div><div>No reservations found</div></div>';
+    return;
+  }
+  // Sort: confirmed first, then pending, then seated
+  const order = { confirmed:0, pending:1, seated:2, completed:3, cancelled:4, no_show:5 };
+  rows = [...rows].sort((a,b) => (order[a.status]||9) - (order[b.status]||9) || a.reservation_time?.localeCompare(b.reservation_time));
+
+  // Fetch bills for all reservations (including completed)
+  const resBills = {};
+  try {
+    const resIds = rows.map(r => r.id);
+    const orders = await db.from('orders').select('reservation_id,total').in('reservation_id', resIds).neq('status','cancelled');
+    orders.forEach(o => {
+      if (!resBills[o.reservation_id]) resBills[o.reservation_id] = 0;
+      resBills[o.reservation_id] += Number(o.total || 0);
+    });
+  } catch(e) {}
+
+  list.innerHTML = rows.map((r, i) => {
+    const isPriority = r.status === 'pending' || r.status === 'confirmed';
+    const waitMins = r.status === 'confirmed' ? estimateWait(r.reservation_time) : null;
+    const bill = resBills[r.id] || 0;
+    return `
+    <div class="queue-card${isPriority ? ' priority' : ''}">
+      <div class="queue-num">${i + 1}</div>
+      <div class="queue-info">
+        <div class="queue-name">${esc(r.customer_name)} ${r.occasion ? `<span style="font-size:.7rem;color:var(--gold);margin-left:6px">${esc(r.occasion)}</span>` : ''}</div>
+        <div class="queue-meta">
+          <span style="color:var(--gold-light)">${r.reservation_date}</span> · <span>${r.reservation_time?.slice(0,5) || '—'}</span> · <span>${r.party_size} guests</span>
+          ${r.customer_phone ? ` · <span style="color:var(--muted)">${esc(r.customer_phone)}</span>` : ''}
+          ${r.special_requests ? ` · <span style="color:var(--warm);font-size:.7rem">📝 ${esc(r.special_requests.slice(0,40))}…</span>` : ''}
+        </div>
+        <div style="margin-top:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">${statusBadge(r.status)} <code style="font-size:.65rem;color:var(--muted)">${esc(r.reservation_code)}</code> ${bill > 0 ? `<span style="font-family:var(--font-display);font-size:.85rem;color:var(--gold)">EGP ${bill.toLocaleString()}</span>` : ''}</div>
+      </div>
+      ${waitMins !== null ? `<div class="queue-time"><strong>~${waitMins}m</strong>wait</div>` : ''}
+      <div class="queue-actions">
+        ${r.status === 'pending' ? `<button class="btn btn-primary" style="padding:7px 14px;font-size:.7rem" onclick="updateStatus('${r.id}','confirmed')">Confirm</button>` : ''}
+        ${r.status === 'confirmed' ? `<button class="btn btn-primary" style="padding:7px 14px;font-size:.7rem;background:var(--green)" onclick="seatGuest('${r.id}')">Seat ▶</button>` : ''}
+        ${r.status === 'seated' ? `<button class="btn-ghost" onclick="openCheckoutModal('${r.id}','${esc(r.customer_name)}')">✓ Checkout</button>` : ''}
+        ${r.status !== 'cancelled' && r.status !== 'completed' ? `<button class="btn-ghost" onclick="updateStatus('${r.id}','no_show')">No-show</button>` : ''}
+        <button class="btn-ghost" onclick="openResDetail('${r.id}')">···</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function statusBadge(s) {
+  return `<span class="status-badge s-${s}">${s.replace('_',' ')}</span>`;
+}
+
+function estimateWait(time) {
+  if (!time) return null;
+  const [h, m] = time.split(':').map(Number);
+  const now = new Date();
+  const diff = (h * 60 + m) - (now.getHours() * 60 + now.getMinutes());
+  return Math.max(0, diff);
+}
+
+async function updateStatus(id, status) {
+  try {
+    await db.from('reservations').update({ status, ...(status==='seated'?{check_in_time:new Date().toISOString()}:{}) }).eq('id', id);
+    toast(status === 'confirmed' ? 'Reservation confirmed' : status === 'seated' ? 'Guest seated' : 'Status updated', 'success');
+    loadQueue();
+    if (document.getElementById('panel-tables').classList.contains('active')) loadTables();
+  } catch(e) { toast(e.message, 'error'); }
+}
+
+async function seatGuest(resId) {
+  const res = allReservations.find(r => r.id === resId);
+  if (!res) return;
+  // Show table selection modal
+  const availTables = allTables.filter(t => t.status === 'available' && t.capacity >= (res.party_size || 1));
+  document.getElementById('modalTitle').textContent = 'Seat Guest — ' + res.customer_name;
+  document.getElementById('modalBody').innerHTML = `
+    <p style="font-size:.82rem;color:var(--muted);margin-bottom:16px">${res.party_size} guests · ${res.reservation_time?.slice(0,5)}</p>
+    <div class="form-group">
+      <label class="form-label">Assign Table *</label>
+      <select class="form-select" id="seatTableSel">
+        <option value="">— select available table —</option>
+        ${availTables.map(t => `<option value="${t.id}">Table ${t.table_number} · ${t.capacity} seats · ${t.location}</option>`).join('')}
+      </select>
+    </div>
+    <div id="seatMsg"></div>
+  `;
+  document.getElementById('modalFooter').innerHTML = `
+    <button class="btn btn-primary" onclick="confirmSeat('${resId}')">Confirm Seat</button>
+    <button class="btn-ghost" onclick="closeModal()">Cancel</button>
+  `;
+  openModal();
+}
+
+async function confirmSeat(resId) {
+  const tableId = document.getElementById('seatTableSel').value;
+  if (!tableId) { document.getElementById('seatMsg').innerHTML = '<div style="color:#ef9a9a;font-size:.8rem;margin-top:8px">Please select a table</div>'; return; }
+  try {
+    await Promise.all([
+      db.from('reservations').update({ status:'seated', table_id:tableId, check_in_time:new Date().toISOString() }).eq('id', resId),
+      db.from('restaurant_tables').update({ status:'occupied' }).eq('id', tableId)
+    ]);
+    closeModal();
+    toast('Guest seated successfully', 'success');
+    loadQueue(); loadTables();
+  } catch(e) { toast(e.message, 'error'); }
+}
+
+// ══════════════════════════════════════
+// WALK-IN
+// ══════════════════════════════════════
+function openWalkinModal() {
+  const today = new Date().toISOString().split('T')[0];
+  const now = new Date().toTimeString().slice(0,5);
+  document.getElementById('modalTitle').textContent = 'New Walk-in';
+  document.getElementById('modalBody').innerHTML = `
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+      <div class="form-group"><label class="form-label">Name *</label><input class="form-input" id="wi_name" placeholder="Guest name"/></div>
+      <div class="form-group"><label class="form-label">Phone</label><input class="form-input" id="wi_phone" placeholder="+20…"/></div>
+      <div class="form-group"><label class="form-label">Guests *</label><input class="form-input" type="number" id="wi_guests" value="2" min="1" max="20"/></div>
+      <div class="form-group"><label class="form-label">Time</label><input class="form-input" type="time" id="wi_time" value="${now}"/></div>
+    </div>
+    <div class="form-group"><label class="form-label">Notes</label><input class="form-input" id="wi_notes" placeholder="Occasion, dietary needs…"/></div>
+    <div id="wi_msg"></div>
+  `;
+  document.getElementById('modalFooter').innerHTML = `
+    <button class="btn btn-primary" onclick="submitWalkin()">Add Walk-in</button>
+    <button class="btn-ghost" onclick="closeModal()">Cancel</button>
+  `;
+  openModal();
+}
+
+async function submitWalkin() {
+  const name = document.getElementById('wi_name').value.trim();
+  const phone = document.getElementById('wi_phone').value.trim();
+  const guests = parseInt(document.getElementById('wi_guests').value);
+  const time = document.getElementById('wi_time').value;
+  const notes = document.getElementById('wi_notes').value;
+  const msgEl = document.getElementById('wi_msg');
+  if (!name) { msgEl.innerHTML = '<div style="color:#ef9a9a;font-size:.8rem;margin-top:8px">Name is required</div>'; return; }
+  const today = new Date().toISOString().split('T')[0];
+  const code = [...Array(8)].map(() => Math.floor(Math.random() * 16).toString(16).toUpperCase()).join('');
+  try {
+    await db.from('reservations').insert({
+      customer_name: name,
+      customer_phone: phone || 'Walk-in',
+      party_size: guests,
+      reservation_date: today,
+      reservation_time: time,
+      status: 'confirmed',
+      special_requests: notes || null,
+      source: 'walkin',
+      reservation_code: code
+    });
+    closeModal();
+    toast(`Walk-in added — Code: ${code}`, 'success');
+    loadQueue();
+  } catch(e) { msgEl.innerHTML = `<div style="color:#ef9a9a;font-size:.8rem;margin-top:8px">${esc(e.message)}</div>`; }
+}
+
+function openResDetail(id) {
+  const r = allReservations.find(x => x.id === id);
+  if (!r) return;
+  document.getElementById('modalTitle').textContent = r.customer_name;
+  document.getElementById('modalBody').innerHTML = `
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div><div class="form-label">Code</div><code style="color:var(--gold)">${esc(r.reservation_code)}</code></div>
+      <div><div class="form-label">Status</div>${statusBadge(r.status)}</div>
+      <div><div class="form-label">Time</div><div>${r.reservation_time?.slice(0,5)||'—'}</div></div>
+      <div><div class="form-label">Guests</div><div>${r.party_size}</div></div>
+      <div><div class="form-label">Phone</div><div>${esc(r.customer_phone)||'—'}</div></div>
+      <div><div class="form-label">Occasion</div><div>${esc(r.occasion)||'—'}</div></div>
+    </div>
+    ${r.special_requests ? `<div style="margin-top:14px;padding:11px 14px;background:rgba(184,138,68,.06);border-left:2px solid var(--gold);border-radius:2px;font-size:.82rem;color:var(--warm)">${esc(r.special_requests)}</div>` : ''}
+  `;
+  document.getElementById('modalFooter').innerHTML = `
+    ${r.status==='pending'?`<button class="btn btn-primary" style="font-size:.72rem;padding:8px 16px" onclick="updateStatus('${r.id}','confirmed');closeModal()">Confirm</button>`:''}
+    ${r.status==='confirmed'?`<button class="btn btn-primary" style="font-size:.72px;background:var(--green);padding:8px 16px" onclick="seatGuest('${r.id}')">Seat Guest</button>`:''}
+    ${r.status==='seated'?`<button class="btn btn-primary" style="font-size:.72rem;padding:8px 16px" onclick="updateStatus('${r.id}','completed');closeModal()">Mark Complete</button>`:''}
+    <button class="btn-ghost" onclick="closeModal()">Close</button>
+  `;
+  openModal();
+}
+
+// ══════════════════════════════════════
+// TABLES / FLOOR
+// ══════════════════════════════════════
+async function loadTables() {
+  try {
+    const tables = await db.from('restaurant_tables').select('*').order('table_number');
+    allTables = tables;
+    renderFloorList(tables);
+    renderFloorMap(tables);
+    populateServiceTableSelect(tables);
+  } catch(e) { console.error(e); }
+}
+
+function filterFloor(loc, btn) {
+  currentFloorFilter = loc;
+  document.querySelectorAll('.floor-filters .floor-filter-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  const filtered = loc ? allTables.filter(t => t.location === loc) : allTables;
+  renderFloorList(filtered);
+  renderFloorMap(filtered);
+}
+
+function renderFloorList(tables) {
+  const el = document.getElementById('floorTableList');
+  const COLOR = { available:'#6fcf97', occupied:'#ef9a9a', reserved:'var(--gold)', cleaning:'var(--muted)' };
+  el.innerHTML = tables.map(t => `
+    <div class="floor-table-item${selectedTableId===t.id?' selected':''}" onclick="selectTable('${t.id}')">
+      <div class="floor-table-num" style="color:${COLOR[t.status]||'var(--muted)'}">${t.table_number}</div>
+      <div class="floor-table-info">
+        <div class="floor-table-name">Table ${t.table_number}</div>
+        <div class="floor-table-meta">${t.capacity} seats · ${t.location} · <span style="color:${COLOR[t.status]}">${t.status}</span></div>
+      </div>
+    </div>`).join('');
+}
+
+function renderFloorMap(tables) {
+  const area = document.getElementById('floorMapArea');
+  const SECTION_COORDS = { main:'10px,10px', terrace:'10px,260px', private:'480px,10px', bar:'480px,260px' };
+  const COL = { available:'tn-available', occupied:'tn-occupied', reserved:'tn-reserved', cleaning:'tn-cleaning' };
+
+  // Group by location for section labels
+  const sections = {};
+  tables.forEach(t => { if (!sections[t.location]) sections[t.location] = []; sections[t.location].push(t); });
+
+  let html = '';
+  // Section labels
+  const labelPos = { main:[10,10], terrace:[10,220], private:[420,10], bar:[420,220] };
+  Object.keys(labelPos).forEach(loc => {
+    if (sections[loc]) {
+      const [lx, ly] = labelPos[loc];
+      html += `<div class="floor-section-label" style="left:${lx}px;top:${ly+4}px">${loc}</div>`;
+    }
+  });
+
+  // Table nodes — map grid positions to absolute coords
+  tables.forEach(t => {
+    const baseX = { main:20, terrace:20, private:430, bar:430 };
+    const baseY = { main:30, terrace:250, private:30, bar:250 };
+    const bx = baseX[t.location] || 20;
+    const by = baseY[t.location] || 30;
+    const x = bx + (t.x_pos * 3.5);
+    const y = by + (t.y_pos * 2.5);
+
+    html += `
+      <div class="table-node ${COL[t.status]||'tn-available'}" data-table-id="${t.id}" style="left:${x}px;top:${y}px">
+        <div class="table-node-inner">
+          <div class="table-node-num">${t.table_number}</div>
+          <div class="table-node-cap">${t.capacity}👤</div>
+          <div class="table-node-status">${t.status}</div>
+        </div>
+      </div>`;
+  });
+
+  area.innerHTML = html;
+  // Add drag hint
+  area.insertAdjacentHTML('beforeend','<div class="drag-hint">DRAG TABLES TO REPOSITION</div>');
+  // Wire drag + click on each node
+  area.querySelectorAll('.table-node').forEach(node => {
+    initTableDrag(node);
+  });
+}
+
+function initTableDrag(node) {
+  const area = document.getElementById('floorMapArea');
+  let startX, startY, startLeft, startTop, moved = false;
+
+  node.addEventListener('mousedown', e => {
+    if (e.button !== 0) return;
+    e.preventDefault();
+    moved = false;
+    startX = e.clientX;
+    startY = e.clientY;
+    const style = window.getComputedStyle(node);
+    startLeft = parseInt(style.left);
+    startTop  = parseInt(style.top);
+    node.classList.add('dragging');
+    area.classList.add('drag-active');
+
+    function onMove(ev) {
+      const dx = ev.clientX - startX;
+      const dy = ev.clientY - startY;
+      if (Math.abs(dx) > 3 || Math.abs(dy) > 3) moved = true;
+      // Snap to 10px grid
+      const snap = 10;
+      const newLeft = Math.round((startLeft + dx) / snap) * snap;
+      const newTop  = Math.round((startTop  + dy) / snap) * snap;
+      node.style.left = Math.max(0, newLeft) + 'px';
+      node.style.top  = Math.max(0, newTop)  + 'px';
+    }
+
+    async function onUp() {
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mouseup', onUp);
+      node.classList.remove('dragging');
+      area.classList.remove('drag-active');
+
+      if (!moved) {
+        // It was a click not a drag — select table
+        selectTable(node.dataset.tableId);
+        return;
+      }
+
+      // Save new position to Supabase
+      const tableId = node.dataset.tableId;
+      const t = allTables.find(x => x.id === tableId);
+      if (!t) return;
+
+      // Convert pixel back to DB units (reverse of bx + x_pos * 3.5)
+      const baseX = { main:20, terrace:20, private:430, bar:430 };
+      const baseY = { main:30, terrace:250, private:30, bar:250 };
+      const bx = baseX[t.location] || 20;
+      const by = baseY[t.location] || 30;
+      const newLeft = parseInt(node.style.left);
+      const newTop  = parseInt(node.style.top);
+      const newXPos = Math.round((newLeft - bx) / 3.5);
+      const newYPos = Math.round((newTop  - by) / 2.5);
+
+      // Optimistic update in memory
+      t.x_pos = newXPos;
+      t.y_pos = newYPos;
+
+      try {
+        await db.from('restaurant_tables').update({ x_pos: newXPos, y_pos: newYPos }).eq('id', tableId);
+        toast('Table position saved', 'success');
+      } catch(err) {
+        toast('Could not save position: ' + err.message, 'error');
+      }
+    }
+
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup', onUp);
+  });
+
+  // Touch support (mobile)
+  node.addEventListener('touchstart', e => {
+    const touch = e.touches[0];
+    moved = false;
+    startX = touch.clientX;
+    startY = touch.clientY;
+    const style = window.getComputedStyle(node);
+    startLeft = parseInt(style.left);
+    startTop  = parseInt(style.top);
+    node.classList.add('dragging');
+    area.classList.add('drag-active');
+
+    function onTouchMove(ev) {
+      ev.preventDefault();
+      const t2 = ev.touches[0];
+      const dx = t2.clientX - startX;
+      const dy = t2.clientY - startY;
+      if (Math.abs(dx) > 3 || Math.abs(dy) > 3) moved = true;
+      const snap = 10;
+      node.style.left = Math.max(0, Math.round((startLeft+dx)/snap)*snap) + 'px';
+      node.style.top  = Math.max(0, Math.round((startTop +dy)/snap)*snap) + 'px';
+    }
+
+    async function onTouchEnd() {
+      node.removeEventListener('touchmove', onTouchMove);
+      node.removeEventListener('touchend', onTouchEnd);
+      node.classList.remove('dragging');
+      area.classList.remove('drag-active');
+      if (!moved) { selectTable(node.dataset.tableId); return; }
+      const tableId = node.dataset.tableId;
+      const tbl = allTables.find(x => x.id === tableId);
+      if (!tbl) return;
+      const baseX2 = { main:20, terrace:20, private:430, bar:430 };
+      const baseY2 = { main:30, terrace:250, private:30, bar:250 };
+      const bx2 = baseX2[tbl.location] || 20;
+      const by2 = baseY2[tbl.location] || 30;
+      tbl.x_pos = Math.round((parseInt(node.style.left) - bx2) / 3.5);
+      tbl.y_pos = Math.round((parseInt(node.style.top)  - by2) / 2.5);
+      try {
+        await db.from('restaurant_tables').update({ x_pos: tbl.x_pos, y_pos: tbl.y_pos }).eq('id', tableId);
+        toast('Table position saved', 'success');
+      } catch(err) { toast('Could not save: ' + err.message, 'error'); }
+    }
+
+    node.addEventListener('touchmove', onTouchMove, { passive: false });
+    node.addEventListener('touchend', onTouchEnd);
+  }, { passive: true });
+}
+
+async function selectTable(id) {
+  selectedTableId = id;
+  const t = allTables.find(x => x.id === id);
+  if (!t) return;
+  const COLOR = { available:'#6fcf97', occupied:'#ef9a9a', reserved:'var(--gold)', cleaning:'var(--muted)' };
+  document.getElementById('tdTitle').textContent = `Table ${t.table_number}`;
+
+  let bodyHtml = `
+    <div class="td-row"><span class="td-label">Number</span><span class="td-value">Table ${t.table_number}</span></div>
+    <div class="td-row"><span class="td-label">Location</span><span class="td-value">${t.location}</span></div>
+    <div class="td-row"><span class="td-label">Capacity</span><span class="td-value">${t.capacity} seats</span></div>
+    <div class="td-row"><span class="td-label">Status</span><span class="td-value" style="color:${COLOR[t.status]}">${t.status}</span></div>`;
+
+  // Show guest info ONLY for reserved or occupied tables
+  if (t.status === 'reserved' || t.status === 'occupied') {
+    try {
+      const guest = await db.from('reservations').select('*').eq('table_id', id).eq('status','seated').limit(1);
+      if (guest.length) {
+        const res = guest[0];
+        const orders = await db.from('orders').select('id,total,status,payment_status,created_at')
+          .eq('reservation_id', res.id).neq('status','cancelled').order('created_at',{ascending:false});
+        const totalBill = orders.reduce((sum, o) => sum + Number(o.total || 0), 0);
+        const allPaid = orders.length > 0 && orders.every(o => o.payment_status === 'paid');
+
+        let allItems = [];
+        if (orders.length) {
+          allItems = await db.from('order_items').select('order_id,quantity,unit_price,menu_item_id').in('order_id', orders.map(o => o.id));
+        }
+        const menuIds = [...new Set(allItems.map(i => i.menu_item_id).filter(Boolean))];
+        let menuMap = {};
+        if (menuIds.length) {
+          const mr = await db.from('menu_items').select('id,name').in('id', menuIds);
+          mr.forEach(m => { menuMap[m.id] = m.name; });
+        }
+
+        bodyHtml += `
+          <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border)">
+            <div style="font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:8px">Guest</div>
+            <div class="td-row"><span class="td-label">Name</span><span class="td-value">${esc(res.customer_name)}</span></div>
+            <div class="td-row"><span class="td-label">Phone</span><span class="td-value">${esc(res.customer_phone) || '—'}</span></div>
+            <div class="td-row"><span class="td-label">Guests</span><span class="td-value">${res.party_size}</span></div>
+            <div class="td-row"><span class="td-label">Code</span><span class="td-value"><code style="font-size:.7rem;color:var(--gold)">${esc(res.reservation_code)}</code></span></div>
+          </div>`;
+
+        if (orders.length) {
+          bodyHtml += `
+          <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border)">
+            <div style="font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:8px">Orders</div>
+            ${orders.map(o => {
+              const items = allItems.filter(i => i.order_id === o.id);
+              return `<div style="padding:6px 0;border-bottom:1px solid rgba(184,138,68,.06)">
+                <div style="display:flex;justify-content:space-between;font-size:.72rem"><span style="color:var(--muted)">${new Date(o.created_at).toLocaleTimeString('en',{hour:'2-digit',minute:'2-digit'})}</span><span style="font-family:var(--font-display);color:var(--gold)">EGP ${Number(o.total||0).toLocaleString()}</span></div>
+                ${items.map(i => `<div style="display:flex;justify-content:space-between;font-size:.72rem;padding:2px 0;color:var(--warm)"><span>${menuMap[i.menu_item_id]||'Item'} ×${i.quantity}</span><span style="color:var(--gold)">EGP ${(i.unit_price*i.quantity).toLocaleString()}</span></div>`).join('')}
+              </div>`;
+            }).join('')}
+            <div style="display:flex;justify-content:space-between;padding-top:8px;margin-top:4px">
+              <span style="font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)">Total</span>
+              <span style="font-family:var(--font-display);font-size:1.1rem;color:var(--gold)">EGP ${totalBill.toLocaleString()}</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;padding-top:4px">
+              <span style="font-size:.65rem;color:var(--muted)">Payment</span>
+              <span class="status-badge ${allPaid?'s-confirmed':'s-pending'}">${allPaid?'Paid':'Unpaid'}</span>
+            </div>
+          </div>`;
+        }
+      } else {
+        bodyHtml += `<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:.82rem;color:var(--muted)">No guest assigned yet</div>`;
+      }
+    } catch(e) {}
+  }
+
+  document.getElementById('tdBody').innerHTML = bodyHtml;
+
+  // Context-aware actions based on table status
+  let actionsHtml = '';
+  if (t.status === 'available') {
+    actionsHtml = `
+      <button class="btn btn-primary" style="font-size:.74rem;padding:9px" onclick="openAssignGuestModal('${t.id}','${t.table_number}','reserved')"> Reserve for Guest</button>`;
+  } else if (t.status === 'reserved') {
+    actionsHtml = `
+      <button class="btn btn-primary" style="font-size:.74rem;padding:9px;background:var(--green)" onclick="markOccupied('${t.id}')"> Guest Arrived → Occupied</button>
+      <button class="btn-ghost" style="font-size:.72rem;color:var(--gold2);font-weight:500" onclick="checkoutFromTable('${t.id}')">✓ Cancel / Checkout</button>`;
+  } else if (t.status === 'occupied') {
+    actionsHtml = `
+      <button class="btn-ghost" style="font-size:.72rem;color:var(--gold2);font-weight:500" onclick="checkoutFromTable('${t.id}')">✓ Checkout Guest</button>`;
+  } else if (t.status === 'cleaning') {
+    actionsHtml = `
+      <button class="btn btn-primary" style="font-size:.74rem;padding:9px" onclick="cycleStatus('${t.id}','available')">Mark Available</button>`;
+  }
+  actionsHtml += `
+    <button class="btn-ghost" style="font-size:.72rem" onclick="showPanel('service');setServiceTableValue('${t.id}','T${t.table_number} · ${t.capacity}p · ${t.status}');loadTableOrders('${t.id}')">Open Service</button>
+    <button class="btn-ghost" style="font-size:.72rem" onclick="closeTableDetail()">Close</button>`;
+
+  document.getElementById('tdActions').innerHTML = actionsHtml;
+  document.getElementById('tableDetail').classList.add('open');
+
+  // Highlight in list
+  document.querySelectorAll('.floor-table-item').forEach(el => el.classList.remove('selected'));
+  const listEl = Array.from(document.querySelectorAll('.floor-table-item')).find(el => el.onclick?.toString().includes(id));
+  if (listEl) listEl.classList.add('selected');
+}
+
+async function cycleStatus(id, nextStatus) {
+  try {
+    await db.from('restaurant_tables').update({ status: nextStatus }).eq('id', id);
+    toast('Table status updated', 'success');
+    await loadTables();
+    selectTable(id);
+  } catch(e) { toast(e.message, 'error'); }
+}
+
+async function markOccupied(tableId) {
+  try {
+    await db.from('restaurant_tables').update({ status: 'occupied' }).eq('id', tableId);
+    toast('Table is now occupied', 'success');
+    await loadTables();
+    selectTable(tableId);
+  } catch(e) { toast(e.message, 'error'); }
+}
+
+async function checkoutTable(resId, tableId) {
+  try {
+    // Mark all unpaid orders as paid for this reservation
+    const unpaidOrders = await db.from('orders').select('id').eq('reservation_id', resId).eq('payment_status', 'unpaid').neq('status', 'cancelled');
+    const payPromises = unpaidOrders.map(o => db.from('orders').update({ payment_status: 'paid' }).eq('id', o.id));
+
+    await Promise.all([
+      db.from('reservations').update({ status:'completed', check_out_time: new Date().toISOString() }).eq('id', resId),
+      db.from('restaurant_tables').update({ status:'cleaning' }).eq('id', tableId),
+      ...payPromises
+    ]);
+    toast('Guest checked out — orders marked as paid', 'success');
+    loadQueue();
+    loadTables();
+    closeTableDetail();
+  } catch(e) { toast(e.message, 'error'); }
+}
+
+async function checkoutFromTable(tableId) {
+  try {
+    const seated = await db.from('reservations').select('id,customer_name').eq('table_id', tableId).eq('status','seated').limit(1);
+    if (seated.length) {
+      openCheckoutModal(seated[0].id, seated[0].customer_name);
+    } else {
+      // No guest — just free the table
+      await db.from('restaurant_tables').update({ status:'cleaning' }).eq('id', tableId);
+      toast('Table freed', 'success');
+      loadTables();
+      closeTableDetail();
+    }
+  } catch(e) { toast(e.message, 'error'); }
+}
+
+function openCheckoutModal(resId, resName) {
+  document.getElementById('modalTitle').textContent = 'Checkout — ' + resName;
+  document.getElementById('modalBody').innerHTML = `
+    <p style="font-size:.85rem;color:var(--muted);margin-bottom:16px">Confirm checkout. This will complete the reservation and set the table to cleaning.</p>`;
+  document.getElementById('modalFooter').innerHTML = `
+    <button class="btn btn-primary" onclick="confirmCheckout('${resId}')">Confirm Checkout</button>
+    <button class="btn-ghost" onclick="closeModal()">Cancel</button>`;
+  openModal();
+}
+
+async function confirmCheckout(resId) {
+  const res = allReservations.find(r => r.id === resId);
+  if (res && res.table_id) {
+    await checkoutTable(resId, res.table_id);
+    closeModal();
+  }
+}
+
+function openAssignGuestModal(tableId, tableNum, targetStatus) {
+  const confirmed = allReservations.filter(r => r.status === 'confirmed');
+  if (!confirmed.length) {
+    toast('No confirmed guests to assign', 'error');
+    return;
+  }
+  document.getElementById('modalTitle').textContent = `Assign Guest → Table ${tableNum}`;
+  document.getElementById('modalBody').innerHTML = `
+    <p style="font-size:.82rem;color:var(--muted);margin-bottom:16px">Select a confirmed guest to assign to this table.</p>
+    <div class="form-group">
+      <label class="form-label">Guest</label>
+      <select class="form-select" id="assignGuestSel">
+        <option value="">— select guest —</option>
+        ${confirmed.map(r => `<option value="${r.id}">${esc(r.customer_name)} · ${r.party_size} guests · ${r.reservation_time?.slice(0,5) || '—'}</option>`).join('')}
+      </select>
+    </div>`;
+  document.getElementById('modalFooter').innerHTML = `
+    <button class="btn btn-primary" onclick="confirmAssignGuest('${tableId}','${targetStatus}')">Assign</button>
+    <button class="btn-ghost" onclick="closeModal()">Cancel</button>`;
+  openModal();
+}
+
+async function confirmAssignGuest(tableId, targetStatus) {
+  const resId = document.getElementById('assignGuestSel').value;
+  if (!resId) { toast('Please select a guest', 'error'); return; }
+  try {
+    await Promise.all([
+      db.from('reservations').update({ table_id: tableId, status: 'seated', check_in_time: new Date().toISOString() }).eq('id', resId),
+      db.from('restaurant_tables').update({ status: targetStatus }).eq('id', tableId)
+    ]);
+    const guest = allReservations.find(r => r.id === resId);
+    toast(`${guest ? guest.customer_name : 'Guest'} assigned to table`, 'success');
+    closeModal();
+    loadQueue();
+    loadTables();
+    selectTable(tableId);
+  } catch(e) { toast(e.message, 'error'); }
+}
+
+function closeTableDetail() {
+  document.getElementById('tableDetail').classList.remove('open');
+  selectedTableId = null;
+}
+
+// ══════════════════════════════════════
+// TABLE SERVICE / ORDERS
+// ══════════════════════════════════════
+async function loadMenuItems() {
+  try {
+    const items = await db.from('menu_items').select('*').eq('is_available','true').order('category').order('sort_order');
+    allMenuItems = items;
+    renderServiceMenu(items);
+  } catch(e) {}
+}
+
+function filterServiceMenu(cat, btn) {
+  document.querySelectorAll('.host-panel.active .floor-filter-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderServiceMenu(cat === 'all' ? allMenuItems : allMenuItems.filter(i => i.category === cat));
+}
+
+function renderServiceMenu(items) {
+  const el = document.getElementById('serviceMenuItems');
+  if (!items.length) { el.innerHTML = '<div style="color:var(--muted);text-align:center;padding:20px">No items</div>'; return; }
+
+  const grouped = {};
+  items.forEach(i => { if (!grouped[i.category]) grouped[i.category] = []; grouped[i.category].push(i); });
+
+  el.innerHTML = Object.entries(grouped).map(([cat, catItems]) => `
+    <div class="cat-section">
+      <div class="cat-title">${cat.charAt(0).toUpperCase()+cat.slice(1)}</div>
+      ${catItems.map(i => `
+        <div class="service-item" onclick="addToServiceCart('${i.id}','${i.name.replace(/'/g,"\\'")}',${i.price})">
+          ${i.image_url ? `<img src="${i.image_url.split('?')[0]}?w=96&q=50&fit=crop&f=auto" alt="" style="width:40px;height:40px;border-radius:4px;object-fit:cover;flex-shrink:0" width="40" height="40" loading="lazy" onload="this.classList.add('loaded')">` : ''}
+          <div class="service-item-name">
+            ${esc(i.name)}
+            <small>${i.description?.slice(0,50)||''}</small>
+          </div>
+          <div class="service-item-price">EGP ${Number(i.price).toLocaleString()}</div>
+          <button class="btn btn-primary" style="padding:6px 12px;font-size:.7rem;flex-shrink:0">+</button>
+        </div>`).join('')}
+    </div>`).join('');
+}
+
+function populateServiceTableSelect(tables) {
+  const wrap = document.getElementById('serviceTableSelect');
+  const menu = document.getElementById('serviceTableMenu');
+  const label = document.getElementById('serviceTableLabel');
+  // Reset state for a fresh table list
+  wrap.dataset.value = '';
+  label.textContent = '— select table —';
+  menu.innerHTML = tables.map(t =>
+    `<div class="table-select-option" data-value="${t.id}" data-label="T${t.table_number} · ${t.capacity}p · ${t.status}" onclick="selectServiceTable(this)">T${t.table_number} · ${t.capacity}p · ${t.status}</div>`
+  ).join('');
+}
+
+function toggleServiceTableMenu() {
+  const menu = document.getElementById('serviceTableMenu');
+  const trigger = document.querySelector('#serviceTableSelect .table-select-trigger');
+  const isOpen = menu.classList.contains('open');
+  // Close any other open menus first (defensive)
+  document.querySelectorAll('.table-select-menu.open').forEach(m => m.classList.remove('open'));
+  document.querySelectorAll('.table-select-trigger.open').forEach(t => t.classList.remove('open'));
+  if (!isOpen) {
+    menu.classList.add('open');
+    trigger.classList.add('open');
+  }
+}
+
+function selectServiceTable(optEl) {
+  const wrap = document.getElementById('serviceTableSelect');
+  const menu = document.getElementById('serviceTableMenu');
+  const label = document.getElementById('serviceTableLabel');
+  const trigger = document.querySelector('#serviceTableSelect .table-select-trigger');
+  wrap.dataset.value = optEl.dataset.value;
+  label.textContent = optEl.dataset.label;
+  // Highlight current selection in the menu
+  menu.querySelectorAll('.table-select-option').forEach(o => o.classList.toggle('selected', o === optEl));
+  // Close menu
+  menu.classList.remove('open');
+  trigger.classList.remove('open');
+  // Mirror the previous native-select behavior: load orders for the chosen table
+  loadTableOrders(optEl.dataset.value);
+}
+
+function getServiceTableValue() {
+  const wrap = document.getElementById('serviceTableSelect');
+  return wrap ? wrap.dataset.value : '';
+}
+
+function setServiceTableValue(id, labelText) {
+  const wrap = document.getElementById('serviceTableSelect');
+  const label = document.getElementById('serviceTableLabel');
+  const menu = document.getElementById('serviceTableMenu');
+  wrap.dataset.value = id || '';
+  label.textContent = labelText || '— select table —';
+  // Highlight matching option in the menu if one exists
+  menu.querySelectorAll('.table-select-option').forEach(o => {
+    o.classList.toggle('selected', o.dataset.value === id);
+  });
+}
+
+// Close any open custom dropdown on outside click
+document.addEventListener('click', e => {
+  if (!e.target.closest('.table-select')) {
+    document.querySelectorAll('.table-select-menu.open').forEach(m => m.classList.remove('open'));
+    document.querySelectorAll('.table-select-trigger.open').forEach(t => t.classList.remove('open'));
+  }
+});
+
+async function loadTableOrders(tableId) {
+  const el = document.getElementById('activeTableOrders');
+  if (!tableId) { el.innerHTML = '<div style="font-size:.75rem;color:var(--muted);text-align:center;padding:12px">Select a table</div>'; return; }
+  try {
+    // Find the current seated reservation for this table
+    const seated = await db.from('reservations').select('id').eq('table_id', tableId).eq('status','seated').limit(1);
+
+    let orders = [];
+    if (seated.length) {
+      // Query orders for THIS reservation only
+      orders = await db.from('orders').select('id,status,payment_status,total,created_at').eq('reservation_id', seated[0].id).neq('status','cancelled').order('created_at',{ascending:false});
+    }
+
+    if (!orders.length) { el.innerHTML = '<div style="font-size:.75rem;color:var(--muted);text-align:center;padding:12px">No active orders for current guest</div>'; return; }
+
+    // Calculate accumulated bill
+    const totalBill = orders.reduce((sum, o) => sum + Number(o.total || 0), 0);
+    const allPaid = orders.every(o => o.payment_status === 'paid');
+
+    let html = `<div style="padding:10px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+      <span style="font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Running Total</span>
+      <span style="font-family:var(--font-display);font-size:1.2rem;color:var(--gold)">EGP ${totalBill.toLocaleString()}</span>
+    </div>`;
+
+    html += orders.map(o => `
+      <div style="padding:8px 0;border-bottom:1px solid rgba(184,138,68,.06)">
+        <div style="display:flex;justify-content:space-between;font-size:.78rem">
+          <span style="color:var(--muted)">${new Date(o.created_at).toLocaleTimeString('en',{hour:'2-digit',minute:'2-digit'})}</span>
+          <span style="font-family:var(--font-display);color:var(--gold)">EGP ${Number(o.total||0).toLocaleString()}</span>
+        </div>
+        <div style="display:flex;gap:6px;margin-top:4px">
+          ${statusBadge(o.status)}
+          <span class="status-badge ${o.payment_status==='paid'?'s-confirmed':'s-pending'}">${o.payment_status}</span>
+        </div>
+      </div>`).join('');
+
+    el.innerHTML = html;
+  } catch(e) { el.innerHTML = `<div style="font-size:.75rem;color:#ef9a9a;padding:8px">${esc(e.message)}</div>`; }
+}
+
+function addToServiceCart(id, name, price) {
+  if (serviceCart[id]) serviceCart[id].qty++;
+  else serviceCart[id] = { name, price: Number(price), qty: 1 };
+  renderServiceCart();
+}
+
+function changeServiceQty(id, delta) {
+  if (!serviceCart[id]) return;
+  serviceCart[id].qty += delta;
+  if (serviceCart[id].qty <= 0) delete serviceCart[id];
+  renderServiceCart();
+}
+
+function clearServiceOrder() {
+  serviceCart = {};
+  renderServiceCart();
+}
+
+function renderServiceCart() {
+  const el = document.getElementById('serviceOrderItems');
+  const totalEl = document.getElementById('serviceOrderTotal');
+  const btn = document.getElementById('svcSubmitBtn');
+  const keys = Object.keys(serviceCart);
+  if (!keys.length) {
+    el.innerHTML = '<div class="empty-state" style="padding:24px 0"><div class="empty-icon">🍽️</div><div>No items added</div></div>';
+    totalEl.style.display = 'none';
+    btn.disabled = true;
+    return;
+  }
+  let subtotal = 0;
+  el.innerHTML = keys.map(id => {
+    const it = serviceCart[id];
+    subtotal += it.price * it.qty;
+    return `<div class="order-line">
+      <div class="order-line-name">${esc(it.name)}</div>
+      <div class="qty-ctrl">
+        <button class="qty-btn" onclick="changeServiceQty('${id}',-1)">−</button>
+        <span style="font-size:.82rem;min-width:16px;text-align:center">${it.qty}</span>
+        <button class="qty-btn" onclick="changeServiceQty('${id}',1)">+</button>
+      </div>
+      <div class="order-line-price">EGP ${(it.price*it.qty).toLocaleString()}</div>
+    </div>`;
+  }).join('');
+  const tax = subtotal * 0.14;
+  document.getElementById('svcSubtotal').textContent = `EGP ${subtotal.toLocaleString()}`;
+  document.getElementById('svcTax').textContent = `EGP ${Math.round(tax).toLocaleString()}`;
+  document.getElementById('svcTotal').textContent = `EGP ${Math.round(subtotal + tax).toLocaleString()}`;
+  totalEl.style.display = 'block';
+  btn.disabled = false;
+}
+
+async function submitServiceOrder() {
+  const tableId = getServiceTableValue();
+  const notes = document.getElementById('svcNotes').value;
+  const btn = document.getElementById('svcSubmitBtn');
+  if (!tableId) { toast('Please select a table first', 'error'); return; }
+  const items = Object.entries(serviceCart).map(([id, it]) => ({
+    menu_item_id: id, quantity: it.qty, unit_price: it.price
+  }));
+  const subtotal = items.reduce((s, i) => s + i.unit_price * i.quantity, 0);
+  const tax = subtotal * 0.14;
+
+  // Find the seated reservation for this table to link the order
+  let reservationId = null;
+  try {
+    const seated = await db.from('reservations').select('id').eq('table_id', tableId).eq('status','seated').limit(1);
+    if (seated.length) reservationId = seated[0].id;
+  } catch(e) {}
+
+  btn.textContent = 'Sending…'; btn.disabled = true;
+  try {
+    const orderPayload = {
+      table_id: tableId,
+      status: 'in_progress',
+      subtotal: Math.round(subtotal),
+      tax: Math.round(tax),
+      total: Math.round(subtotal + tax),
+      notes: notes || null
+    };
+    if (reservationId) orderPayload.reservation_id = reservationId;
+
+    const res = await db.from('orders').insert(orderPayload);
+    const orderId = res[0]?.id;
+    if (orderId) {
+      await db.from('order_items').insert(items.map(i => ({ ...i, order_id: orderId })));
+    }
+    clearServiceOrder();
+    await loadTableOrders(tableId);
+    toast('Order sent to kitchen!', 'success');
+  } catch(e) { toast(e.message, 'error'); }
+  btn.textContent = 'Send to Kitchen'; btn.disabled = false;
+}
+
+
+// ══════════════════════════════════════
+// WAITER CALLS
+// ══════════════════════════════════════
+let allCalls = [];
+let callsFilter = '';
+
+async function loadWaiterCalls() {
+  try {
+    const calls = await db.from('waiter_calls').select('*').order('created_at',{ascending:false}).limit(100);
+    allCalls = calls;
+    const unresolved = calls.filter(c => !c.is_resolved);
+    // Update badge
+    const badge = document.getElementById('callsBadge');
+    if (unresolved.length > 0) {
+      badge.textContent = unresolved.length;
+      badge.style.display = 'inline';
+    } else {
+      badge.style.display = 'none';
+    }
+    renderCalls(callsFilter ? filterCallsList(calls, callsFilter) : calls);
+  } catch(e) { console.error(e); }
+}
+
+function filterCallsList(calls, f) {
+  if (f === 'unresolved') return calls.filter(c => !c.is_resolved);
+  return calls.filter(c => c.call_type === f);
+}
+
+function filterCalls(f, btn) {
+  callsFilter = f;
+  document.querySelectorAll('#panel-calls .floor-filter-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderCalls(f ? filterCallsList(allCalls, f) : allCalls);
+}
+
+const CALL_ICONS = { general:'🛎️', water:'💧', bill:'🧾', feedback:'⭐' };
+const CALL_LABELS = { general:'Assistance', water:'Water Refill', bill:'Bill Request', feedback:'Feedback' };
+
+function renderCalls(calls) {
+  const el = document.getElementById('callsList');
+  if (!calls.length) {
+    el.innerHTML = '<div class="empty-state"><div class="empty-icon">🛎️</div><div>No calls</div></div>';
+    return;
+  }
+  el.innerHTML = calls.map(c => `
+    <div class="queue-card${!c.is_resolved ? ' priority' : ''}" style="${c.is_resolved ? 'opacity:.5' : ''}">
+      <div style="font-size:1.8rem;flex-shrink:0">${CALL_ICONS[c.call_type] || '🛎️'}</div>
+      <div class="queue-info">
+        <div class="queue-name" style="display:flex;align-items:center;gap:8px">
+          ${CALL_LABELS[c.call_type] || c.call_type}
+          ${c.table_number ? `<span style="background:rgba(184,138,68,.15);border:1px solid rgba(184,138,68,.3);color:var(--gold);padding:2px 8px;border-radius:12px;font-size:.65rem;letter-spacing:.08em;font-weight:500">Table ${esc(c.table_number)}</span>` : ''}
+        </div>
+        <div class="queue-meta">
+          <span style="color:var(--warm)">${c.guest_name || 'Guest'}</span>
+          ${c.reservation_code ? ` · <code style="font-size:.7rem;color:var(--muted)">${esc(c.reservation_code)}</code>` : ''}
+        </div>
+        <div style="font-size:.72rem;color:var(--muted);margin-top:3px">${new Date(c.created_at).toLocaleTimeString('en',{hour:'2-digit',minute:'2-digit'})} · ${c.message || ''}</div>
+      </div>
+      ${c.is_resolved
+        ? '<span class="status-badge s-completed">Resolved</span>'
+        : `<button class="btn btn-primary" style="padding:7px 14px;font-size:.7rem;background:var(--green);flex-shrink:0" onclick="resolveCall('${c.id}')">✓ Done</button>`
+      }
+    </div>`).join('');
+}
+
+async function resolveCall(id) {
+  try {
+    await db.from('waiter_calls').update({ is_resolved: true, resolved_at: new Date().toISOString() }).eq('id', id);
+    toast('Call resolved', 'success');
+    loadWaiterCalls();
+  } catch(e) { toast(e.message, 'error'); }
+}
+
+async function resolveAllCalls() {
+  const unresolved = allCalls.filter(c => !c.is_resolved);
+  if (!unresolved.length) return;
+  try {
+    await Promise.all(unresolved.map(c =>
+      db.from('waiter_calls').update({ is_resolved: true, resolved_at: new Date().toISOString() }).eq('id', c.id)
+    ));
+    toast(`${unresolved.length} calls resolved`, 'success');
+    loadWaiterCalls();
+  } catch(e) { toast(e.message, 'error'); }
+}
+
+// ══════════════════════════════════════
+// PENDING ORDERS (guest table orders)
+// ══════════════════════════════════════
+let pendingOrders = [];
+
+async function loadPendingOrders() {
+  const el = document.getElementById('pendingOrdersList');
+  if (!el) return;
+  try {
+    // Use the view that joins table number
+    const orders = await db.from('pending_guest_orders').select('*').order('created_at',{ascending:false});
+    pendingOrders = orders;
+
+    // Update badge
+    const badge = document.getElementById('ordersBadge');
+    if (badge) {
+      badge.textContent = orders.length;
+      badge.style.display = orders.length ? 'inline' : 'none';
+    }
+
+    if (!orders.length) {
+      el.innerHTML = '<div class="empty-state"><div class="empty-icon">📦</div><div>No pending orders</div></div>';
+      return;
+    }
+
+    // Fetch order items for all orders in one batch
+    const orderIds = orders.map(o => o.id);
+    let allItems = [];
+    try { allItems = await db.from('order_items').select('order_id,quantity,unit_price,menu_item_id').in('order_id', orderIds); } catch(e){}
+    const menuIds = [...new Set(allItems.map(i => i.menu_item_id).filter(Boolean))];
+    let menuMap = {};
+    if (menuIds.length) {
+      try { const m = await db.from('menu_items').select('id,name').in('id', menuIds); m.forEach(x => menuMap[x.id]=x.name); } catch(e){}
+    }
+
+    el.innerHTML = orders.map(o => {
+      const items = allItems.filter(i => i.order_id === o.id);
+      const isNew = o.status === 'pending';
+      return `
+        <div class="queue-card${isNew?' priority':''}" style="flex-direction:column;align-items:stretch;gap:10px">
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
+            <div style="display:flex;align-items:center;gap:10px">
+              <span style="font-size:1.4rem">${isNew ? '🔔' : '👨‍🍳'}</span>
+              <div>
+                <div style="display:flex;align-items:center;gap:8px">
+                  <span class="queue-name">${o.guest_name || 'Guest'}</span>
+                  ${o.table_number ? `<span style="background:rgba(184,138,68,.15);border:1px solid rgba(184,138,68,.3);color:var(--gold);padding:2px 9px;border-radius:12px;font-size:.68rem;font-weight:500">Table ${o.table_number}</span>` : ''}
+                </div>
+                <div class="queue-meta"><code style="font-size:.68rem">${o.reservation_code||''}</code> · ${new Date(o.created_at).toLocaleTimeString('en',{hour:'2-digit',minute:'2-digit'})}</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap">
+              ${isNew ? `
+                <button class="btn btn-primary" style="padding:7px 14px;font-size:.7rem;background:var(--green)" onclick="acceptOrder('${o.id}')">✓ Accept</button>
+                <button class="btn-ghost" style="font-size:.7rem" onclick="rejectOrder('${o.id}')">✕ Reject</button>
+              ` : `<span class="status-badge s-seated">In Kitchen</span>`}
+              <button class="btn-ghost" style="font-size:.7rem" onclick="markOrderServed('${o.id}')">✓ Served</button>
+            </div>
+          </div>
+          ${items.length ? `
+          <div style="background:rgba(255,255,255,.02);border-radius:3px;padding:8px 12px">
+            ${items.map(i => `<div style="display:flex;justify-content:space-between;font-size:.8rem;padding:3px 0;color:var(--warm)">
+              <span>${esc(menuMap[i.menu_item_id]||'Item')} ×${i.quantity}</span>
+              <span style="font-family:var(--font-display);color:var(--gold)">EGP ${(i.unit_price*i.quantity).toLocaleString()}</span>
+            </div>`).join('')}
+            <div style="display:flex;justify-content:space-between;padding-top:6px;margin-top:4px;border-top:1px solid rgba(184,138,68,.1);font-size:.8rem">
+              <span style="color:var(--muted)">Total</span>
+              <span style="font-family:var(--font-display);color:var(--gold)">EGP ${Number(o.total||0).toLocaleString()}</span>
+            </div>
+          </div>` : ''}
+          ${o.notes ? `<div style="font-size:.75rem;color:var(--muted);padding:4px 0">📝 ${esc(o.notes)}</div>` : ''}
+        </div>`;
+    }).join('');
+  } catch(e) {
+    if (el) el.innerHTML = `<div class="empty-state" style="color:#ef9a9a">${esc(e.message)}</div>`;
+  }
+}
+
+async function acceptOrder(id) {
+  try {
+    await db.from('orders').update({ status:'in_progress', accepted_at: new Date().toISOString() }).eq('id', id);
+    toast('Order accepted — sent to kitchen', 'success');
+    loadPendingOrders();
+  } catch(e) { toast(e.message, 'error'); }
+}
+
+async function rejectOrder(id) {
+  try {
+    await db.from('orders').update({ status:'cancelled' }).eq('id', id);
+    toast('Order rejected', '');
+    loadPendingOrders();
+  } catch(e) { toast(e.message, 'error'); }
+}
+
+async function markOrderServed(id) {
+  try {
+    await db.from('orders').update({ status:'served', closed_at: new Date().toISOString() }).eq('id', id);
+    toast('Order marked as served', 'success');
+    loadPendingOrders();
+  } catch(e) { toast(e.message, 'error'); }
+}
+
+// ══════════════════════════════════════
+// CHANGE TABLE (reassign guest)
+// ══════════════════════════════════════
+function openChangeTableModal(currentTableId, currentTableNum) {
+  document.getElementById('modalTitle').textContent = 'Reassign Guest — Table ' + currentTableNum;
+  document.getElementById('modalBody').innerHTML = `
+    <p style="font-size:.82rem;color:var(--muted);margin-bottom:16px">Move this table's reservation and open orders to a different table.</p>
+    <div class="form-group">
+      <label class="form-label">New Table *</label>
+      <select class="form-select" id="newTableSel">
+        <option value="">— select target table —</option>
+        ${allTables.filter(t => t.id !== currentTableId && t.status === 'available')
+          .map(t => `<option value="${t.id}|${t.table_number}">Table ${t.table_number} · ${t.capacity} seats · ${t.location}</option>`).join('')}
+      </select>
+    </div>
+    <div id="changeTableMsg"></div>
+  `;
+  document.getElementById('modalFooter').innerHTML = `
+    <button class="btn btn-primary" onclick="confirmChangeTable('${currentTableId}','${currentTableNum}')">Confirm Move</button>
+    <button class="btn-ghost" onclick="closeModal()">Cancel</button>
+  `;
+  openModal();
+}
+
+async function confirmChangeTable(oldTableId, oldTableNum) {
+  const sel = document.getElementById('newTableSel').value;
+  const msg = document.getElementById('changeTableMsg');
+  if (!sel) { msg.innerHTML = '<div style="color:#ef9a9a;font-size:.8rem;margin-top:8px">Please select a target table</div>'; return; }
+  const [newTableId, newTableNum] = sel.split('|');
+  try {
+    const seated = await db.from('reservations').select('id').eq('table_id', oldTableId).eq('status','seated');
+    await Promise.all([
+      ...seated.map(r => db.from('reservations').update({ table_id: newTableId }).eq('id', r.id)),
+      db.from('orders').update({ table_id: newTableId }).eq('table_id', oldTableId),
+      db.from('restaurant_tables').update({ status:'cleaning' }).eq('id', oldTableId),
+      db.from('restaurant_tables').update({ status:'occupied' }).eq('id', newTableId),
+    ]);
+    closeModal();
+    toast(`Guests moved from Table ${oldTableNum} → Table ${newTableNum}`, 'success');
+    await loadTables();
+    closeTableDetail();
+  } catch(e) { if(msg) msg.innerHTML = `<div style="color:#ef9a9a;font-size:.8rem;margin-top:8px">${esc(e.message)}</div>`; }
+}
+
+// ══════════════════════════════════════
+// MODAL
+// ══════════════════════════════════════
+function openModal() { document.getElementById('mainModal').classList.add('open'); }
+function closeModal() { document.getElementById('mainModal').classList.remove('open'); }
+document.getElementById('mainModal').addEventListener('click', e => {
+  if (e.target === document.getElementById('mainModal')) closeModal();
+});
+
+// ══════════════════════════════════════
+// TOAST
+// ══════════════════════════════════════
+function toast(msg, type='') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show ' + type;
+  setTimeout(() => t.className = 'toast', 3000);
+}
+</script>
+</body>
+</html>
