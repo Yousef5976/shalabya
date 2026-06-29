@@ -2027,26 +2027,6 @@ function renderCallCard(c) {
       }
     </div>`;
 }
-  el.innerHTML = calls.map(c => `
-    <div class="queue-card${!c.is_resolved ? ' priority' : ''}" style="${c.is_resolved ? 'opacity:.5' : ''}">
-      <div style="font-size:1.8rem;flex-shrink:0">${CALL_ICONS[c.call_type] || '🛎️'}</div>
-      <div class="queue-info">
-        <div class="queue-name" style="display:flex;align-items:center;gap:8px">
-          ${CALL_LABELS[c.call_type] || c.call_type}
-          ${c.table_number ? `<span style="background:rgba(184,138,68,.15);border:1px solid rgba(184,138,68,.3);color:var(--gold);padding:2px 8px;border-radius:12px;font-size:.65rem;letter-spacing:.08em;font-weight:500">Table ${esc(c.table_number)}</span>` : ''}
-        </div>
-        <div class="queue-meta">
-          <span style="color:var(--warm)">${c.guest_name || 'Guest'}</span>
-          ${c.reservation_code ? ` · <code style="font-size:.7rem;color:var(--muted)">${esc(c.reservation_code)}</code>` : ''}
-        </div>
-        <div style="font-size:.72rem;color:var(--muted);margin-top:3px">${new Date(c.created_at).toLocaleTimeString('en',{hour:'2-digit',minute:'2-digit'})} · ${c.message || ''}</div>
-      </div>
-      ${c.is_resolved
-        ? '<span class="status-badge s-completed">Resolved</span>'
-        : `<button class="btn btn-primary" style="padding:7px 14px;font-size:.7rem;background:var(--green);flex-shrink:0" onclick="resolveCall('${c.id}')">✓ Done</button>`
-      }
-    </div>`).join('');
-}
 
 async function resolveCall(id) {
   try {
